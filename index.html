@@ -1,138 +1,117 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patrick Sonata - Portfólio Artístico</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patrick Sonata - Portfólio Artístico</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* === VARIÁVEIS DE CORES === */
+:root {
+    --primary-color: #ff6b6b;
+    --secondary-color: #4ecdc4;
+    --accent-color: #ffd166;
+    --bg-color: #1a1a2e;
+    --light-bg: #16213e;
+    --card-bg: #0f3460;
+    --text-color: #fff;
+    --text-light: rgba(255, 255, 255, 0.8);
+}
 
-        :root {
-            --primary-color: #ff6b6b;
-            --secondary-color: #4ecdc4;
-            --accent-color: #ffd166;
-            --bg-color: #1a1a2e;
-            --light-bg: #16213e;
-            --card-bg: #0f3460;
-            --text-color: #fff;
-            --text-light: rgba(255, 255, 255, 0.8);
-        }
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+}
 
-        body {
-            background: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.7;
-        }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
-        header {
-            background: var(--light-bg);
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* === SEÇÕES === */
+section {
+    padding: 80px 0;
+}
 
-        header h1 {
-            color: var(--primary-color);
-        }
+/* === SOBRE === */
+.about {
+    background: var(--light-bg);
+    text-align: center;
+    transition: all 0.5s ease;
+}
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
+.about-card {
+    max-width: 600px;
+    margin: 20px auto 0;
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease;
+}
 
-        nav ul li a {
-            text-decoration: none;
-            color: var(--text-light);
-            transition: color 0.3s;
-        }
+.about.show .about-card {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        nav ul li a:hover {
-            color: var(--primary-color);
-        }
+.hidden {
+    display: none;
+}
 
-        /* Seção Sobre */
-        .about {
-            padding: 80px 20px;
-            background: var(--light-bg);
-            display: none;
-            text-align: center;
-        }
-
-        .about-card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 600px;
-            margin: auto;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
-        }
-
-        /* Seções genéricas */
-        .portfolio {
-            padding: 100px 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            font-size: 28px;
-            color: var(--accent-color);
-        }
-    </style>
+/* === BOTÃO SOBRE === */
+.about-toggle {
+    display: inline-block;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+.about-toggle:hover {
+    background: var(--accent-color);
+}
+</style>
 </head>
 <body>
-    <!-- Cabeçalho -->
-    <header>
-        <h1>Patrick Sonata</h1>
-        <nav>
-            <ul>
-                <li><a href="#" id="sobreBtn">Sobre</a></li>
-                <li><a href="#portfolio">Portfólio</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <!-- SOBRE (inicialmente escondido) -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">Sobre Mim</h2>
-            <div class="about-card">
-                <p>🎭 Ator e dramaturgo carioca, nascido e criado na Cidade de Deus.</p>
-                <p>✍️ Roteirista com trabalhos em televisão, teatro e cinema.</p>
-                <p>🎤 Comediante stand-up, explorando o humor como ferramenta social.</p>
-                <p>🌍 Apaixonado por contar histórias que conectam a cultura das favelas com o mundo.</p>
-            </div>
+<!-- Ícone sobre -->
+<div style="text-align:center; margin-top:50px;">
+    <span class="about-toggle" onclick="toggleAbout()">
+        <i class="fas fa-user"></i> Sobre
+    </span>
+</div>
+
+<!-- SEÇÃO SOBRE -->
+<section id="about" class="about hidden">
+    <div class="container">
+        <div class="about-card">
+            <p>🎭 Ator e dramaturgo carioca, nascido e criado na Cidade de Deus.</p>
+            <p>✍️ Roteirista com trabalhos em televisão, teatro e cinema.</p>
+            <p>🎤 Comediante stand-up, explorando o humor como ferramenta social.</p>
+            <p>🌍 Apaixonado por contar histórias que conectam a cultura das favelas com o mundo.</p>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio">
-        <h2 class="section-title">Portfólio</h2>
-        <p style="text-align:center;">Aqui vão os projetos e trabalhos...</p>
-    </section>
+<script>
+function toggleAbout() {
+    const aboutSection = document.getElementById('about');
+    aboutSection.classList.toggle('hidden');
+    aboutSection.classList.toggle('show');
+}
+</script>
 
-    <!-- Script para alternar "Sobre" -->
-    <script>
-        const sobreBtn = document.getElementById("sobreBtn");
-        const aboutSection = document.getElementById("about");
-
-        sobreBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            if (aboutSection.style.display === "block") {
-                aboutSection.style.display = "none";
-            } else {
-                aboutSection.style.display = "block";
-                window.scrollTo({ top: aboutSection.offsetTop - 50, behavior: "smooth" });
-            }
-        });
-    </script>
 </body>
 </html>
+
