@@ -3,172 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MarbleFlow - Plataforma de Mármore</title>
+<title>StoneFlow - Plataforma de Mármore e Granito</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
-:root{
-  --primary:#2c3e50;
-  --secondary:#e74c3c;
-  --accent:#3498db;
-  --bg:#f9f9f9;
-  --text:#2c3e50;
-  --editor-bg:#ffffff;
-  --editor-text:#000;
-}
-body{margin:0; font-family:Segoe UI,sans-serif; background:var(--bg); color:var(--text);}
-header{background:var(--primary); color:white; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center;}
-header .logo{font-size:1.5rem; font-weight:bold;}
-.main-container{display:flex; height:calc(100vh - 70px);}
-.sidebar{width:250px; background:#34495e; color:white; padding:1rem; display:flex; flex-direction:column; overflow-y:auto;}
-.sidebar h3{margin-bottom:0.5rem; font-size:1rem;}
-.sidebar button{background:transparent; border:none; color:white; padding:0.6rem; margin-bottom:0.2rem; cursor:pointer; text-align:left; border-radius:4px;}
-.sidebar button.active{background:var(--secondary);}
-.workspace{flex:1; display:flex; flex-direction:column;}
-.toolbar{display:flex; gap:0.5rem; padding:0.5rem; background:#ecf0f1;}
-.toolbar button{padding:0.4rem 0.8rem; border:none; border-radius:4px; cursor:pointer;}
-.editor-container{flex:1; display:flex; overflow:hidden;}
-.canvas-container{flex:1; position:relative; background:#eee; display:flex; justify-content:center; align-items:center;}
-#projectCanvas{border:1px solid #ccc; background:white;}
-.right-panel{width:300px; background:#f4f4f4; padding:1rem; overflow-y:auto;}
-.panel-tabs{display:flex; margin-bottom:1rem; border-bottom:1px solid #ddd;}
-.panel-tabs button{flex:1; padding:0.5rem; border:none; background:transparent; cursor:pointer;}
-.panel-tabs button.active{border-bottom:2px solid var(--secondary); font-weight:bold;}
-.panel-content{display:none;}
-.panel-content.active{display:block;}
-footer{background:var(--primary); color:white; padding:0.8rem 1.5rem; display:flex; justify-content:space-between; align-items:center;}
-.fab-container{position:fixed; bottom:25px; right:25px; display:flex; flex-direction:column; gap:10px;}
-.fab{width:60px;height:60px;border-radius:50%;background:var(--secondary); color:white; border:none; cursor:pointer; display:flex; justify-content:center; align-items:center; font-size:1.5rem;}
+  /* ===== VARIÁVEIS ===== */
+  :root {
+    --primary: #2c3e50;
+    --secondary: #e74c3c;
+    --accent: #3498db;
+    --bg: #f9f9f9;
+    --text: #2c3e50;
+    --sidebar-bg: #34495e;
+    --editor-bg: #ffffff;
+    --footer-bg: #2c3e50;
+    --footer-text: #ecf0f1;
+  }
+
+  body { margin:0; font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); display:flex; flex-direction:column; min-height:100vh;}
+  header { background: var(--primary); color:white; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center;}
+  .logo { font-size:1.5rem; font-weight:bold; }
+  .main-container { display:flex; flex:1; overflow:hidden; }
+  .sidebar { width:250px; background:var(--sidebar-bg); color:white; display:flex; flex-direction:column; padding:1rem; }
+  .sidebar-btn { background:transparent; border:none; color:white; text-align:left; padding:0.7rem; margin-bottom:0.3rem; border-radius:4px; cursor:pointer; display:flex; align-items:center; gap:0.5rem; }
+  .sidebar-btn.active { background:var(--secondary); }
+  .workspace { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+  .panel-tabs { display:flex; background:#ecf0f1; }
+  .panel-tab { flex:1; padding:0.5rem 1rem; cursor:pointer; text-align:center; border-bottom:2px solid transparent; }
+  .panel-tab.active { border-bottom:2px solid var(--secondary); font-weight:bold; }
+  .panel-content { flex:1; display:none; padding:1rem; overflow:auto; }
+  .panel-content.active { display:block; }
+
+  .item-card { border:1px solid #ccc; border-radius:6px; padding:0.5rem; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.5rem; cursor:pointer; transition:0.2s; }
+  .item-card:hover { background:#f0f0f0; }
+  .item-card img { width:50px; height:50px; object-fit:cover; border-radius:4px; }
+
+  /* FOOTER */
+  footer { background:var(--footer-bg); color:var(--footer-text); padding:0.8rem 1.5rem; display:flex; justify-content:space-between; align-items:center; }
+
+  /* RESPONSIVO */
+  @media (max-width:900px) { .main-container { flex-direction:column; } .sidebar{width:100%;} }
 </style>
 </head>
 <body>
-
 <header>
-  <div class="logo"><i class="fas fa-gem"></i> MarbleFlow</div>
-  <div>
-    <button onclick="toggleDark()">Modo Noturno</button>
-  </div>
+  <div class="logo"><i class="fas fa-gem"></i> StoneFlow</div>
+  <div class="user-info">Bem-vindo, <strong>Usuário</strong></div>
 </header>
 
 <div class="main-container">
   <div class="sidebar">
-    <h3>Catálogo de Pedras</h3>
-    <button class="active" onclick="selectStone('marmore_branco')">Mármore Branco</button>
-    <button onclick="selectStone('granito_preto')">Granito Preto</button>
-    <button onclick="selectStone('marmore_verde')">Mármore Verde</button>
-    <h3>Ferramentas</h3>
-    <button onclick="setTool('select')">Selecionar</button>
-    <button onclick="setTool('draw')">Desenhar</button>
-    <button onclick="setTool('measure')">Medir</button>
+    <button class="sidebar-btn active" data-panel="pedras"><i class="fas fa-gem"></i> Pedras</button>
+    <button class="sidebar-btn" data-panel="medicao"><i class="fas fa-ruler-combined"></i> Medição</button>
+    <button class="sidebar-btn" data-panel="projetos"><i class="fas fa-layer-group"></i> Projetos</button>
+    <button class="sidebar-btn" data-panel="contato"><i class="fas fa-envelope"></i> Contato</button>
   </div>
 
   <div class="workspace">
-    <div class="toolbar">
-      <button onclick="addRectangle()">Adicionar Bancada</button>
-      <button onclick="clearCanvas()">Limpar</button>
-      <button onclick="exportImage()">Exportar PNG</button>
+    <div class="panel-tabs">
+      <div class="panel-tab active" data-panel="pedras">Pedras</div>
+      <div class="panel-tab" data-panel="medicao">Medição</div>
+      <div class="panel-tab" data-panel="projetos">Projetos</div>
+      <div class="panel-tab" data-panel="contato">Contato</div>
     </div>
 
-    <div class="editor-container">
-      <div class="canvas-container">
-        <canvas id="projectCanvas" width="800" height="500"></canvas>
-      </div>
-
-      <div class="right-panel">
-        <div class="panel-tabs">
-          <button class="active" data-panel="info" onclick="openPanel('info')">Informações</button>
-          <button data-panel="projects" onclick="openPanel('projects')">Projetos</button>
-          <button data-panel="contact" onclick="openPanel('contact')">Contato</button>
-        </div>
-        <div id="info" class="panel-content active">
-          <h4>Detalhes da Pedra</h4>
-          <div id="stoneInfo">Selecione uma pedra do catálogo.</div>
-        </div>
-        <div id="projects" class="panel-content">
-          <h4>Projetos Salvos</h4>
-          <ul id="projectList"></ul>
-        </div>
-        <div id="contact" class="panel-content">
-          <h4>Atendimento</h4>
-          <button onclick="openWhatsApp()">WhatsApp</button>
-          <button onclick="sendEmail()">Email</button>
-        </div>
-      </div>
+    <!-- PAINEL PEDRAS -->
+    <div class="panel-content active" id="pedras-panel">
+      <h3>Catálogo de Pedras</h3>
+      <div class="item-card"><img src="https://www.marmoraria.com.br/images/marmores/branco-nobre.jpg" alt="Branco Nobre">Branco Nobre</div>
+      <div class="item-card"><img src="https://www.marmoraria.com.br/images/marmores/preto-absoluto.jpg" alt="Preto Absoluto">Preto Absoluto</div>
+      <div class="item-card"><img src="https://www.marmoraria.com.br/images/marmores/crema-marfil.jpg" alt="Crema Marfil">Crema Marfil</div>
+      <div class="item-card"><img src="https://www.marmoraria.com.br/images/marmores/verde-ubatuba.jpg" alt="Verde Ubatuba">Verde Ubatuba</div>
     </div>
+
+    <!-- PAINEL MEDIÇÃO -->
+    <div class="panel-content" id="medicao-panel">
+      <h3>Medição de Bancadas</h3>
+      <p>Use as ferramentas para medir e calcular dimensões do projeto.</p>
+      <div>
+        <label>Largura (cm): <input type="number" id="largura" value="100"></label>
+        <label>Altura (cm): <input type="number" id="altura" value="60"></label>
+        <label>Espessura (cm): <input type="number" id="espessura" value="2"></label>
+      </div>
+      <button onclick="calcularArea()">Calcular Área</button>
+      <p id="resultado-area"></p>
+    </div>
+
+    <!-- PAINEL PROJETOS -->
+    <div class="panel-content" id="projetos-panel">
+      <h3>Projetos Criados</h3>
+      <ul id="lista-projetos"></ul>
+      <button onclick="criarProjeto()">Novo Projeto</button>
+    </div>
+
+    <!-- PAINEL CONTATO -->
+    <div class="panel-content" id="contato-panel">
+      <h3>Contato</h3>
+      <p>Envie mensagem via WhatsApp ou Email:</p>
+      <button onclick="window.open('https://wa.me/5521999999999','_blank')">WhatsApp</button>
+      <button onclick="window.location.href='mailto:contato@stoneflow.com.br'">Email</button>
+    </div>
+
   </div>
 </div>
 
 <footer>
-  <div>MarbleFlow - Todos os direitos reservados</div>
+  <div>&copy; 2025 StoneFlow</div>
+  <div>Usuário: Demo</div>
 </footer>
 
-<div class="fab-container">
-  <button class="fab" onclick="alert('Chat em breve!')"><i class="fas fa-comments"></i></button>
-  <button class="fab" onclick="alert('Chamada em breve!')"><i class="fas fa-video"></i></button>
-</div>
-
 <script>
-let canvas=document.getElementById('projectCanvas');
-let ctx=canvas.getContext('2d');
-let currentTool='select';
-let selectedStone='marmore_branco';
-
-function selectStone(stone){
-  selectedStone=stone;
-  const info=document.getElementById('stoneInfo');
-  if(stone==='marmore_branco') info.innerHTML='Mármore Branco - Ideal para bancadas de cozinha.';
-  if(stone==='granito_preto') info.innerHTML='Granito Preto - Resistente e elegante.';
-  if(stone==='marmore_verde') info.innerHTML='Mármore Verde - Diferenciado para ambientes sofisticados.';
-}
-
-function setTool(tool){currentTool=tool; alert('Ferramenta: '+tool);}
-
-function addRectangle(){
-  ctx.fillStyle=(selectedStone==='marmore_branco')?'#f5f5f5':(selectedStone==='granito_preto')?'#111':'#0a7d52';
-  ctx.fillRect(50,50,200,100);
-  saveProject();
-}
-
-function clearCanvas(){ctx.clearRect(0,0,canvas.width,canvas.height);}
-
-function exportImage(){
-  let link=document.createElement('a');
-  link.download='projeto.png';
-  link.href=canvas.toDataURL();
-  link.click();
-}
-
-function openPanel(panel){
-  document.querySelectorAll('.panel-content').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.panel-tabs button').forEach(b=>b.classList.remove('active'));
-  document.getElementById(panel).classList.add('active');
-  document.querySelector(`.panel-tabs button[data-panel=${panel}]`).classList.add('active');
-}
-
-function openWhatsApp(){window.open('https://wa.me/559999999999');}
-function sendEmail(){window.location.href='mailto:contato@marbleflow.com';}
-
-function toggleDark(){document.body.classList.toggle('dark-mode');}
-
-// Lista de projetos
-let projectList=[];
-function saveProject(){
-  projectList.push(canvas.toDataURL());
-  renderProjectList();
-}
-function renderProjectList(){
-  const list=document.getElementById('projectList');
-  list.innerHTML='';
-  projectList.forEach((p,i)=>{
-    let li=document.createElement('li');
-    li.textContent='Projeto '+(i+1);
-    li.onclick=()=>{let img=new Image(); img.src=p; img.onload=()=>ctx.drawImage(img,0,0);};
-    list.appendChild(li);
+  // Navegação de abas
+  document.querySelectorAll('.panel-tab, .sidebar-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const panel = btn.dataset.panel;
+      document.querySelectorAll('.panel-content').forEach(c=>c.classList.remove('active'));
+      document.getElementById(panel+'-panel').classList.add('active');
+      document.querySelectorAll('.panel-tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.sidebar-btn').forEach(s=>s.classList.remove('active'));
+      document.querySelector('.panel-tab[data-panel="'+panel+'"]').classList.add('active');
+      document.querySelector('.sidebar-btn[data-panel="'+panel+'"]').classList.add('active');
+    });
   });
-}
-</script>
 
+  // Medição
+  function calcularArea(){
+    const l = parseFloat(document.getElementById('largura').value);
+    const h = parseFloat(document.getElementById('altura').value);
+    const esp = parseFloat(document.getElementById('espessura').value);
+    const area = (l*h/10000).toFixed(2); // m²
+    document.getElementById('resultado-area').innerText = `Área: ${area} m², Volume aproximado: ${(area*esp/100).toFixed(2)} m³`;
+  }
+
+  // Projetos
+  const projetos = [];
+  function criarProjeto(){
+    const nome = prompt('Nome do projeto:');
+    if(nome){
+      projetos.push(nome);
+      atualizarListaProjetos();
+    }
+  }
+  function atualizarListaProjetos(){
+    const ul = document.getElementById('lista-projetos');
+    ul.innerHTML = '';
+    projetos.forEach(p=>{
+      const li = document.createElement('li');
+      li.textContent = p;
+      ul.appendChild(li);
+    });
+  }
+</script>
 </body>
 </html>
+
 
 
 
