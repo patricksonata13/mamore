@@ -3,115 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Patrick Sonata - Portfólio Artístico</title>
+<title>StoneFlow - Plataforma de Mármore</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-/* === VARIÁVEIS DE CORES === */
-:root {
-    --primary-color: #ff6b6b;
-    --secondary-color: #4ecdc4;
-    --accent-color: #ffd166;
-    --bg-color: #1a1a2e;
-    --light-bg: #16213e;
-    --card-bg: #0f3460;
-    --text-color: #fff;
-    --text-light: rgba(255, 255, 255, 0.8);
+:root{
+  --primary:#2c3e50; --secondary:#e74c3c; --accent:#3498db;
+  --light:#ecf0f1; --dark:#2c3e50; --text:#2c3e50; --bg:#f9f9f9;
+  --header-bg:linear-gradient(135deg,#e74c3c 0%,#c0392b 100%);
+  --sidebar-bg:#34495e; --editor-bg:#fff; --editor-text:#000;
+  --footer-bg:#2c3e50; --footer-text:#ecf0f1;
 }
-
-body {
-    background: var(--bg-color);
-    color: var(--text-color);
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.7;
-    overflow-x: hidden;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* === SEÇÕES === */
-section {
-    padding: 80px 0;
-}
-
-/* === SOBRE === */
-.about {
-    background: var(--light-bg);
-    text-align: center;
-    transition: all 0.5s ease;
-}
-
-.about-card {
-    max-width: 600px;
-    margin: 20px auto 0;
-    background: var(--card-bg);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    font-size: 1.1rem;
-    line-height: 1.6;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.5s ease;
-}
-
-.about.show .about-card {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.hidden {
-    display: none;
-}
-
-/* === BOTÃO SOBRE === */
-.about-toggle {
-    display: inline-block;
-    background: var(--primary-color);
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    transition: 0.3s;
-}
-.about-toggle:hover {
-    background: var(--accent-color);
-}
+body{margin:0;font-family:sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;min-height:100vh;}
+header{background:var(--header-bg);color:#fff;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;}
+.main-container{display:flex;flex:1;overflow:hidden;}
+.sidebar{width:250px;background:var(--sidebar-bg);color:#ecf0f1;padding:1rem;display:flex;flex-direction:column;}
+.sidebar-section{margin-bottom:1.5rem;}
+.sidebar-section h3{margin-bottom:.8rem;color:#bdc3c7;}
+.sidebar-btn{display:flex;align-items:center;gap:.5rem;padding:.7rem;width:100%;background:transparent;border:none;color:#ecf0f1;text-align:left;border-radius:4px;cursor:pointer;margin-bottom:.3rem;}
+.sidebar-btn:hover{background:#3d5066;}
+.sidebar-btn.active{background:var(--secondary);}
+.workspace{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.toolbar{padding:.8rem 1.5rem;background:var(--light);display:flex;gap:1rem;flex-wrap:wrap;border-bottom:1px solid #ddd;}
+.toolbar-btn{padding:.5rem 1rem;background:var(--primary);color:#fff;border:none;border-radius:4px;cursor:pointer;display:flex;align-items:center;gap:.5rem;font-size:.9rem;}
+.toolbar-btn:hover{background:#34495e;}
+.toolbar-btn.active{background:var(--secondary);}
+.editor-container{flex:1;display:flex;overflow:hidden;}
+.script-editor{flex:1;padding:2rem;background:var(--editor-bg);color:var(--editor-text);overflow-y:auto;font-family:'Courier New',monospace;font-size:12pt;line-height:1.5;}
+.scene-heading{font-weight:bold;text-transform:uppercase;margin-top:1.5rem;color:#3498db;cursor:pointer;}
+.action{margin:.8rem 0;cursor:pointer;}
+.character{text-align:center;width:50%;margin:.8rem auto;font-weight:bold;cursor:pointer;}
+.dialogue{width:60%;margin:0 auto;cursor:pointer;}
+.parenthetical{width:50%;margin:0 auto;padding-left:2rem;cursor:pointer;}
+.transition{text-align:right;margin-top:1rem;text-transform:uppercase;font-weight:bold;cursor:pointer;}
+.right-panel{width:300px;background:var(--light);padding:1rem;border-left:1px solid #ddd;overflow-y:auto;}
+.panel-tabs{display:flex;margin-bottom:1rem;border-bottom:1px solid #ddd;}
+.panel-tab{padding:.5rem 1rem;border:none;background:transparent;cursor:pointer;}
+.panel-tab.active{border-bottom:2px solid var(--secondary);font-weight:bold;}
+.panel-content{display:none;}
+.panel-content.active{display:block;}
+footer{background:var(--footer-bg);color:var(--footer-text);padding:.8rem 1.5rem;display:flex;justify-content:space-between;align-items:center;font-size:.9rem;}
+.fab-container{position:fixed;bottom:25px;right:25px;display:flex;flex-direction:column;gap:15px;z-index:1000;}
+.fab{width:60px;height:60px;border-radius:50%;background:var(--secondary);color:white;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 5px 15px rgba(0,0,0,.3);transition:all .3s;}
+.fab:hover{transform:translateY(-5px) scale(1.05);}
+.fab.chama{background:var(--accent);}
+.canvas-container{border:1px solid #ccc;margin:1rem 0;position:relative;}
+canvas{border:1px solid #999;}
+.login-container{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);display:flex;justify-content:center;align-items:center;z-index:2000;}
+.login-box{background:#fff;padding:2rem;border-radius:8px;display:flex;flex-direction:column;gap:1rem;width:300px;}
+.login-box input{padding:.5rem;font-size:1rem;width:100%;}
+.login-box button{padding:.5rem;background:var(--secondary);color:#fff;border:none;cursor:pointer;border-radius:4px;}
 </style>
 </head>
 <body>
 
-<!-- Ícone sobre -->
-<div style="text-align:center; margin-top:50px;">
-    <span class="about-toggle" onclick="toggleAbout()">
-        <i class="fas fa-user"></i> Sobre
-    </span>
+<!-- LOGIN -->
+<div class="login-container" id="loginContainer">
+  <div class="login-box">
+    <h3>Login StoneFlow</h3>
+    <input type="text" placeholder="Usuário" id="username">
+    <input type="password" placeholder="Senha" id="password">
+    <button id="loginBtn">Entrar</button>
+  </div>
 </div>
 
-<!-- SEÇÃO SOBRE -->
-<section id="about" class="about hidden">
-    <div class="container">
-        <div class="about-card">
-            <p>🎭 Ator e dramaturgo carioca, nascido e criado na Cidade de Deus.</p>
-            <p>✍️ Roteirista com trabalhos em televisão, teatro e cinema.</p>
-            <p>🎤 Comediante stand-up, explorando o humor como ferramenta social.</p>
-            <p>🌍 Apaixonado por contar histórias que conectam a cultura das favelas com o mundo.</p>
-        </div>
+<!-- HEADER -->
+<header>
+  <div class="logo"><i class="fas fa-gem"></i> StoneFlow</div>
+  <div class="document-info">
+    <div class="document-title">Projeto Sem Título</div>
+    <div class="document-stats">0 projetos • 0 itens</div>
+  </div>
+  <div class="header-right">
+    <button class="toolbar-btn" id="saveBtn"><i class="fas fa-save"></i> Salvar</button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="main-container">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <h3><i class="fas fa-box"></i> Catálogo</h3>
+      <button class="sidebar-btn catalogue-btn active">Bancadas</button>
+      <button class="sidebar-btn catalogue-btn">Mesas</button>
+      <button class="sidebar-btn catalogue-btn">Fechadas</button>
     </div>
-</section>
+    <div class="sidebar-section">
+      <h3><i class="fas fa-pencil-ruler"></i> Ferramentas</h3>
+      <button class="sidebar-btn" id="measureBtn">Medição</button>
+      <button class="sidebar-btn" id="storyboardBtn">Storyboard</button>
+      <button class="sidebar-btn" id="projectBtn">Projetos</button>
+    </div>
+  </div>
+
+  <!-- WORKSPACE -->
+  <div class="workspace">
+    <div class="toolbar">
+      <div class="toolbar-group">
+        <button class="toolbar-btn" id="newProject"><i class="fas fa-plus"></i> Novo Projeto</button>
+      </div>
+    </div>
+    <div class="editor-container">
+      <!-- EDITOR PRINCIPAL -->
+      <div class="script-editor" id="editor" contenteditable="true">
+        <p>Bem-vindo ao StoneFlow!</p>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="right-panel">
+        <div class="panel-tabs">
+          <button class="panel-tab active" data-panel="notes">Notas</button>
+          <button class="panel-tab" data-panel="stats">Estatísticas</button>
+          <button class="panel-tab" data-panel="bible">Bíblia</button>
+          <button class="panel-tab" data-panel="escaleta">Escaleta</button>
+        </div>
+        <div class="panel-content active" id="notes-panel">
+          <textarea placeholder="Adicione notas..." style="width:100%;height:100px"></textarea>
+        </div>
+        <div class="panel-content" id="stats-panel">
+          <p><strong>Projetos:</strong> 0</p>
+          <p><strong>Itens:</strong> 0</p>
+        </div>
+        <div class="panel-content" id="bible-panel">
+          <p><strong>Bíblia do Projeto:</strong> Informações detalhadas do projeto.</p>
+        </div>
+        <div class="panel-content" id="escaleta-panel">
+          <p><strong>Escaleta:</strong> Planejamento e etapas do projeto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAB -->
+<div class="fab-container">
+  <button class="fab" id="whatsappBtn"><i class="fab fa-whatsapp"></i></button>
+  <button class="fab chama" id="emailBtn"><i class="fas fa-envelope"></i></button>
+</div>
 
 <script>
-function toggleAbout() {
-    const aboutSection = document.getElementById('about');
-    aboutSection.classList.toggle('hidden');
-    aboutSection.classList.toggle('show');
-}
-</script>
+document.addEventListener('DOMContentLoaded',function(){
+  // LOGIN
+  const users=[
+    {username:'cliente',password:'123',role:'cliente'},
+    {username:'marmorista',password:'123',role:'marmorista'},
+    {username:'equipe',password:'123',role:'equipe'}
+  ];
+  const loginContainer=document.getElementById('loginContainer');
+  const editor=document.getElementById('editor');
+  document.getElementById('loginBtn').addEventListener('click',()=>{
+    const u=users.find(user=>user.username===document.getElementById('username').value&&user.password===document.getElementById('password').value);
+    if(u){ loginContainer.style.display='none'; setupUI(u.role); }
+    else alert('Usuário ou senha incorretos!');
+  });
 
+  function setupUI(role){
+    if(role==='cliente'){
+      document.querySelectorAll('.sidebar button').forEach(btn=>{
+        if(!btn.classList.contains('catalogue-btn')) btn.style.display='none';
+      });
+    } else if(role==='marmorista'){
+      // mostra catálogo, medição e storyboard
+    } else if(role==='equipe'){
+      // mostra tudo
+    }
+  }
+
+  // PANEL TABS
+  document.querySelectorAll('.panel-tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      document.querySelectorAll('.panel-tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.panel-content').forEach(c=>c.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.panel+'-panel').classList.add('active');
+    });
+  });
+
+  // FAB BUTTONS
+  document.getElementById('whatsappBtn').addEventListener('click',()=>window.open('https://wa.me/5511999999999'));
+  document.getElementById('emailBtn').addEventListener('click',()=>window.location.href='mailto:contato@stoneflow.com');
+
+  // Salvamento simulado
+  setInterval(()=>{ console.log('Salvo automaticamente'); },10000);
+});
+</script>
 </body>
 </html>
+
 
