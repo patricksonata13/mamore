@@ -4,210 +4,187 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calacatta Design - Plataforma de Mármore</title>
-
-<!-- FontAwesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<!-- Three.js -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/controls/OrbitControls.js"></script>
-
 <style>
-:root {
-  --primary:#2c3e50; --secondary:#e74c3c; --accent:#3498db;
-  --light:#ecf0f1; --dark:#2c3e50; --bg:#f9f9f9;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI, Tahoma, Geneva, Verdana, sans-serif;}
-body{display:flex;flex-direction:column;min-height:100vh;background:var(--bg);color:var(--primary);}
-header{background:var(--primary);color:white;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;}
-header .logo{font-weight:bold;font-size:1.5rem;}
-.main-container{display:flex;flex:1;overflow:hidden;}
-.sidebar{width:250px;background:var(--secondary);color:white;padding:1rem;display:flex;flex-direction:column;}
-.sidebar h3{margin-bottom:0.5rem;}
-.sidebar button{margin-bottom:0.3rem;padding:0.5rem;border:none;border-radius:4px;background:transparent;color:white;cursor:pointer;text-align:left;}
-.sidebar button.active{background:var(--accent);}
-.workspace{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-.toolbar{display:flex;gap:0.5rem;padding:0.5rem;background:var(--light);}
-.toolbar button{padding:0.4rem 0.8rem;border:none;border-radius:4px;background:var(--primary);color:white;cursor:pointer;}
-.editor-container{flex:1;display:flex;overflow:hidden;}
-.right-panel{width:300px;background:var(--light);padding:1rem;overflow-y:auto;}
-.panel-tabs{display:flex;border-bottom:1px solid #ddd;margin-bottom:1rem;}
-.panel-tab{padding:0.5rem 1rem;border:none;background:transparent;cursor:pointer;}
-.panel-tab.active{border-bottom:2px solid var(--secondary);font-weight:bold;}
-.panel-content{display:none;}
-.panel-content.active{display:block;}
-canvas{flex:1;background:#dcdcdc;}
+  :root {
+    --primary: #2c3e50;
+    --secondary: #c0392b;
+    --accent: #3498db;
+    --bg: #f9f9f9;
+    --text: #2c3e50;
+    --panel-bg: #ecf0f1;
+  }
+  body { margin:0; font-family: Arial, sans-serif; background: var(--bg); color: var(--text); display:flex; flex-direction:column; height:100vh; }
+  header { background: var(--primary); color:white; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; }
+  header .logo { font-size:1.5rem; font-weight:bold; }
+  .main-container { display:flex; flex:1; overflow:hidden; }
+  .sidebar { width:250px; background:#34495e; color:white; padding:1rem; display:flex; flex-direction:column; }
+  .sidebar h3 { margin-bottom:0.5rem; }
+  .sidebar button { margin-bottom:0.5rem; padding:0.5rem; border:none; border-radius:4px; cursor:pointer; background:#3d5066; color:white; text-align:left; }
+  .sidebar button.active { background: var(--secondary); }
+  .workspace { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+  .toolbar { padding:0.5rem; background: var(--panel-bg); display:flex; gap:0.5rem; flex-wrap:wrap; border-bottom:1px solid #ccc; }
+  .toolbar button { padding:0.4rem 0.8rem; border:none; border-radius:4px; cursor:pointer; background: var(--primary); color:white; }
+  .editor-container { flex:1; display:flex; overflow:hidden; }
+  .catalogue, .measurement, .project-view { flex:1; padding:1rem; overflow:auto; background:white; }
+  .panel-tabs { display:flex; border-bottom:1px solid #ccc; margin-bottom:0.5rem; }
+  .panel-tab { padding:0.5rem 1rem; border:none; background:transparent; cursor:pointer; }
+  .panel-tab.active { border-bottom:2px solid var(--secondary); font-weight:bold; }
+  .panel-content { display:none; }
+  .panel-content.active { display:block; }
+  footer { background: var(--primary); color:white; padding:0.5rem 1rem; display:flex; justify-content:space-between; align-items:center; }
+  .fab-container { position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; gap:10px; }
+  .fab { width:50px; height:50px; border-radius:50%; background:var(--secondary); color:white; border:none; cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center; }
+  canvas { width:100%; height:100%; display:block; background:#ddd; }
+  .stone-item { display:flex; align-items:center; margin-bottom:0.5rem; cursor:pointer; }
+  .stone-item img { width:50px; height:50px; object-fit:cover; margin-right:0.5rem; border-radius:4px; }
 </style>
 </head>
-
 <body>
+
 <header>
   <div class="logo"><i class="fas fa-gem"></i> Calacatta Design</div>
-  <div class="actions">
-    <button onclick="exportImage()">Exportar Projeto</button>
-    <button onclick="contactWhatsApp()">WhatsApp</button>
-    <button onclick="contactEmail()">Email</button>
+  <div>
+    <button onclick="alert('Salvar projeto');">Salvar</button>
+    <button onclick="alert('Exportar projeto');">Exportar</button>
+    <button onclick="alert('Atendimento via WhatsApp');">WhatsApp</button>
   </div>
 </header>
 
 <div class="main-container">
   <div class="sidebar">
-    <h3>Abas</h3>
-    <button class="active" data-tab="pedras">Pedras</button>
-    <button data-tab="medicao">Medição</button>
-    <button data-tab="projetos">Projetos</button>
-    <button data-tab="equipe">Equipe</button>
-    <button data-tab="historico">Histórico</button>
+    <h3>Menu</h3>
+    <button class="sidebar-btn active" data-tab="catalogue">Pedras</button>
+    <button class="sidebar-btn" data-tab="measurement">Medição</button>
+    <button class="sidebar-btn" data-tab="project-view">Projeto 3D</button>
+    <button class="sidebar-btn" data-tab="info">Informações</button>
   </div>
 
   <div class="workspace">
     <div class="toolbar">
-      <button onclick="addBancada()">Adicionar Bancada</button>
-      <button onclick="addMesa()">Adicionar Mesa</button>
-      <button onclick="resetScene()">Limpar</button>
+      <button onclick="addStone()">Adicionar Peça</button>
+      <button onclick="undo()">Undo</button>
+      <button onclick="redo()">Redo</button>
     </div>
-    <div class="editor-container">
-      <canvas id="threeCanvas"></canvas>
-      <div class="right-panel">
-        <div class="panel-tabs">
-          <button class="panel-tab active" data-panel="panel-pedras">Pedras</button>
-          <button class="panel-tab" data-panel="panel-medicao">Medição</button>
-          <button class="panel-tab" data-panel="panel-projetos">Projetos</button>
-          <button class="panel-tab" data-panel="panel-equipe">Equipe</button>
-          <button class="panel-tab" data-panel="panel-historico">Histórico</button>
-        </div>
 
-        <div class="panel-content active" id="panel-pedras">
-          <h4>Catálogo de Pedras</h4>
-          <ul>
-            <li>Calacatta</li>
-            <li>Carrara</li>
-            <li>Nero Marquina</li>
-          </ul>
+    <div class="editor-container">
+      <div class="panel-content catalogue active" id="catalogue">
+        <h3>Catálogo de Pedras</h3>
+        <div class="stone-item" onclick="selectStone('Carrara')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Marmor_Carrara.jpg" alt="Carrara"> Carrara
         </div>
-        <div class="panel-content" id="panel-medicao">
-          <h4>Medição</h4>
-          <p>Ferramentas de escala tipo Promob</p>
+        <div class="stone-item" onclick="selectStone('Calacatta')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Calacatta_marble.jpg" alt="Calacatta"> Calacatta
         </div>
-        <div class="panel-content" id="panel-projetos">
-          <h4>Projetos</h4>
-          <ul id="projectList"></ul>
+        <div class="stone-item" onclick="selectStone('Crema Marfil')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Crema_Marfil.jpg" alt="Crema Marfil"> Crema Marfil
         </div>
-        <div class="panel-content" id="panel-equipe">
-          <h4>Equipe</h4>
-          <ul>
-            <li>Cliente</li>
-            <li>Marmorista</li>
-            <li>Equipe</li>
-          </ul>
-        </div>
-        <div class="panel-content" id="panel-historico">
-          <h4>Histórico</h4>
-          <ul id="historyList"></ul>
-        </div>
+      </div>
+
+      <div class="panel-content measurement" id="measurement">
+        <h3>Medição</h3>
+        <p>Selecione uma peça para ver medidas e estimativa de material.</p>
+        <div id="measurement-info"></div>
+      </div>
+
+      <div class="panel-content project-view" id="project-view">
+        <h3>Visualização 3D</h3>
+        <canvas id="projectCanvas"></canvas>
+      </div>
+
+      <div class="panel-content" id="info">
+        <h3>Informações da Empresa</h3>
+        <p>Empresa: Calacatta Design</p>
+        <p>Localização: Jacarepaguá, Rio de Janeiro</p>
+        <p>Atendimento via WhatsApp e Email</p>
       </div>
     </div>
   </div>
 </div>
 
+<footer>
+  <div>&copy; 2025 Calacatta Design</div>
+  <div>Última modificação: agora</div>
+</footer>
+
+<div class="fab-container">
+  <button class="fab" onclick="alert('Chat em breve!')"><i class="fas fa-comments"></i></button>
+  <button class="fab" onclick="alert('Chamada de vídeo em breve!')"><i class="fas fa-video"></i></button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
 <script>
-// Tabs sidebar e painel
-document.querySelectorAll('.sidebar button').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.sidebar button').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    // mudar conteúdo da workspace se quiser
+  // Tabs sidebar
+  const tabs = document.querySelectorAll('.sidebar-btn');
+  const panels = document.querySelectorAll('.panel-content');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      tabs.forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      panels.forEach(p=>p.classList.remove('active'));
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
   });
-});
-document.querySelectorAll('.panel-tab').forEach(tab=>{
-  tab.addEventListener('click', ()=>{
-    document.querySelectorAll('.panel-tab').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('.panel-content').forEach(c=>c.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById(tab.dataset.panel).classList.add('active');
-  });
-});
 
-// Contato
-function contactWhatsApp(){window.open('https://wa.me/5521999999999','_blank');}
-function contactEmail(){window.location.href='mailto:contato@calaccattadesign.com';}
+  // Seleção de pedra
+  let selectedStone = null;
+  function selectStone(name){
+    selectedStone = name;
+    document.getElementById('measurement-info').innerHTML = `<p>Peça selecionada: <strong>${name}</strong></p>
+      <p>Área: ${Math.floor(Math.random()*3+1)} m²</p>
+      <p>Espessura: ${Math.floor(Math.random()*3+1)} cm</p>`;
+  }
 
-// Three.js básico
-let scene, camera, renderer, controls, objects=[];
-function initThree(){
-  scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xdcdcdc);
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth/ window.innerHeight, 0.1,1000);
-  camera.position.set(0,5,10);
-  renderer = new THREE.WebGLRenderer({canvas:document.getElementById('threeCanvas'),antialias:true});
-  renderer.setSize(window.innerWidth*0.7, window.innerHeight-60);
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  // Undo/Redo básico
+  const history = [];
+  let historyIndex = -1;
+  function addStone(){
+    if(!selectedStone){ alert('Selecione uma pedra!'); return; }
+    history.push(selectedStone);
+    historyIndex++;
+    alert(`Peça ${selectedStone} adicionada ao projeto.`);
+  }
+  function undo(){
+    if(historyIndex<0){ alert('Nada para desfazer'); return; }
+    const stone = history[historyIndex];
+    historyIndex--;
+    alert(`Desfeito: ${stone}`);
+  }
+  function redo(){
+    if(historyIndex+1 >= history.length){ alert('Nada para refazer'); return; }
+    historyIndex++;
+    const stone = history[historyIndex];
+    alert(`Refeito: ${stone}`);
+  }
 
-  let light = new THREE.DirectionalLight(0xffffff,1);
-  light.position.set(10,10,10);
+  // Three.js básico para projeto 3D
+  const canvas = document.getElementById('projectCanvas');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth/canvas.clientHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true});
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  const light = new THREE.DirectionalLight(0xffffff,1);
+  light.position.set(5,5,5);
   scene.add(light);
-  scene.add(new THREE.AmbientLight(0xffffff,0.5));
+  const ambient = new THREE.AmbientLight(0x404040);
+  scene.add(ambient);
+
+  const geometry = new THREE.BoxGeometry(1,0.1,0.5);
+  const material = new THREE.MeshStandardMaterial({color:0xffffff});
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+
+  camera.position.z = 2;
+  function animate(){
+    requestAnimationFrame(animate);
+    cube.rotation.y += 0.01;
+    renderer.render(scene,camera);
+  }
   animate();
-}
-
-// Adicionar Bancada
-function addBancada(){
-  let geometry = new THREE.BoxGeometry(3,0.1,1);
-  let material = new THREE.MeshStandardMaterial({color:0xffffff});
-  let mesh = new THREE.Mesh(geometry,material);
-  mesh.position.y=0.05;
-  scene.add(mesh);
-  objects.push(mesh);
-  addHistory('Bancada adicionada');
-}
-
-// Adicionar Mesa
-function addMesa(){
-  let geometry = new THREE.BoxGeometry(1.5,0.1,1.5);
-  let material = new THREE.MeshStandardMaterial({color:0xffffff});
-  let mesh = new THREE.Mesh(geometry,material);
-  mesh.position.y=0.05;
-  scene.add(mesh);
-  objects.push(mesh);
-  addHistory('Mesa adicionada');
-}
-
-// Limpar cena
-function resetScene(){objects.forEach(obj=>scene.remove(obj));objects=[];addHistory('Cena limpa');}
-
-// Histórico
-function addHistory(msg){
-  let list = document.getElementById('historyList');
-  let li = document.createElement('li'); li.textContent=msg; list.appendChild(li);
-}
-
-// Exportar imagem
-function exportImage(){
-  renderer.render(scene,camera);
-  let dataURL = renderer.domElement.toDataURL('image/png');
-  let a = document.createElement('a');
-  a.href = dataURL; a.download='projeto.png';
-  a.click();
-}
-
-// Animar
-function animate(){
-  requestAnimationFrame(animate);
-  controls.update();
-  renderer.render(scene,camera);
-}
-
-window.addEventListener('resize', ()=>{
-  camera.aspect = window.innerWidth*0.7 / (window.innerHeight-60);
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth*0.7, window.innerHeight-60);
-});
-
-initThree();
 </script>
 </body>
 </html>
+
 
 
 
