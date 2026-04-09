@@ -1,127 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stone Brothers Marble & Granite – Jacarepaguá, Rio de Janeiro</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stone Atelier — Mármore & Design</title>
 
-  :root {
-    --black: #0e0e0e;
-    --white: #fafaf7;
-    --stone: #c8bfae;
-    --stone-dark: #8a7f71;
-    --stone-light: #ede8e0;
-    --accent: #1a1a1a;
-    --serif: 'Cormorant Garamond', Georgia, serif;
-    --sans: 'DM Sans', system-ui, sans-serif;
-  }
+  <meta name="description" content="Mármore e granito no Rio de Janeiro. Projetos sob medida com estética contemporânea.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--sans);
-    background: var(--white);
-    color: var(--black);
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.25rem 3rem;
-    background: rgba(250,250,247,0.94);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(200,191,174,0.3);
-  }
-
-  .logo {
-    font-family: var(--serif);
-    font-size: 1.25rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: var(--black);
-    text-decoration: none;
-  }
-  .logo span { font-weight: 300; font-style: italic; }
-
-  nav ul { list-style: none; display: flex; gap: 2.5rem; }
-  nav ul a {
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--stone-dark);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  nav ul a:hover { color: var(--black); }
-
-  .nav-cta {
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--black);
-    border: 1px solid var(--black);
-    padding: 0.5rem 1.2rem;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-  .nav-cta:hover { background: var(--black); color: var(--white); }
-</style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
 <nav>
-  <a href="#" class="logo">Stone Brothers <span>Marble & Granite</span></a>
-  <ul>
-    <li><a href="#materiais">Materiais</a></li>
-    <li><a href="#configurador">Configurador</a></li>
-  </ul>
-  <a href="#orcamento" class="nav-cta">Pedir orçamento</a>
+  <a href="#" class="logo">Stone Atelier</a>
+  <a href="#orcamento" class="nav-cta">Contato</a>
 </nav>
-<section style="min-height:100vh; display:flex; align-items:center; justify-content:center; background:#ede8e0; padding-top:80px;">
-  <div style="text-align:center; padding:2rem;">
-    <p style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:#8a7f71; margin-bottom:1.5rem;">Jacarepaguá · Rio de Janeiro · desde 2025</p>
-    <h1 style="font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,5vw,4.5rem); font-weight:300; line-height:1.1; color:#0e0e0e; margin-bottom:1.5rem;">Pedra sob medida, <em style="font-style:italic; color:#8a7f71;">acabamento impecável.</em></h1>
-    <p style="font-size:0.9rem; color:#8a7f71; line-height:1.8; max-width:480px; margin:0 auto 2.5rem;">Mármore, granito e quartzo cortados com precisão. Do orçamento à instalação em até 5 dias úteis.</p>
-    <div style="display:flex; gap:1rem; justify-content:center;">
-      <a href="#configurador" style="background:#0e0e0e; color:#fafaf7; padding:0.9rem 2rem; font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none;">Criar minha bancada</a>
-      <a href="#orcamento" style="background:transparent; color:#0e0e0e; padding:0.9rem 2rem; font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; border:1px solid #0e0e0e;">Pedir orçamento</a>
-    </div>
+
+<section class="hero">
+  <div>
+    <h1>Pedra que <em>transforma</em> espaços</h1>
+    <p>Projetos em mármore e granito com estética contemporânea no Rio de Janeiro.</p>
+    <a href="#orcamento" class="btn">Solicitar orçamento</a>
   </div>
 </section>
-<section id="orcamento" style="padding:7rem 5rem; background:#0e0e0e; color:#fafaf7;">
-  <p style="font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; color:#c8bfae; margin-bottom:0.75rem;">Contato</p>
-  <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,3vw,2.8rem); font-weight:300; color:#fafaf7; margin-bottom:3.5rem;">Peça seu <em style="font-style:italic; color:#c8bfae;">orçamento gratuito</em></h2>
-  <form onsubmit="enviarOrcamento(event)" style="max-width:500px;">
-    <div style="margin-bottom:1.5rem;">
-      <label style="display:block; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:#c8bfae; margin-bottom:0.5rem;">Nome</label>
-      <input type="text" id="fNome" placeholder="Seu nome" required style="width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(200,191,174,0.2); color:#fafaf7; padding:0.9rem 1rem; font-family:'DM-Sans',sans-serif; font-size:0.9rem; outline:none;">
-    </div>
-    <div style="margin-bottom:1.5rem;">
-      <label style="display:block; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:#c8bfae; margin-bottom:0.5rem;">WhatsApp</label>
-      <input type="tel" id="fTel" placeholder="(21) 9XXXX-XXXX" required style="width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(200,191,174,0.2); color:#fafaf7; padding:0.9rem 1rem; font-family:'DM-Sans',sans-serif; font-size:0.9rem; outline:none;">
-    </div>
-    <button type="submit" style="width:100%; background:#c8bfae; color:#0e0e0e; padding:1.1rem; font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase; border:none; cursor:pointer; font-family:'DM-Sans',sans-serif; font-weight:500;">Enviar solicitação</button>
+
+<section class="section">
+  <h2>Materiais</h2>
+  <div id="materiais"></div>
+</section>
+
+<section id="orcamento" class="section">
+  <h2>Orçamento</h2>
+  <form id="form">
+    <input type="text" placeholder="Nome" id="nome" required>
+    <input type="tel" placeholder="WhatsApp" id="tel" required>
+    <textarea placeholder="Projeto"></textarea>
+    <button type="submit">Enviar</button>
   </form>
 </section>
-<footer style="background:#0e0e0e; border-top:1px solid rgba(200,191,174,0.1); padding:2.5rem 5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
-  <a href="#" style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:600; color:#fafaf7; text-decoration:none;">Stone Brothers <span style="font-weight:300; font-style:italic;">Marble & Granite</span></a>
-  <p style="font-size:0.75rem; color:#8a7f71;">© 2025 Stone Brothers · Jacarepaguá, RJ</p>
-</footer>
-<script>
-function enviarOrcamento(e) {
-  e.preventDefault();
-  const nome = document.getElementById('fNome').value;
-  const tel = document.getElementById('fTel').value;
-  const texto = 'Olá! Sou '+nome+'.\nOrçamento Stone Brothers.\nFone: 'tel;
-  window.open('https://api.whatsapp.com/send?phone=5521999990000&text='+encodeURIComponent(texto), '_blank');
-}
-</script>
+
+<script src="js/app.js"></script>
 </body>
 </html>
