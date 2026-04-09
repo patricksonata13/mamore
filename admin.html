@@ -12,9 +12,11 @@
   .tabs{display:flex;gap:0;border-bottom:1px solid #333;margin-bottom:2rem}
   .tab{padding:.8rem 1.5rem;background:0;border:none;color:#aaa;cursor:pointer}
   .tab.active{color:#c8bfae;border-bottom:2px solid #c8bfae}
-  .search-bar{display:flex;gap:1rem;margin-bottom:2rem}
-  .search-bar input{flex:1;padding:1rem;background:#1a1a1a;border:1px solid #444;color:#fff}
-  .search-bar button{padding:1rem 2rem;background:#c8bfae;color:#111;border:none;cursor:pointer}
+  .search-bar{display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+  .search-bar select,.search-bar input,.search-bar button{padding:1rem;background:#1a1a1a;border:1px solid #444;color:#fff}
+  .search-bar select{background:#1a1a1a;cursor:pointer}
+  .search-bar input{flex:1}
+  .search-bar button{background:#c8bfae;color:#111;border:none;cursor:pointer}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem}
   .card{background:#1a1a1a;border-radius:6px;overflow:hidden}
   .card img{width:100%;height:160px;object-fit:cover}
@@ -22,27 +24,34 @@
   .card-info p{font-size:.75rem;color:#aaa;margin-bottom:.5rem}
   .btn-save{width:100%;padding:.5rem;background:#c8bfae;color:#111;border:none;cursor:pointer;font-size:.7rem;text-transform:uppercase}
   .loading{text-align:center;padding:3rem;color:#aaa}
-  .notify{position:fixed;bottom:20px;right:20px;background:#c8bfae;color:#111;padding:1rem;border-radius:4px}
 </style>
 </head>
 <body>
 <h1>Stone Brothers — Banco de Imagens</h1>
-<p class="sub">Busque e salve fotos de mármore/granito na galeria do site</p>
+<p class="sub">Busque e salve fotos de mármore/granito em diferentes seções do site</p>
 
 <div class="tabs">
-  <button class="tab active" data-src="pexels">Pexels</button>
-  <button class="tab" data-src="unsplash">Unsplash</button>
+  <button class="tab active" data-src="unsplash">Unsplash</button>
+  <button class="tab" data-src="pexels">Pexels</button>
+  <button class="tab" data-src="pixabay">Pixabay</button>
+  <button class="tab" data-src="freepik">Freepik</button>
 </div>
 
 <div class="search-bar">
+  <select id="destinoSelect">
+    <option value="galeria">📸 Inspiração (Galeria)</option>
+    <option value="portfolio">🏠 Projetos entregues em Jacarepaguá</option>
+    <option value="materiais">🪨 Materiais (apenas pasta)</option>
+    <option value="depoimentos">💬 Depoimentos</option>
+  </select>
   <input type="text" id="searchInput" placeholder="Ex: bancada mármore branco" value="marmore cozinha">
   <button onclick="buscar()">Buscar</button>
 </div>
 
-<div id="results" class="grid"><div class="loading">Escolha uma fonte e clique em Buscar</div></div>
+<div id="results" class="grid"><div class="loading">Clique em Buscar para pesquisar imagens</div></div>
 
 <script>
-let currentSource = 'pexels';
+let currentSource = 'unsplash';
 const API_BASE = 'http://localhost:5679';
 
 document.querySelectorAll('.tab').forEach(tab => {
@@ -71,7 +80,7 @@ async function buscar() {
         <img src="${photo.url}" loading="lazy">
         <div class="card-info">
           <p>📸 ${photo.photographer || photo.source || 'Desconhecido'}</p>
-          <button class="btn-save" onclick="salvar('${photo.url}', '${(photo.photographer || '').replace(/'/g, "\\'")}')">Salvar na galeria</button>
+          <button class="btn-save" onclick="salvar('${photo.url}', '${(photo.photographer || '').replace(/'/g, "\\'")}')">Salvar nesta seção</button>
         </div>
       </div>
     `).join('');
@@ -82,6 +91,7 @@ async function buscar() {
 }
 
 async function salvar(url, caption) {
+  const destino = document.getElementById('destinoSelect').value;
   const btn = event.target;
   btn.textContent = 'Salvando...';
   btn.disabled = true;
@@ -89,18 +99,18 @@ async function salvar(url, caption) {
     const res = await fetch(`${API_BASE}/api/save-image`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ imageUrl: url, caption, source: currentSource })
+      body: JSON.stringify({ imageUrl: url, caption, source: currentSource, destino })
     });
     const data = await res.json();
     if (data.success) {
-      alert('✅ Imagem salva! Atualize a página do site (Ctrl+F5) para ver.');
+      alert(`✅ Imagem salva em "${destino}"! Atualize a página do site (Ctrl+F5) para ver.`);
     } else {
       alert('❌ Erro: ' + data.error);
     }
   } catch(err) {
     alert('❌ Erro de conexão');
   }
-  btn.textContent = 'Salvar na galeria';
+  btn.textContent = 'Salvar nesta seção';
   btn.disabled = false;
 }
 </script>
