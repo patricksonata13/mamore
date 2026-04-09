@@ -235,22 +235,24 @@ async function carregarGaleria() {
   } catch(e) { container.innerHTML = '<p style="grid-column:1/-1">Erro ao carregar galeria.</p>'; }
 }
 
+// ========== MATERIAIS COM IMAGENS LOCAIS ==========
 const materiais = [
-  { nome: "Granito Preto São Gabriel", img: "https://images.pexels.com/photos/209251/pexels-photo-209251.jpeg", sub: "Nacional" },
-  { nome: "Granito Branco Siena", img: "https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg", sub: "Nacional" },
-  { nome: "Mármore Calacatta", img: "https://images.pexels.com/photos/1288481/pexels-photo-1288481.jpeg", sub: "Importado" },
-  { nome: "Quartzo Cinza Cimento", img: "https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg", sub: "Industrial" },
-  { nome: "Travertino Romano", img: "https://images.pexels.com/photos/158789/architecture-building-exterior-facade-158789.jpeg", sub: "Importado" },
-  { nome: "Pedra Ferro", img: "https://images.pexels.com/photos/161551/house-home-office-desk-161551.jpeg", sub: "Nacional" }
+  { nome: "Granito Preto São Gabriel", img: "imagens/materiais/granito-preto.jpg", sub: "Nacional" },
+  { nome: "Granito Branco Siena", img: "imagens/materiais/granito-branco.jpg", sub: "Nacional" },
+  { nome: "Mármore Calacatta", img: "imagens/materiais/marmore-calacatta.jpg", sub: "Importado" },
+  { nome: "Quartzo Cinza Cimento", img: "imagens/materiais/quartzo-cinza.jpg", sub: "Industrial" },
+  { nome: "Travertino Romano", img: "imagens/materiais/travertino-romano.jpg", sub: "Importado" },
+  { nome: "Pedra Ferro", img: "imagens/materiais/pedra-ferro.jpg", sub: "Nacional" }
 ];
-const grid = document.getElementById('materiaisGrid');
+
+const materiaisGrid = document.getElementById('materiaisGrid');
 materiais.forEach(m => {
   const div = document.createElement('div');
   div.className = 'mat-card';
   div.setAttribute('data-mat', m.nome);
-  div.innerHTML = `<img class="mat-img" src="${m.img}" alt="${m.nome}"><p class="mat-name">${m.nome}</p><p class="mat-sub">${m.sub}</p>`;
+  div.innerHTML = `<img class="mat-img" src="${m.img}" alt="${m.nome}" onerror="this.src='https://placehold.co/400x400?text=${encodeURIComponent(m.nome)}'"><p class="mat-name">${m.nome}</p><p class="mat-sub">${m.sub}</p>`;
   div.onclick = () => selecionarMaterial(div, m.nome);
-  grid.appendChild(div);
+  materiaisGrid.appendChild(div);
 });
 
 function selecionarMaterial(card, nome) {
