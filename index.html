@@ -4,45 +4,75 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stone Atelier — Mármore & Design</title>
-
   <meta name="description" content="Mármore e granito no Rio de Janeiro. Projetos sob medida com estética contemporânea.">
-  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
 <nav>
-  <a href="#" class="logo">Stone Atelier</a>
-  <a href="#orcamento" class="nav-cta">Contato</a>
+  <a href="index.html" class="logo">Stone Atelier <span>Design em pedra</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="pages/projetos.html">Projetos</a></li>
+    <li><a href="pages/materiais.html">Materiais</a></li>
+    <li><a href="pages/inspiracoes.html">Inspirações</a></li>
+    <li><a href="pages/sobre.html">Sobre</a></li>
+  </ul>
+  <a href="pages/contato.html" class="nav-cta">Orçamento</a>
 </nav>
 
 <section class="hero">
-  <div>
-    <h1>Pedra que <em>transforma</em> espaços</h1>
-    <p>Projetos em mármore e granito com estética contemporânea no Rio de Janeiro.</p>
-    <a href="#orcamento" class="btn">Solicitar orçamento</a>
+  <div class="hero-content">
+    <span class="tag">Arquitetura brasileira</span>
+    <h1>Pedra que <em>acontece</em><br>com o seu espaço</h1>
+    <p>Mármores, granitos e quartzitos selecionados. Projetos com alma carioca, integrando cobogó, plantas nativas e design clean. Do orçamento à instalação em até 5 dias.</p>
+    <div class="btn-group">
+      <a href="pages/projetos.html" class="btn-primary">Ver projetos</a>
+      <a href="pages/contato.html" class="btn-outline">Solicitar orçamento</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="images/capa.jpg" alt="Mármore com cobogó">
   </div>
 </section>
 
 <section class="section">
-  <h2>Materiais</h2>
-  <div id="materiais"></div>
+  <div class="section-header">
+    <h2>Materiais <em>em destaque</em></h2>
+    <p>Os mais procurados pelos nossos clientes</p>
+  </div>
+  <div class="horizontal-scroll" id="materiais-destaque"></div>
 </section>
 
-<section id="orcamento" class="section">
-  <h2>Orçamento</h2>
-  <form id="form">
-    <input type="text" placeholder="Nome" id="nome" required>
-    <input type="tel" placeholder="WhatsApp" id="tel" required>
-    <textarea placeholder="Projeto"></textarea>
-    <button type="submit">Enviar</button>
-  </form>
+<section class="section" style="background: #f9f6f0;">
+  <div class="section-header">
+    <h2>Projetos <em>recentes</em></h2>
+    <p>Conheça alguns dos nossos trabalhos</p>
+  </div>
+  <div class="projects-grid" id="projetos-recentes"></div>
 </section>
 
-<script src="js/app.js"></script>
+<section class="section">
+  <div class="section-header">
+    <h2>Como <em>funciona</em></h2>
+    <p>Do primeiro contato à instalação</p>
+  </div>
+  <div class="process-grid">
+    <div class="process-step"><span class="num">01</span><h3>Escolha do material</h3><p>Selecione a pedra ideal para seu projeto.</p></div>
+    <div class="process-step"><span class="num">02</span><h3>Orçamento rápido</h3><p>Enviamos uma proposta detalhada em até 24h.</p></div>
+    <div class="process-step"><span class="num">03</span><h3>Produção</h3><p>Corte sob medida em nossa marmoraria.</p></div>
+    <div class="process-step"><span class="num">04</span><h3>Instalação</h3><p>Equipe especializada, sem sujeira e no prazo.</p></div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Stone Atelier – Mármore, granito e design brasileiro | Jacarepaguá, RJ</p>
+</footer>
+
+<div class="lightbox" id="lightbox"><span class="close-lightbox">&times;</span><img id="lightboxImg" src=""></div>
+
+<script src="js/main.js"></script>
 </body>
 </html>
