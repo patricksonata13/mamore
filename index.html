@@ -1,78 +1,305 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stone Atelier — Mármore & Design</title>
-  <meta name="description" content="Mármore e granito no Rio de Janeiro. Projetos sob medida com estética contemporânea.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stone Brothers Marble & Granite - Jacarepagua, Rio de Janeiro</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,sans-serif;background:#fafaf7;color:#0e0e0e}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 3rem;background:rgba(250,250,247,.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(200,191,174,.3)}
+.logo{font-size:1.1rem;font-weight:600;color:#0e0e0e;text-decoration:none}
+.logo span{font-weight:300;font-style:italic}
+nav ul{list-style:none;display:flex;gap:2rem}
+nav ul a{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:#8a7f71;text-decoration:none}
+nav ul a:hover{color:#0e0e0e}
+.nav-cta{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#0e0e0e;border:1px solid #0e0e0e;padding:.5rem 1.2rem;text-decoration:none;transition:all .2s}
+.nav-cta:hover{background:#0e0e0e;color:#fafaf7}
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:68px}
+.hero-left{background:#0e0e0e;display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem}
+.hero-tag{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:#8a7f71;margin-bottom:2rem}
+.hero-title{font-family:Georgia,serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;line-height:1.1;color:#fafaf7;margin-bottom:1.5rem}
+.hero-title em{font-style:italic;color:#c8bfae}
+.hero-sub{font-size:.85rem;color:#6b6259;line-height:1.9;max-width:360px;margin-bottom:2.5rem}
+.hero-actions{display:flex;gap:.75rem}
+.btn-p{background:#c8bfae;color:#0e0e0e;padding:.8rem 1.8rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;font-weight:500;text-decoration:none;display:inline-block;transition:background .2s}
+.btn-p:hover{background:#b5a99a}
+.btn-o{background:transparent;color:#fafaf7;padding:.8rem 1.8rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(250,250,247,.25);cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s}
+.btn-o:hover{border-color:rgba(250,250,247,.6)}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(200,191,174,.12)}
+.stat-n{font-family:Georgia,serif;font-size:1.8rem;font-weight:300;color:#fafaf7}
+.stat-l{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:#4a4039;margin-top:.2rem}
+.hero-right{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.hero-img{overflow:hidden;position:relative}
+.hero-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.85) saturate(.85);transition:filter .5s}
+.hero-img:hover img{filter:brightness(1) saturate(1)}
+.hero-img-label{position:absolute;bottom:12px;left:14px;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,250,247,.75);background:rgba(14,14,14,.55);padding:4px 10px}
+#materiais{padding:6rem 5rem;background:#fafaf7}
+.section-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:#8a7f71;margin-bottom:.6rem}
+.section-title{font-family:Georgia,serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;margin-bottom:3rem;line-height:1.2}
+.section-title em{font-style:italic}
+.mat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.mat-card{cursor:pointer;transition:transform .3s;border:2px solid transparent}
+.mat-card:hover{transform:translateY(-4px)}
+.mat-card.selected{border-color:#0e0e0e}
+.mat-swatch{width:100%;aspect-ratio:3/4;overflow:hidden}
+.mat-swatch img{width:100%;height:100%;object-fit:cover;display:block}
+.mat-name{font-family:Georgia,serif;font-size:.95rem;font-weight:600;margin-top:.6rem}
+.mat-sub{font-size:.72rem;color:#8a7f71;text-transform:uppercase;letter-spacing:.05em;margin-top:.2rem}
+.mat-price{font-size:.82rem;font-weight:500;margin-top:.3rem}
+#configurador{background:#0e0e0e;color:#fafaf7;padding:6rem 5rem}
+.config-layout{display:grid;grid-template-columns:400px 1fr;gap:3rem;margin-top:3rem}
+.config-panel{display:flex;flex-direction:column;gap:1.5rem}
+.config-group label{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#c8bfae;margin-bottom:.5rem}
+.config-group select,.config-group input[type=number]{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(200,191,174,.25);color:#fafaf7;padding:.75rem 1rem;font-family:inherit;font-size:.9rem;outline:none;appearance:none}
+.dims{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.acab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+.acab-btn{background:rgba(255,255,255,.05);border:1px solid rgba(200,191,174,.2);color:rgba(250,250,247,.7);padding:.6rem;font-size:.72rem;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:all .2s}
+.acab-btn:hover,.acab-btn.active{background:#c8bfae;border-color:#c8bfae;color:#0e0e0e}
+.preview-box{background:rgba(255,255,255,.04);border:1px solid rgba(200,191,174,.15);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:260px;position:relative}
+.preview-hint{text-align:center;color:#8a7f71;font-size:.82rem;line-height:2}
+.price-box{background:rgba(255,255,255,.04);border:1px solid rgba(200,191,174,.15);padding:1.5rem;margin-top:1rem}
+.price-row{display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(200,191,174,.1);font-size:.82rem;color:#c8bfae}
+.price-total{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(200,191,174,.3)}
+.price-total-val{font-family:Georgia,serif;font-size:1.8rem;font-weight:600;color:#fafaf7}
+.preview-actions{display:flex;gap:1rem;margin-top:1rem}
+.btn-gen{flex:1;background:#c8bfae;color:#0e0e0e;padding:1rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;font-family:inherit;font-weight:500}
+.btn-gen:disabled{opacity:.5;cursor:not-allowed}
+.btn-sec{background:transparent;color:#fafaf7;padding:1rem 1.5rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.25);cursor:pointer;font-family:inherit}
+#orcamento{padding:6rem 5rem;background:#0e0e0e;color:#fafaf7}
+.orc-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem}
+.form-group{margin-bottom:1.5rem}
+.form-group label{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#c8bfae;margin-bottom:.5rem}
+.form-group input,.form-group textarea,.form-group select{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(200,191,174,.2);color:#fafaf7;padding:.9rem 1rem;font-family:inherit;font-size:.9rem;outline:none;resize:none;appearance:none}
+.form-submit{width:100%;background:#c8bfae;color:#0e0e0e;padding:1.1rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;font-family:inherit;font-weight:500}
+footer{background:#0e0e0e;border-top:1px solid rgba(200,191,174,.1);padding:2.5rem 5rem;display:flex;justify-content:space-between;align-items:center}
+.noti{position:fixed;bottom:20px;right:20px;background:#0e0e0e;color:#fafaf7;padding:1rem 1.5rem;font-size:.82rem;border-left:3px solid #c8bfae;z-index:999;transform:translateX(120%);transition:transform .4s;max-width:320px}
+.noti.show{transform:translateX(0)}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.hero-right{height:300px}.mat-grid{grid-template-columns:repeat(2,1fr)}.config-layout{grid-template-columns:1fr}.orc-layout{grid-template-columns:1fr}nav ul{display:none}}
+</style>
 </head>
 <body>
 <nav>
-  <a href="index.html" class="logo">Stone Atelier <span>Design em pedra</span></a>
-  <ul class="nav-links">
-    <li><a href="index.html">Início</a></li>
-    <li><a href="pages/projetos.html">Projetos</a></li>
-    <li><a href="pages/materiais.html">Materiais</a></li>
-    <li><a href="pages/inspiracoes.html">Inspirações</a></li>
-    <li><a href="pages/sobre.html">Sobre</a></li>
+  <a href="#" class="logo">Stone Brothers <span>Marble &amp; Granite</span></a>
+  <ul>
+    <li><a href="#materiais">Materiais</a></li>
+    <li><a href="#configurador">Configurador</a></li>
+    <li><a href="#orcamento">Contato</a></li>
   </ul>
-  <a href="pages/contato.html" class="nav-cta">Orçamento</a>
+  <a href="#orcamento" class="nav-cta">Orcamento</a>
 </nav>
 
 <section class="hero">
-  <div class="hero-content">
-    <span class="tag">Arquitetura brasileira</span>
-    <h1>Pedra que <em>acontece</em><br>com o seu espaço</h1>
-    <p>Mármores, granitos e quartzitos selecionados. Projetos com alma carioca, integrando cobogó, plantas nativas e design clean. Do orçamento à instalação em até 5 dias.</p>
-    <div class="btn-group">
-      <a href="pages/projetos.html" class="btn-primary">Ver projetos</a>
-      <a href="pages/contato.html" class="btn-outline">Solicitar orçamento</a>
+  <div class="hero-left">
+    <p class="hero-tag">Jacarepagua &middot; Rio de Janeiro &middot; desde 2025</p>
+    <h1 class="hero-title">Pedra sob medida,<br><em>acabamento impecavel.</em></h1>
+    <p class="hero-sub">Marmore, granito e quartzo cortados com precisao. Do orcamento a instalacao em ate 5 dias uteis. Atendemos Jacarepagua, Barra e Recreio.</p>
+    <div class="hero-actions">
+      <a href="#configurador" class="btn-p">Criar minha bancada</a>
+      <a href="#orcamento" class="btn-o">Pedir orcamento</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-n">+500</div><div class="stat-l">projetos entregues</div></div>
+      <div><div class="stat-n">5 dias</div><div class="stat-l">prazo medio</div></div>
+      <div><div class="stat-n">4 tipos</div><div class="stat-l">de pedra</div></div>
     </div>
   </div>
-  <div class="hero-image">
-    <img src="images/capa.jpg" alt="Mármore com cobogó">
+  <div class="hero-right">
+    <div class="hero-img">
+      <img src="imagens/galeria/marmore-cozinha.jpg" alt="Bancada cozinha marmore">
+      <span class="hero-img-label">Cozinha &middot; Calacatta</span>
+    </div>
+    <div class="hero-img">
+      <img src="imagens/galeria/marmore-branco-no-banheiro-michelangelo-marmores-768x513-1.jpg" alt="Banheiro marmore branco">
+      <span class="hero-img-label">Banheiro &middot; Branco</span>
+    </div>
+    <div class="hero-img">
+      <img src="imagens/galeria/marmore-e-papel-de-parede-compoem-decor-de-lavabo-simples-e-elegante2.webp" alt="Lavabo marmore">
+      <span class="hero-img-label">Lavabo &middot; Carrara</span>
+    </div>
+    <div class="hero-img">
+      <img src="imagens/galeria/bancada-sala.jpg" alt="Ambiente marmore">
+      <span class="hero-img-label">Sala &middot; Premium</span>
+    </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="section-header">
-    <h2>Materiais <em>em destaque</em></h2>
-    <p>Os mais procurados pelos nossos clientes</p>
+<section id="materiais">
+  <p class="section-label">Nossos Materiais</p>
+  <h2 class="section-title">Escolha a pedra <em>certa para voce</em></h2>
+  <div class="mat-grid">
+    <div class="mat-card" data-m="Granito Preto" data-p="320" onclick="selMat(this)">
+      <div class="mat-swatch" style="background:linear-gradient(135deg,#1a1a1a,#2d2b2b)"></div>
+      <p class="mat-name">Granito Preto</p><p class="mat-sub">Nacional</p><p class="mat-price">R$ 320/m2</p>
+    </div>
+    <div class="mat-card" data-m="Granito Branco" data-p="290" onclick="selMat(this)">
+      <div class="mat-swatch"><img src="imagens/materiais/tipos-granito.jpg" alt="Granito Branco"></div>
+      <p class="mat-name">Granito Branco</p><p class="mat-sub">Nacional</p><p class="mat-price">R$ 290/m2</p>
+    </div>
+    <div class="mat-card" data-m="Marmore Calacatta" data-p="780" onclick="selMat(this)">
+      <div class="mat-swatch"><img src="imagens/materiais/cores-marmore.jpg" alt="Marmore Calacatta"></div>
+      <p class="mat-name">Marmore Calacatta</p><p class="mat-sub">Importado</p><p class="mat-price">R$ 780/m2</p>
+    </div>
+    <div class="mat-card" data-m="Quartzo Cinza" data-p="650" onclick="selMat(this)">
+      <div class="mat-swatch" style="background:linear-gradient(130deg,#b0aaa4,#9b958e)"></div>
+      <p class="mat-name">Quartzo Cinza</p><p class="mat-sub">Anti-manchas</p><p class="mat-price">R$ 650/m2</p>
+    </div>
   </div>
-  <div class="horizontal-scroll" id="materiais-destaque"></div>
 </section>
 
-<section class="section" style="background: #f9f6f0;">
-  <div class="section-header">
-    <h2>Projetos <em>recentes</em></h2>
-    <p>Conheça alguns dos nossos trabalhos</p>
+<section id="configurador">
+  <p class="section-label" style="color:#c8bfae">Configurador</p>
+  <h2 class="section-title" style="color:#fafaf7">Crie sua bancada <em style="color:#c8bfae">e veja antes de comprar</em></h2>
+  <div class="config-layout">
+    <div class="config-panel">
+      <div class="config-group"><label>Material</label><select id="sMat" onchange="calc()"><option value="Granito Branco" data-p="290">Granito Branco - R$ 290/m2</option><option value="Granito Preto" data-p="320">Granito Preto - R$ 320/m2</option><option value="Marmore Calacatta" data-p="780">Marmore Calacatta - R$ 780/m2</option><option value="Quartzo Cinza" data-p="650">Quartzo Cinza - R$ 650/m2</option></select></div>
+      <div class="config-group"><label>Tipo de peca</label><select id="sTipo" onchange="calc()"><option>Bancada de cozinha</option><option>Bancada de banheiro</option><option>Soleira</option><option>Revestimento</option></select></div>
+      <div class="config-group"><label>Tamanho (cm)</label><div class="dims"><div><label style="font-size:.62rem">Largura</label><input type="number" id="iLarg" value="200" min="30" max="600" step="10" onchange="calc()"></div><div><label style="font-size:.62rem">Profundidade</label><input type="number" id="iProf" value="60" min="20" max="200" step="5" onchange="calc()"></div></div></div>
+      <div class="config-group"><label>Acabamento</label><div class="acab-grid"><button class="acab-btn active" onclick="setAcab(this,'Boleado')">Boleado</button><button class="acab-btn" onclick="setAcab(this,'Chanfrado')">Chanfrado</button><button class="acab-btn" onclick="setAcab(this,'Reto')">Reto</button></div></div>
+      <div class="config-group"><label>Furo para cuba</label><select id="sFuro" onchange="calc()"><option value="0">Sem furo</option><option value="280">1 cuba (+R$ 280)</option><option value="520">2 cubas (+R$ 520)</option></select></div>
+    </div>
+    <div>
+      <div class="preview-box" id="prevBox">
+        <div class="preview-hint" id="prevHint">Configure e clique em<br><b>Visualizar com IA</b></div>
+        <img id="prevImg" style="width:100%;height:100%;object-fit:cover;display:none" alt="Preview">
+      </div>
+      <p id="prevStatus" style="font-size:.78rem;color:#c8bfae;min-height:18px;margin-top:.5rem;text-align:center"></p>
+      <div class="price-box">
+        <div class="price-row"><span>Material</span><span id="pMat">-</span></div>
+        <div class="price-row"><span>Corte</span><span id="pCorte">-</span></div>
+        <div class="price-row" id="pFuroRow" style="display:none"><span>Cuba</span><span id="pFuro">-</span></div>
+        <div class="price-total"><span style="font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:#8a7f71">Estimativa</span><span class="price-total-val" id="pTot">R$ -</span></div>
+      </div>
+      <div class="preview-actions">
+        <button class="btn-gen" id="btnGen" onclick="gerarVisual()">Visualizar com IA</button>
+        <button class="btn-sec" onclick="irOrcamento()">Solicitar orcamento</button>
+      </div>
+    </div>
   </div>
-  <div class="projects-grid" id="projetos-recentes"></div>
 </section>
 
-<section class="section">
-  <div class="section-header">
-    <h2>Como <em>funciona</em></h2>
-    <p>Do primeiro contato à instalação</p>
-  </div>
-  <div class="process-grid">
-    <div class="process-step"><span class="num">01</span><h3>Escolha do material</h3><p>Selecione a pedra ideal para seu projeto.</p></div>
-    <div class="process-step"><span class="num">02</span><h3>Orçamento rápido</h3><p>Enviamos uma proposta detalhada em até 24h.</p></div>
-    <div class="process-step"><span class="num">03</span><h3>Produção</h3><p>Corte sob medida em nossa marmoraria.</p></div>
-    <div class="process-step"><span class="num">04</span><h3>Instalação</h3><p>Equipe especializada, sem sujeira e no prazo.</p></div>
+<section id="orcamento">
+  <p class="section-label">Contato</p>
+  <h2 class="section-title">Peca seu <em>orcamento gratuito</em></h2>
+  <div class="orc-layout">
+    <div>
+      <p style="font-size:.88rem;color:rgba(200,191,174,.8);line-height:1.9;max-width:360px">Atendemos toda Jacarepagua, Barra, Recreio e regioes proximas. Medimos, cortamos e instalamos.</p>
+      <div style="margin-top:2.5rem;padding:1.5rem;border:1px solid rgba(200,191,174,.15)">
+        <p style="font-family:Georgia,serif;font-size:1.3rem;font-style:italic;color:#c8bfae;line-height:1.4">Sem erro de medida. Sem atraso. Sem dor de cabeca.</p>
+      </div>
+    </div>
+    <form id="fOrc" onsubmit="enviar(event)">
+      <div class="form-group"><label>Nome</label><input type="text" id="fNome" placeholder="Seu nome" required></div>
+      <div class="form-group"><label>Telefone</label><input type="tel" id="fTel" placeholder="(21) 9XXXX-XXXX" required></div>
+      <div class="form-group"><label>Servico</label><select id="fServ"><option>Bancada de cozinha</option><option>Bancada de banheiro</option><option>Soleiras e peitoris</option><option>Revestimento</option><option>Outro</option></select></div>
+      <div class="form-group"><label>Detalhes (opcional)</label><textarea id="fMsg" placeholder="Medidas, material preferido..."></textarea></div>
+      <button type="submit" class="form-submit">Enviar solicitacao</button>
+    </form>
   </div>
 </section>
 
 <footer>
-  <p>© 2025 Stone Atelier – Mármore, granito e design brasileiro | Jacarepaguá, RJ</p>
+  <a href="#" style="font-family:Georgia,serif;font-size:1rem;font-weight:600;color:#fafaf7;text-decoration:none">Stone Brothers <span style="font-weight:300;font-style:italic">Marble &amp; Granite</span></a>
+  <p style="font-size:.72rem;color:#8a7f71">2025 Stone Brothers - Jacarepagua, RJ</p>
 </footer>
 
-<div class="lightbox" id="lightbox"><span class="close-lightbox">&times;</span><img id="lightboxImg" src=""></div>
+<div class="noti" id="noti"></div>
 
-<script src="js/main.js"></script>
+<script>
+const WHURL='https://clecha-interportal-tess.ngrok-free.dev/leads';
+const API_KEY='SB_API_KEY_2026';
+let acab='Boleado';
+
+function setAcab(b,v){document.querySelectorAll('.acab-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');acab=v}
+
+function selMat(card){
+  document.querySelectorAll('.mat-card').forEach(c=>c.classList.remove('selected'));
+  card.classList.add('selected');
+  const sel=document.getElementById('sMat');
+  for(let o of sel.options){if(o.value===card.dataset.m){o.selected=true;break}}
+  calc();
+  document.getElementById('configurador').scrollIntoView({behavior:'smooth'});
+}
+
+function calc(){
+  const sel=document.getElementById('sMat');
+  const pm=parseFloat(sel.options[sel.selectedIndex].dataset.p)||290;
+  const l=parseFloat(document.getElementById('iLarg').value)||200;
+  const p=parseFloat(document.getElementById('iProf').value)||60;
+  const m2=(l/100)*(p/100);
+  const mt=Math.round(pm*m2);
+  const ct=Math.round(120*m2+100);
+  const fe=parseInt(document.getElementById('sFuro').value)||0;
+  const tot=mt+ct+fe+200;
+  document.getElementById('pMat').textContent='R$ '+mt.toLocaleString('pt-BR');
+  document.getElementById('pCorte').textContent='R$ '+ct.toLocaleString('pt-BR');
+  document.getElementById('pTot').textContent='R$ '+tot.toLocaleString('pt-BR');
+  const fr=document.getElementById('pFuroRow');
+  if(fe>0){fr.style.display='flex';document.getElementById('pFuro').textContent='R$ '+fe.toLocaleString('pt-BR');}
+  else{fr.style.display='none'}
+}
+
+async function gerarVisual(){
+  const btn=document.getElementById('btnGen');
+  const hint=document.getElementById('prevHint');
+  const img=document.getElementById('prevImg');
+  const st=document.getElementById('prevStatus');
+  const mat=document.getElementById('sMat').value;
+  const tipo=document.getElementById('sTipo').value;
+  const larg=document.getElementById('iLarg').value;
+  const prof=document.getElementById('iProf').value;
+  btn.disabled=true;btn.textContent='Gerando...';hint.style.display='none';img.style.display='none';st.textContent='';
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:350,messages:[{role:'user',content:'Descreva em 2 frases como ficaria uma '+tipo+' de '+mat+', '+larg+'x'+prof+'cm, acabamento '+acab+'. Descricao visual realista e objetiva.'}]})});
+    const d=await r.json();
+    const text=d.content?.[0]?.text||'';
+    const canvas=document.createElement('canvas');canvas.width=800;canvas.height=450;
+    const ctx=canvas.getContext('2d');
+    const cm={'Granito Preto':['#1a1a1a','#2d2b2b'],'Granito Branco':['#e8e4df','#f0ece6'],'Marmore Calacatta':['#f5f2ed','#eee9e2'],'Quartzo Cinza':['#b0aaa4','#9b958e']};
+    const cols=cm[mat]||['#c8c0b0','#b8b0a0'];
+    const g=ctx.createLinearGradient(0,0,800,450);
+    cols.forEach((c,i)=>g.addColorStop(i/(cols.length-1),c));
+    const light=['Granito Branco','Marmore Calacatta'].includes(mat);
+    ctx.fillStyle=light?'#f0ede8':'#2a2825';ctx.fillRect(0,0,800,270);
+    ctx.fillStyle=light?'#e8e4dd':'#1e1c1a';ctx.fillRect(0,270,800,180);
+    const bW=Math.min(600,300+parseFloat(larg)/3);
+    const bH=Math.min(90,60+parseFloat(prof)/3);
+    const bX=(800-bW)/2;
+    ctx.fillStyle=g;ctx.fillRect(bX,210,bW,bH+15);
+    ctx.fillStyle=light?'rgba(255,255,255,.3)':'rgba(255,255,255,.08)';
+    ctx.fillRect(bX,240,bW,3);
+    img.src=canvas.toDataURL('image/jpeg',.92);img.style.display='block';
+    st.textContent=text.substring(0,160);
+  }catch(e){hint.style.display='flex';hint.textContent='Erro ao gerar. Tente novamente.'}
+  btn.disabled=false;btn.textContent='Visualizar com IA';
+}
+
+function irOrcamento(){
+  document.getElementById('fServ').value=document.getElementById('sTipo').value;
+  document.getElementById('fMsg').value='Material: '+document.getElementById('sMat').value+'\nTamanho: '+document.getElementById('iLarg').value+'x'+document.getElementById('iProf').value+'cm\nAcabamento: '+acab;
+  document.getElementById('orcamento').scrollIntoView({behavior:'smooth'});
+}
+
+async function enviar(e){
+  e.preventDefault();
+  const n=document.getElementById('fNome').value;
+  const t=document.getElementById('fTel').value;
+  const sv=document.getElementById('fServ').value;
+  const m=document.getElementById('fMsg').value;
+  const btn=document.querySelector('.form-submit');
+  btn.textContent='Enviando...';btn.disabled=true;
+  try{
+    await fetch(WHURL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':API_KEY},body:JSON.stringify({name:n,phone:t,message:sv+(m?'\n'+m:''),channel:'site'})});
+    showNoti('Obrigado, '+n+'! Entraremos em contato em breve.');
+    document.getElementById('fOrc').reset();
+  }catch(err){showNoti('Erro ao enviar. Tente novamente.')}
+  btn.textContent='Enviar solicitacao';btn.disabled=false;
+}
+
+function showNoti(msg){const n=document.getElementById('noti');n.textContent=msg;n.classList.add('show');setTimeout(()=>n.classList.remove('show'),4000)}
+
+calc();
+</script>
 </body>
 </html>
