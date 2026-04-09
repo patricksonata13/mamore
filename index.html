@@ -77,6 +77,21 @@ footer{background:#0e0e0e;border-top:1px solid rgba(200,191,174,.1);padding:2.5r
 .noti{position:fixed;bottom:20px;right:20px;background:#0e0e0e;color:#fafaf7;padding:1rem 1.5rem;font-size:.82rem;border-left:3px solid #c8bfae;z-index:999;transform:translateX(120%);transition:transform .4s;max-width:320px}
 .noti.show{transform:translateX(0)}
 @media(max-width:900px){.hero{grid-template-columns:1fr}.hero-right{height:300px}.mat-grid{grid-template-columns:repeat(2,1fr)}.config-layout{grid-template-columns:1fr}.orc-layout{grid-template-columns:1fr}nav ul{display:none}}
+
+.lb-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center}
+.lb-overlay.open{display:flex}
+.lb-inner{position:relative;max-width:90vw;max-height:90vh}
+.lb-inner img{max-width:90vw;max-height:85vh;object-fit:contain;display:block}
+.lb-caption{color:rgba(250,250,247,.7);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;text-align:center;margin-top:.75rem}
+.lb-close{position:fixed;top:1.5rem;right:2rem;color:#fafaf7;font-size:1.8rem;cursor:pointer;background:none;border:none;line-height:1;opacity:.7;z-index:10000}
+.lb-close:hover{opacity:1}
+.lb-prev,.lb-next{position:fixed;top:50%;transform:translateY(-50%);background:none;border:none;color:#fafaf7;font-size:2rem;cursor:pointer;opacity:.5;padding:1rem;z-index:10000}
+.lb-prev:hover,.lb-next:hover{opacity:1}
+.lb-prev{left:1rem}
+.lb-next{right:1rem}
+.lb-counter{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);color:rgba(250,250,247,.5);font-size:.68rem;letter-spacing:.12em}
+.hero-img{cursor:zoom-in}
+.mat-swatch{cursor:zoom-in}
 </style>
 </head>
 <body>
@@ -204,6 +219,17 @@ footer{background:#0e0e0e;border-top:1px solid rgba(200,191,174,.1);padding:2.5r
   <p style="font-size:.72rem;color:#8a7f71">2025 Stone Brothers - Jacarepagua, RJ</p>
 </footer>
 
+
+<div class="lb-overlay" id="lb" onclick="lbClickOverlay(event)">
+  <button class="lb-close" onclick="lbClose()">&#215;</button>
+  <button class="lb-prev" onclick="lbNav(-1)">&#8249;</button>
+  <div class="lb-inner">
+    <img id="lb-img" src="" alt="">
+    <p class="lb-caption" id="lb-caption"></p>
+  </div>
+  <button class="lb-next" onclick="lbNav(1)">&#8250;</button>
+  <p class="lb-counter" id="lb-counter"></p>
+</div>
 <div class="noti" id="noti"></div>
 
 <script>
@@ -300,6 +326,64 @@ async function enviar(e){
 function showNoti(msg){const n=document.getElementById('noti');n.textContent=msg;n.classList.add('show');setTimeout(()=>n.classList.remove('show'),4000)}
 
 calc();
+
+const lbItems = [];
+let lbIdx = 0;
+
+function lbOpen(src, caption) {
+  const idx = lbItems.findIndex(i => i.src === src);
+  if (idx >= 0) lbIdx = idx;
+  else { lbItems.push({src, caption}); lbIdx = lbItems.length - 1; }
+  lbShow();
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function lbShow() {
+  const item = lbItems[lbIdx];
+  document.getElementById('lb-img').src = item.src;
+  document.getElementById('lb-caption').textContent = item.caption || '';
+  document.getElementById('lb-counter').textContent = (lbIdx + 1) + ' / ' + lbItems.length;
+}
+
+function lbClose() {
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lbNav(dir) {
+  lbIdx = (lbIdx + dir + lbItems.length) % lbItems.length;
+  lbShow();
+}
+
+function lbClickOverlay(e) {
+  if (e.target === document.getElementById('lb')) lbClose();
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lb').classList.contains('open')) return;
+  if (e.key === 'Escape') lbClose();
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.hero-img').forEach(div => {
+    const img = div.querySelector('img');
+    const label = div.querySelector('.hero-img-label');
+    if (img) {
+      lbItems.push({src: img.src, caption: label ? label.textContent : ''});
+      div.onclick = () => lbOpen(img.src, label ? label.textContent : '');
+    }
+  });
+  document.querySelectorAll('.mat-swatch img').forEach(img => {
+    const card = img.closest('.mat-card');
+    const name = card ? card.querySelector('.mat-name') : null;
+    lbItems.push({src: img.src, caption: name ? name.textContent : ''});
+    img.onclick = (e) => { e.stopPropagation(); lbOpen(img.src, name ? name.textContent : ''); };
+  });
+});
+
 </script>
 </body>
 </html>
