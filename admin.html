@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Stone Brothers - Busca de Imagens</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,sans-serif;background:#0e0e0e;color:#fafaf7;padding:2rem}
+h1{font-weight:300;margin-bottom:.5rem}
+.sub{color:#8a7f71;margin-bottom:2rem}
+.search-bar{display:flex;gap:1rem;margin-bottom:2rem}
+.search-bar input{flex:1;padding:1rem;background:#1a1a1a;border:1px solid #333;color:#fff;font-size:1rem}
+.search-bar button{padding:1rem 2rem;background:#c8bfae;color:#0e0e0e;border:none;cursor:pointer;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.card{background:#1a1a1a;border:1px solid #2a2a2a;overflow:hidden}
+.card img{width:100%;height:180px;object-fit:cover}
+.card-info{padding:1rem}
+.card-info p{font-size:.8rem;color:#aaa;margin-bottom:.5rem}
+.btn-save{width:100%;padding:.6rem;background:#2a2a2a;border:1px solid #c8bfae;color:#c8bfae;cursor:pointer;font-size:.7rem;text-transform:uppercase}
+.btn-save:hover{background:#c8bfae;color:#0e0e0e}
+.loading{text-align:center;padding:3rem;color:#8a7f71}
+.notify{position:fixed;bottom:20px;right:20px;background:#c8bfae;color:#0e0e0e;padding:1rem;border-radius:4px;z-index:1000}
+</style>
+</head>
+<body>
+<h1>Stone Brothers — Buscar Imagens</h1>
+<p class="sub">Pesquise no Pexels e salve diretamente na galeria do site</p>
+
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="Ex: bancada mármore branco, granito preto cozinha..." value="marmore bancada cozinha">
+  <button onclick="buscar()">Buscar</button>
+</div>
+
+<div id="results" class="grid">
+  <div class="loading">Digite um termo e clique em Buscar</div>
+</div>
+
+<script>
+const API_BASE = 'http://localhost:5679';
+
+async function buscar() {
+  const q = document.getElementById('searchInput').value;
+  if (!q) return;
+  const grid = document.getElementById('results');
+  grid.innerHTML = '<div class="loading">Carregando...</div>';
+  
+  try {
+    const res = await fetch(`${API_BASE}/api/search-pexels?q=${encodeURIComponent(q)}`);
+    const data = await res.json();
+    if (!data.success || !data.photos.length) {
+      grid.innerHTML = '<div class="loading">Nenhuma imagem encontrada. Tente outro termo.</div>';
+      return;
+    }
+    grid.innerHTML = data.photos.map(photo => `
+      <div class="card">
+        <img src="${photo.url}" alt="${photo.alt}" loading="lazy">
+        <div class="card-info">
+          <p>📸 ${photo.photographer || 'Pexels'}</p>
+          <button class="btn-save" onclick="salvar('${photo.url}', '${photo.alt.replace(/'/g, "\\'")}')">Salvar na galeria</button>
+        </div>
+      </div>
+    `).join('');
+  } catch(err) {
+    grid.innerHTML = '<div class="loading">Erro ao buscar. Verifique se o webhook está rodando.</div>';
+  }
+}
+
+async function salvar(imageUrl, caption) {
+  const btn = event.target;
+  btn.textContent = 'Salvando...';
+  btn.disabled = true;
+  try {
+    const res = await fetch(`${API_BASE}/api/save-image`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ imageUrl, caption })
+    });
+    const data = await res.json();
+    if (data.success) {
+      mostrarNotificacao('✅ Imagem salva! O site será atualizado em instantes.');
+    } else {
+      mostrarNotificacao('❌ Erro ao salvar: ' + data.error);
+    }
+  } catch(err) {
+    mostrarNotificacao('❌ Erro de conexão.');
+  }
+  btn.textContent = 'Salvar na galeria';
+  btn.disabled = false;
+}
+
+function mostrarNotificacao(msg) {
+  let div = document.createElement('div');
+  div.className = 'notify';
+  div.textContent = msg;
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 3000);
+}
+</script>
+</body>
+</html>
