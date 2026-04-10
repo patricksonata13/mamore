@@ -243,6 +243,7 @@ const materiais = [
   { nome: "Travertino Romano", img: "imagens/materiais/travertino-romano.jpg", sub: "Importado" },
   { nome: "Pedra Ferro", img: "imagens/materiais/pedra-ferro.jpg", sub: "Nacional" }
 ];
+
 const materiaisGrid = document.getElementById('materiaisGrid');
 materiais.forEach(m => {
   const div = document.createElement('div');
@@ -261,11 +262,28 @@ function selecionarMaterial(card, nome) {
   document.getElementById('criar').scrollIntoView({behavior:'smooth'});
 }
 
-async function gerarVisual() {  const btn = document.getElementById('btnCriar');  const hint = document.getElementById('previewHint');  const img = document.getElementById('previewImg');  const status = document.getElementById('previewStatus');  const mat = document.getElementById('sMat').value;  const tipo = document.getElementById('sTipo').value;  const larg = document.getElementById('iLarg').value;  const prof = document.getElementById('iProf').value;  btn.disabled = true; btn.innerText = 'Gerando...';  hint.style.display = 'none'; img.style.display = 'none'; status.innerText = '';  try {    const res = await fetch('http://localhost:5679/api/describe/groq', {      method: 'POST',      headers: { 'Content-Type': 'application/json' },      body: JSON.stringify({ tipo: tipo, material: mat, medidas: `x`, acabamento: acabamento, ambiente: 'arquitetura brasileira' })    });    const data = await res.json();    const desc = data.description || '';    const canvas = document.createElement('canvas'); canvas.width=800; canvas.height=450;    const ctx = canvas.getContext('2d');    const cores = {      'Granito Preto São Gabriel': ['#1a1a1a','#2d2b2b'],      'Granito Branco Siena': ['#e8e4df','#f0ece6'],      'Mármore Calacatta': ['#f5f2ed','#eee9e2'],      'Quartzo Cinza Cimento': ['#b0aaa4','#9b958e'],      'Travertino Romano': ['#d4c4a8','#c9b896'],      'Pedra Ferro': ['#3a3a3a','#4a4744']    };    const cols = cores[mat] || ['#c8c0b0','#b8b0a0'];    const grad = ctx.createLinearGradient(0,0,800,450);    cols.forEach((c,i)=>grad.addColorStop(i/(cols.length-1),c));    ctx.fillStyle='#1c1c1c'; ctx.fillRect(0,0,800,450);    const isLight = mat.includes('Branco') || mat.includes('Calacatta');    ctx.fillStyle = isLight ? '#f0ede8' : '#2a2825'; ctx.fillRect(0,0,800,270);    ctx.fillStyle = isLight ? '#e8e4dd' : '#1e1c1a'; ctx.fillRect(0,270,800,180);    const bw = Math.min(600, 300+larg/3); const bh = Math.min(90, 60+prof/3);    ctx.fillStyle = grad; ctx.fillRect((800-bw)/2, 210, bw, bh+15);    img.src = canvas.toDataURL('image/jpeg',0.92); img.style.display='block';    status.innerText = desc.substring(0,160);  } catch(e) { hint.style.display='flex'; hint.innerText='Erro ao gerar. Tente novamente.'; }  btn.disabled=false; btn.innerText='Criar visualização';},
-      body: JSON.stringify({model:'claude-haiku-4-5-20251001', max_tokens:350, messages:[{role:'user', content:`Descreva em 2 frases uma ${tipo} de ${mat}, ${larg}x${prof}cm, acabamento ${acabamento}. Visual realista de arquitetura brasileira.`}]})
+// ========== FUNÇÃO GERAR VISUAL COM GROQ (TEXTO) + CANVAS (IMAGEM) ==========
+async function gerarVisual() {
+  const btn = document.getElementById('btnCriar');
+  const hint = document.getElementById('previewHint');
+  const img = document.getElementById('previewImg');
+  const status = document.getElementById('previewStatus');
+  const mat = document.getElementById('sMat').value;
+  const tipo = document.getElementById('sTipo').value;
+  const larg = document.getElementById('iLarg').value;
+  const prof = document.getElementById('iProf').value;
+  btn.disabled = true; btn.innerText = 'Gerando...';
+  hint.style.display = 'none'; img.style.display = 'none'; status.innerText = '';
+  try {
+    // Busca descrição via Groq (webhook local)
+    const res = await fetch('http://localhost:5679/api/describe/groq', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tipo: tipo, material: mat, medidas: `${larg}x${prof}`, acabamento: acabamento, ambiente: 'arquitetura brasileira' })
     });
     const data = await res.json();
-    const desc = data.content?.[0]?.text || '';
+    const desc = data.description || '';
+    // Geração da imagem (canvas) - igual ao original
     const canvas = document.createElement('canvas'); canvas.width=800; canvas.height=450;
     const ctx = canvas.getContext('2d');
     const cores = {
