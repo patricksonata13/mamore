@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stone Brothers – Mármore e Granito | Arquitetura Brasileira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',sans-serif;background:#fafaf7;color:#0e0e0e;line-height:1.5}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;background:rgba(250,250,247,.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,.05)}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;text-decoration:none;color:#0e0e0e}
+  .logo span{font-weight:300;font-style:italic;font-size:0.8rem;color:#8a7f71}
+  nav ul{list-style:none;display:flex;gap:2rem}
+  nav ul a{text-decoration:none;font-size:0.7rem;letter-spacing:.1em;text-transform:uppercase;color:#8a7f71}
+  nav ul a:hover{color:#0e0e0e}
+  .nav-cta{background:#0e0e0e;color:#fafaf7;padding:0.5rem 1.2rem;text-decoration:none;font-size:0.7rem;letter-spacing:.1em;text-transform:uppercase}
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:70px}
+  .hero-left{background:#ede8e0;display:flex;flex-direction:column;justify-content:center;padding:4rem}
+  .hero-tag{font-size:0.68rem;letter-spacing:.18em;text-transform:uppercase;color:#8a7f71;margin-bottom:2rem}
+  .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.8rem);font-weight:300;line-height:1.1;margin-bottom:1.5rem}
+  .hero-title em{font-style:italic;color:#8a7f71}
+  .hero-sub{font-size:0.85rem;color:#6b6259;line-height:1.8;max-width:360px;margin-bottom:2rem}
+  .hero-actions{display:flex;gap:1rem}
+  .btn-primary{background:#0e0e0e;color:#fafaf7;padding:0.8rem 1.8rem;font-size:0.72rem;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;display:inline-block}
+  .btn-outline{background:transparent;color:#0e0e0e;padding:0.8rem 1.8rem;font-size:0.72rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid #0e0e0e;text-decoration:none;display:inline-block}
+  .hero-stats{display:flex;gap:2rem;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(0,0,0,0.1)}
+  .stat-n{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300}
+  .stat-l{font-size:0.6rem;letter-spacing:.12em;text-transform:uppercase;color:#8a7f71}
+  .hero-right{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;position:relative}
+  .hero-img{overflow:hidden;position:relative;cursor:pointer}
+  .hero-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+  .hero-img:hover img{transform:scale(1.02)}
+  .hero-img-label{position:absolute;bottom:12px;left:14px;font-size:0.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,250,247,.9);background:rgba(14,14,14,.55);padding:4px 10px}
+  .hero-badge{position:absolute;bottom:2rem;right:2rem;background:#fafaf7;padding:1rem 1.2rem;font-family:'Cormorant Garamond',serif;border-left:3px solid #c8bfae;z-index:2}
+  .hero-badge strong{display:block;font-size:1.3rem;font-weight:600}
+  .section{padding:5rem 5%}
+  .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:300;text-align:center;margin-bottom:3rem}
+  .section-title em{font-style:italic;color:#8a7f71}
+  .mat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+  .mat-card{cursor:pointer;transition:transform 0.3s;border:2px solid transparent;background:#fff;padding:1rem}
+  .mat-card:hover{transform:translateY(-4px)}
+  .mat-card.selected{border-color:#0e0e0e}
+  .mat-img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+  .mat-name{font-weight:600;margin-top:0.6rem}
+  .mat-sub{font-size:0.7rem;color:#8a7f71;text-transform:uppercase;letter-spacing:.05em}
+  .portfolio-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:280px 280px;gap:1.5rem;margin-top:2rem}
+  .portfolio-item{overflow:hidden;position:relative;cursor:pointer}
+  .portfolio-item:first-child{grid-row:1/3}
+  .portfolio-img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s}
+  .portfolio-item:hover .portfolio-img{transform:scale(1.03)}
+  .portfolio-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:flex-end;padding:1.5rem;transition:background 0.3s}
+  .portfolio-item:hover .portfolio-overlay{background:rgba(0,0,0,0.4)}
+  .portfolio-label{font-family:'Cormorant Garamond',serif;font-size:1rem;color:#fff;opacity:0;transition:opacity 0.3s}
+  .portfolio-item:hover .portfolio-label{opacity:1}
+  .processo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:2rem}
+  .processo-step{padding-top:1.5rem;border-top:1px solid #c8bfae}
+  .processo-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:#c8bfae;margin-bottom:1rem}
+  .processo-title{font-weight:600;margin-bottom:0.5rem}
+  .processo-desc{font-size:0.8rem;color:#6b6259;line-height:1.6}
+  .contato-info{display:flex;justify-content:space-between;flex-wrap:wrap;gap:2rem;margin-top:2rem}
+  .contato-card{background:#fff;padding:2rem;text-align:center;flex:1;min-width:200px;box-shadow:0 2px 8px rgba(0,0,0,0.03)}
+  .contato-card h3{font-family:'Cormorant Garamond',serif;margin-bottom:0.5rem}
+  .contato-card p{color:#8a7f71;margin-bottom:1rem}
+  .whatsapp-btn{background:#0e0e0e;color:#fafaf7;padding:0.8rem 1.5rem;text-decoration:none;display:inline-block;border-radius:0;font-size:0.7rem;letter-spacing:.1em}
+  #criar{background:#0e0e0e;color:#fafaf7}
+  .criar-layout{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2rem}
+  .config-panel{display:flex;flex-direction:column;gap:1.5rem}
+  .config-group label{display:block;font-size:0.68rem;letter-spacing:.12em;text-transform:uppercase;color:#c8bfae;margin-bottom:0.5rem}
+  .config-group select,.config-group input{width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(200,191,174,0.3);color:#fafaf7;padding:0.7rem 1rem;font-family:inherit}
+  .dims{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .acab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem}
+  .acab-btn{background:rgba(255,255,255,0.05);border:1px solid rgba(200,191,174,0.2);padding:0.6rem;color:#fafaf7;cursor:pointer;font-size:0.7rem}
+  .acab-btn.active{background:#c8bfae;color:#0e0e0e}
+  .preview-area{background:rgba(255,255,255,0.04);border:1px solid rgba(200,191,174,0.15);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+  .preview-hint{text-align:center;color:#8a7f71;font-size:0.8rem}
+  .btn-criar{background:#c8bfae;color:#0e0e0e;padding:0.9rem;border:none;font-weight:500;cursor:pointer;width:100%;margin-top:0.5rem}
+  .btn-orc{background:transparent;border:1px solid rgba(255,255,255,0.3);color:#fafaf7;padding:0.9rem;cursor:pointer;width:100%;margin-top:0.8rem}
+  footer{background:#0e0e0e;border-top:1px solid rgba(200,191,174,0.1);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+  footer a{color:#c8bfae;text-decoration:none}
+  .notify{position:fixed;bottom:20px;right:20px;background:#0e0e0e;color:#c8bfae;padding:1rem;border-left:3px solid #c8bfae;z-index:1000;transform:translateX(120%);transition:0.3s}
+  .notify.show{transform:translateX(0)}
+  @media(max-width:800px){.hero{grid-template-columns:1fr}.hero-right{min-height:300px}.mat-grid{grid-template-columns:repeat(2,1fr)}.portfolio-grid{grid-template-columns:1fr;grid-template-rows:auto}.portfolio-item:first-child{grid-row:auto}.processo-grid{grid-template-columns:1fr 1fr}.criar-layout{grid-template-columns:1fr}nav ul{display:none}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="logo">Stone Brothers <span>mármore e granito | arquitetura brasileira</span></a>
+  <ul>
+    <li><a href="#materiais">Materiais</a></li>
+    <li><a href="#portfolio">Portfólio</a></li>
+    <li><a href="#criar">Criar</a></li>
+    <li><a href="#inspiracao">Inspiração</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a href="#contato" class="nav-cta">Orçamento</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Jacarepaguá · Rio de Janeiro · desde 2025</p>
+    <h1 class="hero-title">Pedra sob medida,<br><em>acabamento impecável.</em></h1>
+    <p class="hero-sub">Mármore, granito e quartzo cortados com precisão. Do orçamento à instalação em até 5 dias úteis.</p>
+    <div class="hero-actions">
+      <a href="#criar" class="btn-primary">Criar minha bancada</a>
+      <a href="#inspiracao" class="btn-outline">Ver inspirações</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-n">+500</div><div class="stat-l">projetos</div></div>
+      <div><div class="stat-n">5 dias</div><div class="stat-l">prazo médio</div></div>
+      <div><div class="stat-n">8+</div><div class="stat-l">tipos de pedra</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img"><img src="imagens/galeria/marmore-cozinha.jpg" alt="Cozinha"><span class="hero-img-label">Cozinha · Calacatta</span></div>
+    <div class="hero-img"><img src="imagens/galeria/marmore-branco-no-banheiro-michelangelo-marmores-768x513-1.jpg" alt="Banheiro"><span class="hero-img-label">Banheiro · Branco</span></div>
+    <div class="hero-img"><img src="imagens/galeria/marmore-e-papel-de-parede-compoem-decor-de-lavabo-simples-e-elegante2.webp" alt="Lavabo"><span class="hero-img-label">Lavabo · Carrara</span></div>
+    <div class="hero-img"><img src="imagens/galeria/bancada-sala.jpg" alt="Sala"><span class="hero-img-label">Sala · Premium</span></div>
+    <div class="hero-badge"><strong>+500</strong> projetos entregues no RJ</div>
+  </div>
+</section>
+
+<section id="materiais" class="section">
+  <h2 class="section-title">Materiais <em>para cada projeto</em></h2>
+  <div class="mat-grid" id="materiaisGrid"></div>
+</section>
+
+<section id="portfolio" class="section" style="background:#ede8e0">
+  <h2 class="section-title">Projetos <em>entregues em Jacarepaguá</em></h2>
+  <div class="portfolio-grid"><div class="portfolio-item"><img class="portfolio-img" src="imagens/portfolio/pexels_1775775194356.jpg" alt="Projeto"><div class="portfolio-overlay"><span class="portfolio-label">Novo projeto</span></div></div>
+    <div class="portfolio-item">
+      <img class="portfolio-img" src="https://images.pexels.com/photos/1571460/architecture-building-house-exterior-1571460.jpg" alt="Projeto 1">
+      <div class="portfolio-overlay"><span class="portfolio-label">Bancada Calacatta · Barra</span></div>
+    </div>
+    <div class="portfolio-item">
+      <img class="portfolio-img" src="https://images.pexels.com/photos/209251/pexels-photo-209251.jpeg" alt="Projeto 2">
+      <div class="portfolio-overlay"><span class="portfolio-label">Granito Preto · Pechincha</span></div>
+    </div>
+    <div class="portfolio-item">
+      <img class="portfolio-img" src="https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg" alt="Projeto 3">
+      <div class="portfolio-overlay"><span class="portfolio-label">Branco Siena · Freguesia</span></div>
+    </div>
+    <div class="portfolio-item">
+      <img class="portfolio-img" src="https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg" alt="Projeto 4">
+      <div class="portfolio-overlay"><span class="portfolio-label">Quartzo Cinza · Curicica</span></div>
+    </div>
+    <div class="portfolio-item">
+      <img class="portfolio-img" src="https://images.pexels.com/photos/1288481/pexels-photo-1288481.jpeg" alt="Projeto 5">
+      <div class="portfolio-overlay"><span class="portfolio-label">Mármore Calacatta · Taquara</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="processo" class="section">
+  <h2 class="section-title">Como funciona <em>o nosso processo</em></h2>
+  <div class="processo-grid">
+    <div class="processo-step"><div class="processo-num">01</div><div class="processo-title">Configure online</div><div class="processo-desc">Use o configurador com IA para escolher o material e as medidas.</div></div>
+    <div class="processo-step"><div class="processo-num">02</div><div class="processo-title">Visita técnica</div><div class="processo-desc">Medimos o local e validamos o orçamento. Gratuita na região.</div></div>
+    <div class="processo-step"><div class="processo-num">03</div><div class="processo-title">Produção</div><div class="processo-desc">Cortamos sob medida no nosso galpão em Jacarepaguá.</div></div>
+    <div class="processo-step"><div class="processo-num">04</div><div class="processo-title">Instalação</div><div class="processo-desc">Entregamos e instalamos com nossa equipe. Pós-venda incluso.</div></div>
+  </div>
+</section>
+
+<section id="criar">
+  <div class="section" style="padding-bottom:3rem">
+    <h2 class="section-title" style="color:#fafaf7">Crie sua <em>bancada sob medida</em></h2>
+    <div class="criar-layout">
+      <div class="config-panel">
+        <div class="config-group"><label>Material</label><select id="sMat"><option value="Granito Preto São Gabriel">Granito Preto São Gabriel</option><option value="Granito Branco Siena">Granito Branco Siena</option><option value="Mármore Calacatta">Mármore Calacatta</option><option value="Quartzo Cinza Cimento">Quartzo Cinza Cimento</option><option value="Travertino Romano">Travertino Romano</option><option value="Pedra Ferro">Pedra Ferro</option></select></div>
+        <div class="config-group"><label>Tipo</label><select id="sTipo"><option>Bancada de cozinha</option><option>Bancada de banheiro</option><option>Soleira</option><option>Revestimento</option></select></div>
+        <div class="config-group"><label>Dimensões (cm)</label><div class="dims"><div><label style="font-size:.6rem">Largura</label><input type="number" id="iLarg" value="200" min="30" max="600" step="10"></div><div><label style="font-size:.6rem">Profundidade</label><input type="number" id="iProf" value="60" min="20" max="200" step="5"></div></div></div>
+        <div class="config-group"><label>Acabamento</label><div class="acab-grid"><button class="acab-btn active" onclick="setAcab(this,'Boleado')">Boleado</button><button class="acab-btn" onclick="setAcab(this,'Chanfrado')">Chanfrado</button><button class="acab-btn" onclick="setAcab(this,'Reto')">Reto</button></div></div>
+        <div class="config-group"><label>Cuba</label><select id="sFuro"><option value="Sem furo">Sem furo</option><option value="1 cuba">1 cuba</option><option value="2 cubas">2 cubas</option></select></div>
+      </div>
+      <div>
+        <div class="preview-area" id="previewArea"><div class="preview-hint" id="previewHint">Clique em "Criar" para visualizar com IA</div><img id="previewImg" style="display:none;width:100%;height:100%;object-fit:cover"></div>
+        <p id="previewStatus" style="font-size:.7rem;color:#c8bfae;margin-top:.5rem;text-align:center"></p>
+        <button class="btn-criar" id="btnCriar" onclick="gerarVisual()">Criar visualização</button>
+        <button class="btn-orc" onclick="solicitarOrcamentoWhats()">Solicitar orçamento</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="inspiracao" class="section">
+  <h2 class="section-title">Inspiração <em>em casas brasileiras</em></h2>
+  <div id="galeriaContainer" class="mat-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
+    <div style="text-align:center; grid-column:1/-1">Carregando imagens...</div>
+  </div>
+</section>
+
+<section id="contato" class="section" style="background:#ede8e0">
+  <h2 class="section-title">Fale <em>conosco</em></h2>
+  <div class="contato-info">
+    <div class="contato-card"><h3>📍 Localização</h3><p>Jacarepaguá, Rio de Janeiro</p></div>
+    <div class="contato-card"><h3>⏱ Horário</h3><p>Seg–Sex: 8h–18h<br>Sáb: 8h–12h</p></div>
+    <div class="contato-card"><h3>📱 WhatsApp</h3><p>(21) 99999-0000</p><a href="https://wa.me/5521999990000" target="_blank" class="whatsapp-btn">Enviar mensagem</a></div>
+  </div>
+</section>
+
+<footer>
+  <a href="#" style="font-family:Georgia,serif;font-size:1rem;font-weight:600;color:#fafaf7;text-decoration:none">Stone Brothers <span style="font-weight:300;font-style:italic">Marble & Granite</span></a>
+  <p style="font-size:.7rem;color:#8a7f71">© 2025 · Jacarepaguá, RJ | <a href="admin.html">Admin</a></p>
+</footer>
+
+<div class="notify" id="notify"></div>
+
+<script>
+const API_BASE = 'http://localhost:5679';
+let acabamento = 'Boleado';
+
+function setAcab(btn, val) {
+  document.querySelectorAll('.acab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  acabamento = val;
+}
+
+async function carregarGaleria() {
+  const container = document.getElementById('galeriaContainer');
+  try {
+    const res = await fetch(`${API_BASE}/api/list-images`);
+    const data = await res.json();
+    if (data.images && data.images.length) {
+      container.innerHTML = data.images.map(img => `
+        <div class="mat-card" style="cursor:pointer" onclick="window.open('imagens/galeria/${img}','_blank')">
+          <img class="mat-img" src="imagens/galeria/${img}" loading="lazy">
+          <p class="mat-name">Projeto residencial</p>
+        </div>
+      `).join('');
+    } else {
+      container.innerHTML = '<p style="grid-column:1/-1; text-align:center">Adicione imagens pelo <a href="admin.html" style="color:#8a7f71">painel admin</a>.</p>';
+    }
+  } catch(e) { container.innerHTML = '<p style="grid-column:1/-1">Erro ao carregar galeria.</p>'; }
+}
+
+// ========== MATERIAIS COM IMAGENS LOCAIS ==========
+const materiais = [
+  { nome: "Granito Preto São Gabriel", img: "imagens/materiais/granito-preto.jpg", sub: "Nacional" },
+  { nome: "Granito Branco Siena", img: "imagens/materiais/granito-branco.jpg", sub: "Nacional" },
+  { nome: "Mármore Calacatta", img: "imagens/materiais/marmore-calacatta.jpg", sub: "Importado" },
+  { nome: "Quartzo Cinza Cimento", img: "imagens/materiais/quartzo-cinza.jpg", sub: "Industrial" },
+  { nome: "Travertino Romano", img: "imagens/materiais/travertino-romano.jpg", sub: "Importado" },
+  { nome: "Pedra Ferro", img: "imagens/materiais/pedra-ferro.jpg", sub: "Nacional" }
+];
+
+const materiaisGrid = document.getElementById('materiaisGrid');
+materiais.forEach(m => {
+  const div = document.createElement('div');
+  div.className = 'mat-card';
+  div.setAttribute('data-mat', m.nome);
+  div.innerHTML = `<img class="mat-img" src="${m.img}" alt="${m.nome}" onerror="this.src='https://placehold.co/400x400?text=${encodeURIComponent(m.nome)}'"><p class="mat-name">${m.nome}</p><p class="mat-sub">${m.sub}</p>`;
+  div.onclick = () => selecionarMaterial(div, m.nome);
+  materiaisGrid.appendChild(div);
+});
+
+function selecionarMaterial(card, nome) {
+  document.querySelectorAll('.mat-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  const sel = document.getElementById('sMat');
+  for(let opt of sel.options) if(opt.value === nome) { opt.selected = true; break; }
+  document.getElementById('criar').scrollIntoView({behavior:'smooth'});
+}
+
+async function gerarVisual() {
+  const btn = document.getElementById('btnCriar');
+  const hint = document.getElementById('previewHint');
+  const img = document.getElementById('previewImg');
+  const status = document.getElementById('previewStatus');
+  const mat = document.getElementById('sMat').value;
+  const tipo = document.getElementById('sTipo').value;
+  const larg = document.getElementById('iLarg').value;
+  const prof = document.getElementById('iProf').value;
+  btn.disabled = true; btn.innerText = 'Gerando...';
+  hint.style.display = 'none'; img.style.display = 'none'; status.innerText = '';
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({model:'claude-haiku-4-5-20251001', max_tokens:350, messages:[{role:'user', content:`Descreva em 2 frases uma ${tipo} de ${mat}, ${larg}x${prof}cm, acabamento ${acabamento}. Visual realista de arquitetura brasileira.`}]})
+    });
+    const data = await res.json();
+    const desc = data.content?.[0]?.text || '';
+    const canvas = document.createElement('canvas'); canvas.width=800; canvas.height=450;
+    const ctx = canvas.getContext('2d');
+    const cores = {
+      'Granito Preto São Gabriel': ['#1a1a1a','#2d2b2b'],
+      'Granito Branco Siena': ['#e8e4df','#f0ece6'],
+      'Mármore Calacatta': ['#f5f2ed','#eee9e2'],
+      'Quartzo Cinza Cimento': ['#b0aaa4','#9b958e'],
+      'Travertino Romano': ['#d4c4a8','#c9b896'],
+      'Pedra Ferro': ['#3a3a3a','#4a4744']
+    };
+    const cols = cores[mat] || ['#c8c0b0','#b8b0a0'];
+    const grad = ctx.createLinearGradient(0,0,800,450);
+    cols.forEach((c,i)=>grad.addColorStop(i/(cols.length-1),c));
+    ctx.fillStyle='#1c1c1c'; ctx.fillRect(0,0,800,450);
+    const isLight = mat.includes('Branco') || mat.includes('Calacatta');
+    ctx.fillStyle = isLight ? '#f0ede8' : '#2a2825'; ctx.fillRect(0,0,800,270);
+    ctx.fillStyle = isLight ? '#e8e4dd' : '#1e1c1a'; ctx.fillRect(0,270,800,180);
+    const bw = Math.min(600, 300+larg/3); const bh = Math.min(90, 60+prof/3);
+    ctx.fillStyle = grad; ctx.fillRect((800-bw)/2, 210, bw, bh+15);
+    img.src = canvas.toDataURL('image/jpeg',0.92); img.style.display='block';
+    status.innerText = desc.substring(0,160);
+  } catch(e) { hint.style.display='flex'; hint.innerText='Erro ao gerar. Tente novamente.'; }
+  btn.disabled=false; btn.innerText='Criar visualização';
+}
+
+function solicitarOrcamentoWhats() {
+  const mat = document.getElementById('sMat').value;
+  const tipo = document.getElementById('sTipo').value;
+  const larg = document.getElementById('iLarg').value;
+  const prof = document.getElementById('iProf').value;
+  const furo = document.getElementById('sFuro').value;
+  const texto = `Olá! Gostaria de um orçamento para:\n\n${tipo}\nMaterial: ${mat}\nMedidas: ${larg}x${prof} cm\nAcabamento: ${acabamento}\nCuba: ${furo}`;
+  window.open(`https://wa.me/5521999990000?text=${encodeURIComponent(texto)}`, '_blank');
+  mostrarNotif('Abrindo WhatsApp para enviar seu orçamento...');
+}
+
+function mostrarNotif(msg) { const n = document.getElementById('notify'); n.innerText = msg; n.classList.add('show'); setTimeout(()=>n.classList.remove('show'),4000); }
+
+carregarGaleria();
+</script>
+</body>
+</html>
