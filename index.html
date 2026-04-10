@@ -129,7 +129,7 @@
 
 <section id="portfolio" class="section" style="background:#ede8e0">
   <h2 class="section-title">Projetos <em>entregues em Jacarepaguá</em></h2>
-  <div class="portfolio-grid"><div class="portfolio-item"><img class="portfolio-img" src="imagens/portfolio/pexels_1775775194356.jpg" alt="Projeto"><div class="portfolio-overlay"><span class="portfolio-label">Novo projeto</span></div></div>
+  <div class="portfolio-grid">
     <div class="portfolio-item">
       <img class="portfolio-img" src="https://images.pexels.com/photos/1571460/architecture-building-house-exterior-1571460.jpg" alt="Projeto 1">
       <div class="portfolio-overlay"><span class="portfolio-label">Bancada Calacatta · Barra</span></div>
@@ -235,7 +235,6 @@ async function carregarGaleria() {
   } catch(e) { container.innerHTML = '<p style="grid-column:1/-1">Erro ao carregar galeria.</p>'; }
 }
 
-// ========== MATERIAIS COM IMAGENS LOCAIS ==========
 const materiais = [
   { nome: "Granito Preto São Gabriel", img: "imagens/materiais/granito-preto.jpg", sub: "Nacional" },
   { nome: "Granito Branco Siena", img: "imagens/materiais/granito-branco.jpg", sub: "Nacional" },
@@ -244,7 +243,6 @@ const materiais = [
   { nome: "Travertino Romano", img: "imagens/materiais/travertino-romano.jpg", sub: "Importado" },
   { nome: "Pedra Ferro", img: "imagens/materiais/pedra-ferro.jpg", sub: "Nacional" }
 ];
-
 const materiaisGrid = document.getElementById('materiaisGrid');
 materiais.forEach(m => {
   const div = document.createElement('div');
@@ -316,6 +314,31 @@ function solicitarOrcamentoWhats() {
   const texto = `Olá! Gostaria de um orçamento para:\n\n${tipo}\nMaterial: ${mat}\nMedidas: ${larg}x${prof} cm\nAcabamento: ${acabamento}\nCuba: ${furo}`;
   window.open(`https://wa.me/5521999990000?text=${encodeURIComponent(texto)}`, '_blank');
   mostrarNotif('Abrindo WhatsApp para enviar seu orçamento...');
+}
+
+async function enviarOrcamento(e) {
+  e.preventDefault();
+  const nome = document.getElementById('fNome').value;
+  const tel = document.getElementById('fTel').value;
+  const serv = document.getElementById('fServico').value;
+  const msg = document.getElementById('fMsg').value;
+  const btn = document.querySelector('.form-submit');
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+  try {
+    await fetch('http://localhost:5679/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: nome, phone: tel, message: serv + (msg ? '\n' + msg : ''), channel: 'site' })
+    });
+    mostrarNotif('Lead enviado! Entraremos em contato.');
+    document.getElementById('formOrc').reset();
+  } catch(err) {
+    mostrarNotif('Erro ao enviar. Tente novamente.');
+  }
+  btn.textContent = 'Enviar solicitação';
+  btn.disabled = false;
+  window.open(`https://wa.me/55${tel.replace(/\D/g,'')}?text=${encodeURIComponent('Olá! Enviei meu pedido pelo site.')}`, '_blank');
 }
 
 function mostrarNotif(msg) { const n = document.getElementById('notify'); n.innerText = msg; n.classList.add('show'); setTimeout(()=>n.classList.remove('show'),4000); }
