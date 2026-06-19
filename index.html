@@ -34,13 +34,14 @@ body{font-family:var(--sans);background:var(--white);color:var(--ink);font-size:
 
 /* NAV */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
+  position:fixed;top:0;left:0;right:0;z-index:9999;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 4rem;height:72px;
-  background:rgba(253,252,249,0.96);
-  backdrop-filter:blur(16px);
+  background:#fdfcf9;
   border-bottom:1px solid rgba(201,185,154,0.25);
+  visibility:visible!important;opacity:1!important;
 }
+nav *{visibility:visible!important;opacity:1!important;}
 .nav-logo{display:flex;align-items:center;text-decoration:none;gap:0.75rem}
 .nav-logo-mark svg{display:block}
 .nav-logo-text{display:flex;flex-direction:column;gap:1px}
