@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stone Brothers CRM – Gestão de Projetos em Mármore</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:system-ui;background:#fafaf7;color:#0e0e0e;padding:2rem}
+  h1{font-family:Georgia,serif;font-weight:300;margin-bottom:0.5rem}
+  .sub{color:#8a7f71;margin-bottom:2rem}
+  .toolbar{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem;align-items:center}
+  .toolbar button,.toolbar select,.toolbar input{padding:0.5rem 1rem;border:1px solid #ddd;background:#fff}
+  .toolbar button{cursor:pointer;background:#0e0e0e;color:#fff;border:none}
+  .filtros{display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+  .filtros input,.filtros select{padding:0.5rem;border:1px solid #ddd}
+  .view-toggle{display:flex;gap:0.5rem;margin-bottom:1rem}
+  .view-toggle button{padding:0.3rem 1rem;background:#eee;border:1px solid #ccc;cursor:pointer}
+  .view-toggle button.active{background:#0e0e0e;color:#fff}
+  .table-view table{width:100%;border-collapse:collapse;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+  .table-view th,td{padding:0.75rem;text-align:left;border-bottom:1px solid #eee;vertical-align:top}
+  .table-view th{background:#0e0e0e;color:#fafaf7}
+  .kanban-view{display:flex;gap:1.5rem;overflow-x:auto}
+  .kanban-col{background:#f4f4f4;border-radius:8px;min-width:280px;padding:0.5rem}
+  .kanban-col h3{padding:0.5rem;background:#e0e0e0;border-radius:4px;margin-bottom:0.5rem}
+  .kanban-card{background:#fff;border-radius:6px;padding:0.5rem;margin-bottom:0.5rem;box-shadow:0 1px 2px rgba(0,0,0,0.1);cursor:grab}
+  .dashboard-stats{display:flex;gap:1.5rem;margin-bottom:2rem;flex-wrap:wrap}
+  .stat-card{background:#fff;padding:1rem;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.05);flex:1;min-width:150px;text-align:center}
+  .stat-number{font-size:2rem;font-weight:600}
+  canvas{max-height:300px;margin-bottom:2rem}
+  .hidden{display:none}
+  .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000}
+  .modal-content{background:#fff;padding:2rem;border-radius:8px;max-width:500px;width:90%}
+  .modal-content input,.modal-content select{width:100%;padding:0.5rem;margin-bottom:1rem}
+  .sugestoes-ia{background:#f0f4f8;padding:1rem;border-radius:8px;margin:1rem 0}
+</style>
+</head>
+<body>
+<div id="login" class="hidden">
+  <h2>Acesso restrito</h2>
+  <input type="password" id="senha" placeholder="Digite a senha">
+  <button onclick="verificarSenha()">Entrar</button>
+</div>
+<div id="conteudo" class="hidden">
+  <h1>Stone Brothers CRM – Mármores e Granitos</h1>
+  <p class="sub">Gestão de projetos, cálculo de área e inteligência artificial</p>
+
+  <div class="toolbar">
+    <button onclick="novoProjeto()">➕ Novo Projeto</button>
+    <button onclick="exportarCSV()">📎 Exportar CSV</button>
+    <button onclick="enviarEmail()">✉️ Enviar e-mail</button>
+    <button onclick="enviarParaSheets()">📊 Enviar para Google Sheets</button>
+    <select id="leadSelecionado"></select>
+  </div>
+
+  <div class="filtros">
+    <input type="text" id="filtroNome" placeholder="Filtrar por nome" oninput="renderizar()">
+    <select id="filtroStatus" onchange="renderizar()">
+      <option value="">Todos os status</option>
+      <option value="novo">Novo</option>
+      <option value="contatado">Contatado</option>
+      <option value="orcamento_enviado">Orçamento enviado</option>
+      <option value="negociacao">Negociação</option>
+      <option value="aprovado">Aprovado</option>
+      <option value="perdido">Perdido</option>
+    </select>
+    <button onclick="carregar()">⟳ Atualizar</button>
+  </div>
+
+  <div class="view-toggle">
+    <button id="btnTabela" class="active" onclick="setView('tabela')">📋 Tabela</button>
+    <button id="btnKanban" onclick="setView('kanban')">📌 Kanban</button>
+    <button id="btnDashboard" onclick="setView('dashboard')">📊 Dashboard</button>
+  </div>
+
+  <div id="viewTabela" class="table-view"></div>
+  <div id="viewKanban" class="kanban-view hidden"></div>
+  <div id="viewDashboard" class="hidden">
+    <div class="dashboard-stats" id="stats"></div>
+    <canvas id="chartStatus"></canvas>
+    <canvas id="chartMaterial"></canvas>
+    <canvas id="chartDaily"></canvas>
+  </div>
+</div>
+
+<!-- Modal Novo Projeto -->
+<div id="modalProjeto" class="hidden" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000">
+  <div class="modal-content">
+    <h3>Novo Projeto</h3>
+    <input type="text" id="nomeCliente" placeholder="Nome do cliente">
+    <input type="tel" id="telefone" placeholder="Telefone">
+    <select id="tipoPeca">
+      <option value="Bancada de cozinha">Bancada de cozinha</option>
+      <option value="Bancada de banheiro">Bancada de banheiro</option>
+      <option value="Soleira">Soleira</option>
+      <option value="Revestimento">Revestimento</option>
+    </select>
+    <div style="display:flex;gap:1rem">
+      <input type="number" id="largura" placeholder="Largura (cm)" value="200">
+      <input type="number" id="profundidade" placeholder="Profundidade (cm)" value="60">
+    </div>
+    <select id="materialProjeto">
+      <option value="">Selecionar material</option>
+    </select>
+    <select id="acabamentoProjeto">
+      <option value="Boleado">Boleado</option>
+      <option value="Chanfrado">Chanfrado</option>
+      <option value="Reto">Reto</option>
+    </select>
+    <div id="sugestoesIA" class="sugestoes-ia hidden"></div>
+    <button onclick="calcularAreaESugerir()">💡 Sugerir materiais com IA</button>
+    <p>Área: <span id="areaCalculada">0</span> m²</p>
+    <p>Valor estimado: R$ <span id="valorEstimado">0</span></p>
+    <button onclick="salvarProjeto()">Salvar Projeto</button>
+    <button onclick="fecharModal()">Cancelar</button>
+  </div>
+</div>
+
+<script>
+let leads = [];
+let materiais = [];
+let currentView = 'tabela';
+let chartStatus, chartMaterial, chartDaily;
+
+function verificarSenha() {
+  const senha = document.getElementById('senha').value;
+  if (senha === 'stone2025') {
+    document.getElementById('login').classList.add('hidden');
+    document.getElementById('conteudo').classList.remove('hidden');
+    carregarMateriais();
+    carregar();
+  } else {
+    alert('Senha incorreta');
+  }
+}
+
+async function carregarMateriais() {
+  const res = await fetch('/api/materiais');
+  materiais = await res.json();
+  const select = document.getElementById('materialProjeto');
+  select.innerHTML = '<option value="">Selecionar material</option>' + materiais.map(m => `<option value="${m.id}" data-preco="${m.preco_m2}">${m.nome} - R$ ${m.preco_m2}/m²</option>`).join('');
+  select.onchange = calcularValor;
+}
+
+async function carregar() {
+  try {
+    const res = await fetch('/leads_backup.json?t=' + Date.now());
+    leads = await res.json();
+    leads = leads.map(l => ({ ...l, status: l.status || 'novo', observacao: l.observacao || '', tipo_projeto: l.tipo_projeto || 'Bancada', material: l.material || '', dimensoes: l.dimensoes || '', area_m2: l.area_m2 || 0, valor_estimado: l.valor_estimado || 0 }));
+    salvarLeads();
+    renderizar();
+    atualizarSelectLead();
+    if (currentView === 'dashboard') atualizarDashboard();
+  } catch(e) { console.error(e); }
+}
+
+function salvarLeads() {
+  fetch('/api/save-leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(leads) });
+}
+
+function atualizarStatus(index, novoStatus) {
+  leads[index].status = novoStatus;
+  salvarLeads();
+  renderizar();
+  if (currentView === 'dashboard') atualizarDashboard();
+}
+
+function atualizarObs(index, obs) {
+  leads[index].observacao = obs;
+  salvarLeads();
+}
+
+function atualizarSelectLead() {
+  const sel = document.getElementById('leadSelecionado');
+  sel.innerHTML = leads.map((l, i) => `<option value="${i}">${l.name || 'Anônimo'} - ${l.phone || ''}</option>`).join('');
+}
+
+function enviarEmail() {
+  const idx = document.getElementById('leadSelecionado').value;
+  if (!leads[idx]) return;
+  const lead = leads[idx];
+  const assunto = prompt('Assunto do e-mail:', 'Orçamento Stone Brothers');
+  if (!assunto) return;
+  const corpo = prompt('Corpo do e-mail:', `Olá ${lead.name},\n\nSegue orçamento para ${lead.tipo_projeto} em ${lead.material}...`);
+  if (!corpo) return;
+  fetch('/api/send-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ to: lead.email || lead.phone + '@temp.com', subject: assunto, text: corpo })
+  }).then(() => alert('E-mail enviado (simulado)')).catch(e => alert('Erro: ' + e.message));
+}
+
+function exportarCSV() {
+  const filtrados = filtrarLeads();
+  const headers = ['Data','Nome','Telefone','Tipo','Material','Dimensões (cm)','Área (m²)','Valor Estimado','Status','Observação'];
+  const rows = filtrados.map(l => [
+    new Date(l.timestamp).toLocaleString('pt-BR'),
+    l.name || '',
+    l.phone || '',
+    l.tipo_projeto || '',
+    l.material || '',
+    l.dimensoes || '',
+    l.area_m2 || '',
+    l.valor_estimado || '',
+    l.status,
+    l.observacao || ''
+  ]);
+  const csv = [headers, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+  const blob = new Blob(["\uFEFF" + csv], {type: 'text/csv;charset=utf-8;'});
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'projetos.csv';
+  link.click();
+}
+
+function enviarParaSheets() {
+  const filtrados = filtrarLeads();
+  fetch('/api/send-to-sheets', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ leads: filtrados })
+  }).then(() => alert('Dados enviados para simulação')).catch(e => alert('Erro: ' + e.message));
+}
+
+function filtrarLeads() {
+  const nome = document.getElementById('filtroNome').value.toLowerCase();
+  const statusFiltro = document.getElementById('filtroStatus').value;
+  return leads.filter(l => {
+    const matchNome = !nome || (l.name || '').toLowerCase().includes(nome);
+    const matchStatus = !statusFiltro || l.status === statusFiltro;
+    return matchNome && matchStatus;
+  });
+}
+
+function renderizar() {
+  if (currentView === 'tabela') renderizarTabela();
+  else if (currentView === 'kanban') renderizarKanban();
+}
+
+function renderizarTabela() {
+  const filtrados = filtrarLeads();
+  const html = `
+    <table>
+      <thead><tr><th>Data</th><th>Nome</th><th>Telefone</th><th>Tipo</th><th>Material</th><th>Dimensões</th><th>Área (m²)</th><th>Valor (R$)</th><th>Status</th><th>Observações</th></tr></thead>
+      <tbody>
+        ${filtrados.map((l, idx) => {
+          const originalIndex = leads.findIndex(lead => lead.timestamp === l.timestamp);
+          return `<tr>
+            <td>${new Date(l.timestamp).toLocaleString('pt-BR')}</td>
+            <td>${l.name || '-'}</td>
+            <td>${l.phone || '-'}</td>
+            <td>${l.tipo_projeto || '-'}</td>
+            <td>${l.material || '-'}</td>
+            <td>${l.dimensoes || '-'}</td>
+            <td>${l.area_m2 || 0}</td>
+            <td>${l.valor_estimado || 0}</td>
+            <td><select onchange="atualizarStatus(${originalIndex}, this.value)">
+              <option value="novo" ${l.status === 'novo' ? 'selected' : ''}>Novo</option>
+              <option value="contatado" ${l.status === 'contatado' ? 'selected' : ''}>Contatado</option>
+              <option value="orcamento_enviado" ${l.status === 'orcamento_enviado' ? 'selected' : ''}>Orçamento enviado</option>
+              <option value="negociacao" ${l.status === 'negociacao' ? 'selected' : ''}>Negociação</option>
+              <option value="aprovado" ${l.status === 'aprovado' ? 'selected' : ''}>Aprovado</option>
+              <option value="perdido" ${l.status === 'perdido' ? 'selected' : ''}>Perdido</option>
+            </select></td>
+            <td><textarea rows="2" style="width:100%" onblur="atualizarObs(${originalIndex}, this.value)">${l.observacao || ''}</textarea></td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+  document.getElementById('viewTabela').innerHTML = html || '<p>Nenhum projeto encontrado.</p>';
+}
+
+function renderizarKanban() {
+  const statuses = ['novo', 'contatado', 'orcamento_enviado', 'negociacao', 'aprovado', 'perdido'];
+  const labels = { novo:'Novo', contatado:'Contatado', orcamento_enviado:'Orçamento enviado', negociacao:'Negociação', aprovado:'Aprovado', perdido:'Perdido' };
+  const container = document.getElementById('viewKanban');
+  container.innerHTML = '';
+  statuses.forEach(status => {
+    const col = document.createElement('div');
+    col.className = 'kanban-col';
+    col.setAttribute('data-status', status);
+    col.innerHTML = `<h3>${labels[status]}</h3><div class="kanban-cards" id="kanban-${status}"></div>`;
+    container.appendChild(col);
+    const cardsDiv = col.querySelector('.kanban-cards');
+    const leadsStatus = leads.filter(l => l.status === status);
+    leadsStatus.forEach((l, idx) => {
+      const card = document.createElement('div');
+      card.className = 'kanban-card';
+      card.setAttribute('data-idx', leads.findIndex(lead => lead.timestamp === l.timestamp));
+      card.innerHTML = `<strong>${l.name || 'Anônimo'}</strong><br>${l.phone || ''}<br>
+        <small>${l.tipo_projeto || ''} | ${l.area_m2 || 0}m² | R$ ${l.valor_estimado || 0}</small><br>
+        <textarea rows="2" style="width:100%" onblur="atualizarObs(${leads.findIndex(lead => lead.timestamp === l.timestamp)}, this.value)">${l.observacao || ''}</textarea>`;
+      cardsDiv.appendChild(card);
+    });
+    new Sortable(cardsDiv, {
+      group: 'shared',
+      onEnd: function(evt) {
+        const newStatus = evt.to.closest('.kanban-col').dataset.status;
+        const idx = parseInt(evt.item.dataset.idx);
+        if (!isNaN(idx)) atualizarStatus(idx, newStatus);
+      }
+    });
+  });
+}
+
+function atualizarDashboard() {
+  const statusCount = { novo:0, contatado:0, orcamento_enviado:0, negociacao:0, aprovado:0, perdido:0 };
+  const materialCount = {};
+  const dailyCount = {};
+  let valorTotal = 0;
+  leads.forEach(l => {
+    statusCount[l.status]++;
+    if (l.material) materialCount[l.material] = (materialCount[l.material] || 0) + 1;
+    const day = new Date(l.timestamp).toISOString().split('T')[0];
+    dailyCount[day] = (dailyCount[day] || 0) + 1;
+    valorTotal += (parseFloat(l.valor_estimado) || 0);
+  });
+  const statsHtml = `
+    <div class="stat-card"><div class="stat-number">${leads.length}</div><div>Projetos</div></div>
+    <div class="stat-card"><div class="stat-number">${statusCount.aprovado}</div><div>Aprovados</div></div>
+    <div class="stat-card"><div class="stat-number">R$ ${valorTotal.toLocaleString()}</div><div>Valor total</div></div>
+  `;
+  document.getElementById('stats').innerHTML = statsHtml;
+  if (chartStatus) chartStatus.destroy();
+  if (chartMaterial) chartMaterial.destroy();
+  if (chartDaily) chartDaily.destroy();
+  chartStatus = new Chart(document.getElementById('chartStatus'), { type: 'bar', data: { labels: Object.keys(statusCount), datasets: [{ label: 'Projetos por status', data: Object.values(statusCount) }] } });
+  chartMaterial = new Chart(document.getElementById('chartMaterial'), { type: 'pie', data: { labels: Object.keys(materialCount), datasets: [{ label: 'Materiais mais usados', data: Object.values(materialCount) }] } });
+  chartDaily = new Chart(document.getElementById('chartDaily'), { type: 'line', data: { labels: Object.keys(dailyCount), datasets: [{ label: 'Projetos por dia', data: Object.values(dailyCount) }] } });
+}
+
+function setView(view) {
+  currentView = view;
+  document.getElementById('viewTabela').classList.add('hidden');
+  document.getElementById('viewKanban').classList.add('hidden');
+  document.getElementById('viewDashboard').classList.add('hidden');
+  document.getElementById(`view${view.charAt(0).toUpperCase() + view.slice(1)}`).classList.remove('hidden');
+  ['btnTabela','btnKanban','btnDashboard'].forEach(id => document.getElementById(id).classList.remove('active'));
+  if (view === 'tabela') document.getElementById('btnTabela').classList.add('active');
+  else if (view === 'kanban') document.getElementById('btnKanban').classList.add('active');
+  else if (view === 'dashboard') { document.getElementById('btnDashboard').classList.add('active'); atualizarDashboard(); }
+  renderizar();
+}
+
+// ========== FUNÇÕES DO MODAL NOVO PROJETO ==========
+function novoProjeto() {
+  document.getElementById('modalProjeto').classList.remove('hidden');
+  document.getElementById('sugestoesIA').classList.add('hidden');
+  calcularAreaESugerir(); // atualiza área e valor base
+}
+
+function fecharModal() {
+  document.getElementById('modalProjeto').classList.add('hidden');
+}
+
+function calcularArea() {
+  const larg = parseFloat(document.getElementById('largura').value) || 0;
+  const prof = parseFloat(document.getElementById('profundidade').value) || 0;
+  const area = (larg/100)*(prof/100);
+  document.getElementById('areaCalculada').innerText = area.toFixed(2);
+  return area;
+}
+
+function calcularValor() {
+  const select = document.getElementById('materialProjeto');
+  const preco = select.options[select.selectedIndex]?.dataset?.preco || 0;
+  const area = parseFloat(document.getElementById('areaCalculada').innerText) || 0;
+  const valor = area * preco;
+  document.getElementById('valorEstimado').innerText = valor.toFixed(2);
+  return valor;
+}
+
+async function calcularAreaESugerir() {
+  calcularArea();
+  const valor = calcularValor();
+  // Chamar IA para sugerir materiais
+  const larg = document.getElementById('largura').value;
+  const prof = document.getElementById('profundidade').value;
+  const tipo = document.getElementById('tipoPeca').value;
+  const ambiente = tipo.includes('cozinha') ? 'cozinha' : (tipo.includes('banheiro') ? 'banheiro' : 'ambiente');
+  const sugestoesDiv = document.getElementById('sugestoesIA');
+  sugestoesDiv.classList.remove('hidden');
+  sugestoesDiv.innerHTML = '<em>Carregando sugestões com IA...</em>';
+  try {
+    const res = await fetch('/api/sugerir-material', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ambiente, largura: larg, profundidade: prof, tipo_peca: tipo })
+    });
+    const data = await res.json();
+    if (data.sucess && data.sugestoes) {
+      sugestoesDiv.innerHTML = '<strong>Sugestões de materiais (IA):</strong><ul>' + data.sugestoes.map(s => `<li>${s.nome}: ${s.justificativa}</li>`).join('') + '</ul>';
+    } else {
+      sugestoesDiv.innerHTML = 'Não foi possível obter sugestões no momento.';
+    }
+  } catch(e) {
+    sugestoesDiv.innerHTML = 'Erro ao consultar IA.';
+  }
+}
+
+async function salvarProjeto() {
+  const nome = document.getElementById('nomeCliente').value;
+  const telefone = document.getElementById('telefone').value;
+  const tipo = document.getElementById('tipoPeca').value;
+  const materialId = document.getElementById('materialProjeto').value;
+  const materialNome = document.getElementById('materialProjeto').options[document.getElementById('materialProjeto').selectedIndex]?.text.split(' -')[0];
+  const larg = document.getElementById('largura').value;
+  const prof = document.getElementById('profundidade').value;
+  const acabamento = document.getElementById('acabamentoProjeto').value;
+  const area = parseFloat(document.getElementById('areaCalculada').innerText);
+  const valor = parseFloat(document.getElementById('valorEstimado').innerText);
+  if (!nome || !telefone) { alert('Preencha nome e telefone'); return; }
+  const novoLead = {
+    timestamp: new Date().toISOString(),
+    name: nome,
+    phone: telefone,
+    tipo_projeto: tipo,
+    material: materialNome,
+    dimensoes: `${larg}x${prof}cm`,
+    area_m2: area,
+    valor_estimado: valor,
+    acabamento,
+    status: 'novo',
+    channel: 'crm'
+  };
+  leads.push(novoLead);
+  salvarLeads();
+  // Notificar Telegram
+  fetch('/api/salvar-projeto', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nome, telefone, tipo_peca: tipo, material: materialNome, largura: larg, profundidade: prof, acabamento, valor_estimado: valor })
+  });
+  fecharModal();
+  carregar();
+  alert('Projeto salvo com sucesso!');
+}
+
+// Inicialização
+document.getElementById('login').classList.remove('hidden');
+</script>
+</body>
+</html>

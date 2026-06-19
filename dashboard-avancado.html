@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dashboard Stone Brothers</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  body{font-family:system-ui;padding:2rem;background:#fafaf7}
+  .cards{display:flex;gap:2rem;margin-bottom:2rem;flex-wrap:wrap}
+  .card{background:#fff;padding:1rem;border-radius:8px;flex:1;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+  .number{font-size:2rem;font-weight:600}
+  canvas{max-width:100%;margin-bottom:2rem}
+</style>
+</head>
+<body>
+<h1>Dashboard Avançado</h1>
+<div class="cards">
+  <div class="card"><div class="number" id="totalProjetos">-</div><div>Projetos</div></div>
+  <div class="card"><div class="number" id="totalValor">-</div><div>Valor total (R$)</div></div>
+  <div class="card"><div class="number" id="totalAprovados">-</div><div>Aprovados</div></div>
+</div>
+<canvas id="chartStatus" width="400" height="200"></canvas>
+<canvas id="chartMaterial" width="400" height="200"></canvas>
+<canvas id="chartDaily" width="400" height="200"></canvas>
+<script>
+async function carregar() {
+  const res = await fetch('/api/leads');
+  const data = await res.json();
+  const projetos = data.data;
+  document.getElementById('totalProjetos').innerText = projetos.length;
+  const totalValor = projetos.reduce((acc, p) => acc + (p.valor_estimado || 0), 0);
+  document.getElementById('totalValor').innerText = `R$ ${totalValor.toFixed(2)}`;
+  const aprovados = projetos.filter(p => p.status === 'aprovado').length;
+  document.getElementById('totalAprovados').innerText = aprovados;
+  
+  // Status chart
+  const statusCount = { novo:0, contatado:0, orcamento_enviado:0, negociacao:0, aprovado:0, perdido:0 };
+  const materialCount = {};
+  const dailyCount = {};
+  projetos.forEach(p => {
+    statusCount[p.status]++;
+    if (p.material) materialCount[p.material] = (materialCount[p.material] || 0) + 1;
+    const day = new Date(p.created_at).toISOString().split('T')[0];
+    dailyCount[day] = (dailyCount[day] || 0) + 1;
+  });
+  new Chart(document.getElementById('chartStatus'), { type: 'bar', data: { labels: Object.keys(statusCount), datasets: [{ label: 'Projetos por status', data: Object.values(statusCount) }] } });
+  new Chart(document.getElementById('chartMaterial'), { type: 'pie', data: { labels: Object.keys(materialCount), datasets: [{ label: 'Materiais mais usados', data: Object.values(materialCount) }] } });
+  new Chart(document.getElementById('chartDaily'), { type: 'line', data: { labels: Object.keys(dailyCount), datasets: [{ label: 'Projetos por dia', data: Object.values(dailyCount) }] } });
+}
+carregar();
+</script>
+</body>
+</html>

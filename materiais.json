@@ -1,0 +1,8 @@
+[
+  {"id":1,"nome":"Granito Preto São Gabriel","tipo":"Granito","preco_m2":320,"imagem":"imagens/materiais/granito-preto.jpg","recomendado_para":["cozinha","banheiro","area_gourmet"]},
+  {"id":2,"nome":"Granito Branco Siena","tipo":"Granito","preco_m2":290,"imagem":"imagens/materiais/granito-branco.jpg","recomendado_para":["cozinha","banheiro","sala"]},
+  {"id":3,"nome":"Mármore Calacatta","tipo":"Mármore","preco_m2":780,"imagem":"imagens/materiais/marmore-calacatta.jpg","recomendado_para":["cozinha","banheiro","lavabo"]},
+  {"id":4,"nome":"Quartzo Cinza Cimento","tipo":"Quartzo","preco_m2":650,"imagem":"imagens/materiais/quartzo-cinza.jpg","recomendado_para":["cozinha","banheiro","escritorio"]},
+  {"id":5,"nome":"Travertino Romano","tipo":"Travertino","preco_m2":520,"imagem":"imagens/materiais/travertino-romano.jpg","recomendado_para":["banheiro","sala","fachada"]},
+  {"id":6,"nome":"Pedra Ferro","tipo":"Pedra Natural","preco_m2":480,"imagem":"imagens/materiais/pedra-ferro.jpg","recomendado_para":["area_gourmet","churrasqueira"]}
+]
