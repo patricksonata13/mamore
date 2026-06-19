@@ -34,8 +34,8 @@ nav{
   backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(201,185,154,0.25);
 }
-.nav-logo{font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--ink);text-decoration:none}
-.nav-logo em{font-style:italic;color:var(--muted)}
+.nav-logo{display:flex;align-items:center;text-decoration:none;line-height:1}
+.nav-logo svg{display:block}
 nav ul{display:flex;list-style:none;gap:2.5rem}
 nav ul a{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s}
 nav ul a:hover{color:var(--ink)}
@@ -288,7 +288,7 @@ footer p{font-size:0.62rem;color:rgba(255,255,255,0.2)}
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Top Star <em>Marmoraria</em></a>
+  <a href="#" class="nav-logo" aria-label="Top Star Marmoraria"><svg width="140" height="40" viewBox="0 0 140 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="32" height="32" fill="#f0ede8" stroke="#c9b99a" stroke-width="0.6"/><path d="M2,20 C8,18 13,23 18,21 C23,19 26,23 34,21" stroke="#c9b99a" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.9"/><path d="M2,14 C7,12 11,16 15,14" stroke="#c9b99a" stroke-width="0.5" stroke-linecap="round" fill="none" opacity="0.6"/><path d="M14,4 C13,10 16,16 15,22 C14,28 17,32 16,36" stroke="#b8a88a" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.65"/><text x="42" y="22" font-family="Jost,sans-serif" font-size="13" font-weight="200" fill="#111" letter-spacing="3">TOP STAR</text><text x="43" y="32" font-family="Jost,sans-serif" font-size="6" font-weight="300" fill="#8c7f6e" letter-spacing="2.5">MARMORARIA</text></svg></a>
   <ul>
     <li><a href="#materiais">Materiais</a></li>
     <li><a href="#galeria">Galeria</a></li>
