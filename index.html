@@ -3,351 +3,839 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stone Brothers – Mármore e Granito | Arquitetura Brasileira</title>
+<title>Top Star Marmoraria — Jacarepaguá, Rio de Janeiro</title>
+<meta name="description" content="Mármore, granito e quartzo sob medida em Jacarepaguá. Do orçamento à instalação em até 5 dias úteis.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'DM Sans',sans-serif;background:#fafaf7;color:#0e0e0e;line-height:1.5}
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;background:rgba(250,250,247,.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,.05)}
-  .logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;text-decoration:none;color:#0e0e0e}
-  .logo span{font-weight:300;font-style:italic;font-size:0.8rem;color:#8a7f71}
-  nav ul{list-style:none;display:flex;gap:2rem}
-  nav ul a{text-decoration:none;font-size:0.7rem;letter-spacing:.1em;text-transform:uppercase;color:#8a7f71}
-  nav ul a:hover{color:#0e0e0e}
-  .nav-cta{background:#0e0e0e;color:#fafaf7;padding:0.5rem 1.2rem;text-decoration:none;font-size:0.7rem;letter-spacing:.1em;text-transform:uppercase}
-  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:70px}
-  .hero-left{background:#ede8e0;display:flex;flex-direction:column;justify-content:center;padding:4rem}
-  .hero-tag{font-size:0.68rem;letter-spacing:.18em;text-transform:uppercase;color:#8a7f71;margin-bottom:2rem}
-  .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.8rem);font-weight:300;line-height:1.1;margin-bottom:1.5rem}
-  .hero-title em{font-style:italic;color:#8a7f71}
-  .hero-sub{font-size:0.85rem;color:#6b6259;line-height:1.8;max-width:360px;margin-bottom:2rem}
-  .hero-actions{display:flex;gap:1rem}
-  .btn-primary{background:#0e0e0e;color:#fafaf7;padding:0.8rem 1.8rem;font-size:0.72rem;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;display:inline-block}
-  .btn-outline{background:transparent;color:#0e0e0e;padding:0.8rem 1.8rem;font-size:0.72rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid #0e0e0e;text-decoration:none;display:inline-block}
-  .hero-stats{display:flex;gap:2rem;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(0,0,0,0.1)}
-  .stat-n{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300}
-  .stat-l{font-size:0.6rem;letter-spacing:.12em;text-transform:uppercase;color:#8a7f71}
-  .hero-right{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;position:relative}
-  .hero-img{overflow:hidden;position:relative;cursor:pointer}
-  .hero-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
-  .hero-img:hover img{transform:scale(1.02)}
-  .hero-img-label{position:absolute;bottom:12px;left:14px;font-size:0.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,250,247,.9);background:rgba(14,14,14,.55);padding:4px 10px}
-  .hero-badge{position:absolute;bottom:2rem;right:2rem;background:#fafaf7;padding:1rem 1.2rem;font-family:'Cormorant Garamond',serif;border-left:3px solid #c8bfae;z-index:2}
-  .hero-badge strong{display:block;font-size:1.3rem;font-weight:600}
-  .section{padding:5rem 5%}
-  .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:300;text-align:center;margin-bottom:3rem}
-  .section-title em{font-style:italic;color:#8a7f71}
-  .mat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
-  .mat-card{cursor:pointer;transition:transform 0.3s;border:2px solid transparent;background:#fff;padding:1rem}
-  .mat-card:hover{transform:translateY(-4px)}
-  .mat-card.selected{border-color:#0e0e0e}
-  .mat-img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
-  .mat-name{font-weight:600;margin-top:0.6rem}
-  .mat-sub{font-size:0.7rem;color:#8a7f71;text-transform:uppercase;letter-spacing:.05em}
-  .portfolio-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:280px 280px;gap:1.5rem;margin-top:2rem}
-  .portfolio-item{overflow:hidden;position:relative;cursor:pointer}
-  .portfolio-item:first-child{grid-row:1/3}
-  .portfolio-img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s}
-  .portfolio-item:hover .portfolio-img{transform:scale(1.03)}
-  .portfolio-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:flex-end;padding:1.5rem;transition:background 0.3s}
-  .portfolio-item:hover .portfolio-overlay{background:rgba(0,0,0,0.4)}
-  .portfolio-label{font-family:'Cormorant Garamond',serif;font-size:1rem;color:#fff;opacity:0;transition:opacity 0.3s}
-  .portfolio-item:hover .portfolio-label{opacity:1}
-  .processo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:2rem}
-  .processo-step{padding-top:1.5rem;border-top:1px solid #c8bfae}
-  .processo-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:#c8bfae;margin-bottom:1rem}
-  .processo-title{font-weight:600;margin-bottom:0.5rem}
-  .processo-desc{font-size:0.8rem;color:#6b6259;line-height:1.6}
-  .contato-info{display:flex;justify-content:space-between;flex-wrap:wrap;gap:2rem;margin-top:2rem}
-  .contato-card{background:#fff;padding:2rem;text-align:center;flex:1;min-width:200px;box-shadow:0 2px 8px rgba(0,0,0,0.03)}
-  .contato-card h3{font-family:'Cormorant Garamond',serif;margin-bottom:0.5rem}
-  .contato-card p{color:#8a7f71;margin-bottom:1rem}
-  .whatsapp-btn{background:#0e0e0e;color:#fafaf7;padding:0.8rem 1.5rem;text-decoration:none;display:inline-block;border-radius:0;font-size:0.7rem;letter-spacing:.1em}
-  #criar{background:#0e0e0e;color:#fafaf7}
-  .criar-layout{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2rem}
-  .config-panel{display:flex;flex-direction:column;gap:1.5rem}
-  .config-group label{display:block;font-size:0.68rem;letter-spacing:.12em;text-transform:uppercase;color:#c8bfae;margin-bottom:0.5rem}
-  .config-group select,.config-group input{width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(200,191,174,0.3);color:#fafaf7;padding:0.7rem 1rem;font-family:inherit}
-  .dims{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-  .acab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem}
-  .acab-btn{background:rgba(255,255,255,0.05);border:1px solid rgba(200,191,174,0.2);padding:0.6rem;color:#fafaf7;cursor:pointer;font-size:0.7rem}
-  .acab-btn.active{background:#c8bfae;color:#0e0e0e}
-  .preview-area{background:rgba(255,255,255,0.04);border:1px solid rgba(200,191,174,0.15);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
-  .preview-hint{text-align:center;color:#8a7f71;font-size:0.8rem}
-  .btn-criar{background:#c8bfae;color:#0e0e0e;padding:0.9rem;border:none;font-weight:500;cursor:pointer;width:100%;margin-top:0.5rem}
-  .btn-orc{background:transparent;border:1px solid rgba(255,255,255,0.3);color:#fafaf7;padding:0.9rem;cursor:pointer;width:100%;margin-top:0.8rem}
-  footer{background:#0e0e0e;border-top:1px solid rgba(200,191,174,0.1);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-  footer a{color:#c8bfae;text-decoration:none}
-  .notify{position:fixed;bottom:20px;right:20px;background:#0e0e0e;color:#c8bfae;padding:1rem;border-left:3px solid #c8bfae;z-index:1000;transform:translateX(120%);transition:0.3s}
-  .notify.show{transform:translateX(0)}
-  @media(max-width:800px){.hero{grid-template-columns:1fr}.hero-right{min-height:300px}.mat-grid{grid-template-columns:repeat(2,1fr)}.portfolio-grid{grid-template-columns:1fr;grid-template-rows:auto}.portfolio-item:first-child{grid-row:auto}.processo-grid{grid-template-columns:1fr 1fr}.criar-layout{grid-template-columns:1fr}nav ul{display:none}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --ink:#111010;
+  --cream:#f4f0e8;
+  --sand:#e2d9c8;
+  --warm:#c9b99a;
+  --muted:#8c7f6e;
+  --white:#fdfcf9;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Jost',system-ui,sans-serif;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--white);color:var(--ink);font-size:14px;line-height:1.6;font-weight:300}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 4rem;height:72px;
+  background:rgba(253,252,249,0.96);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(201,185,154,0.25);
+}
+.nav-logo{font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--ink);text-decoration:none}
+.nav-logo em{font-style:italic;color:var(--muted)}
+nav ul{display:flex;list-style:none;gap:2.5rem}
+nav ul a{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s}
+nav ul a:hover{color:var(--ink)}
+.nav-cta{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--white);background:var(--ink);padding:0.6rem 1.6rem;text-decoration:none;transition:background 0.2s}
+.nav-cta:hover{background:#333}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:72px}
+
+.hero-visual{position:relative;overflow:hidden;min-height:600px}
+.hero-visual img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-visual-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(17,16,16,0.35) 0%,transparent 60%);
+}
+.hero-caption{
+  position:absolute;bottom:2.5rem;left:2.5rem;
+  font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;
+  color:rgba(255,255,255,0.7);
+}
+.hero-issue{
+  position:absolute;top:2.5rem;right:2rem;
+  writing-mode:vertical-rl;font-family:var(--serif);font-style:italic;
+  font-size:0.75rem;color:rgba(255,255,255,0.6);letter-spacing:0.08em;
+}
+
+.hero-content{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:6rem 5rem 6rem 4rem;background:var(--white);position:relative;
+}
+.hero-overline{
+  font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--warm);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.hero-overline::before{content:'';display:block;width:32px;height:1px;background:var(--warm)}
+.hero-title{
+  font-family:var(--serif);font-size:clamp(2.6rem,4vw,4rem);
+  font-weight:400;line-height:1.12;color:var(--ink);
+  margin-bottom:2rem;letter-spacing:-0.01em;
+}
+.hero-title em{font-style:italic;color:var(--muted)}
+.hero-body{font-size:0.9rem;color:var(--muted);line-height:1.85;max-width:380px;margin-bottom:3rem}
+.hero-actions{display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap}
+.btn-ink{
+  background:var(--ink);color:var(--white);padding:0.85rem 2.2rem;
+  font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;
+  text-decoration:none;font-family:var(--sans);transition:background 0.2s;
+}
+.btn-ink:hover{background:#2a2a2a}
+.btn-ghost{
+  font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;
+  border-bottom:1px solid var(--warm);padding-bottom:2px;transition:border-color 0.2s;
+}
+.btn-ghost:hover{border-color:var(--ink)}
+.hero-stat{position:absolute;bottom:3rem;right:4rem;text-align:right}
+.hero-stat-num{font-family:var(--serif);font-size:3.5rem;font-weight:400;color:var(--ink);line-height:1}
+.hero-stat-label{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem}
+
+/* STRIP */
+.strip{
+  background:var(--ink);padding:1.1rem 4rem;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);flex-wrap:wrap;gap:0.5rem;
+}
+.strip-dot{color:rgba(255,255,255,0.15)}
+
+/* SECTIONS */
+.section-eyebrow{font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm);margin-bottom:1rem}
+.section-heading{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:400;line-height:1.15;color:var(--ink);margin-bottom:0.5rem}
+.section-heading em{font-style:italic;color:var(--muted)}
+.section-sub{font-size:0.82rem;color:var(--muted);line-height:1.8;max-width:440px;margin-bottom:4rem}
+
+/* MATERIAIS */
+#materiais{padding:7rem 4rem;background:var(--white)}
+.materiais-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;gap:2rem}
+.materiais-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--sand)}
+.material-card{cursor:pointer;position:relative;overflow:hidden;border-right:1px solid var(--sand);border-bottom:1px solid var(--sand);transition:all 0.3s}
+.material-card:nth-child(3n){border-right:none}
+.material-card:nth-last-child(-n+3){border-bottom:none}
+.material-card:hover .material-info{background:var(--cream)}
+.material-swatch{width:100%;height:200px;object-fit:cover;display:block}
+.material-info{padding:1.2rem 1.4rem 1.5rem;background:var(--white);transition:background 0.3s}
+.material-name{font-family:var(--serif);font-size:0.95rem;color:var(--ink);margin-bottom:0.25rem}
+.material-tag{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--warm);margin-bottom:0.6rem}
+.material-price{font-size:0.78rem;color:var(--muted)}
+
+/* GALERIA */
+#galeria{background:var(--cream);padding:7rem 4rem}
+.galeria-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;gap:2rem}
+.galeria-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;grid-template-rows:320px 240px;gap:2px}
+.galeria-item{position:relative;overflow:hidden;cursor:pointer;background:var(--sand)}
+.galeria-item:first-child{grid-row:1/3}
+.galeria-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;display:block}
+.galeria-item:hover img{transform:scale(1.04)}
+.galeria-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(17,16,16,0.6) 0%,transparent 60%);
+  opacity:0;transition:opacity 0.4s;
+  display:flex;align-items:flex-end;padding:1.8rem;
+}
+.galeria-item:hover .galeria-overlay{opacity:1}
+.galeria-label{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--white);line-height:1.3}
+
+/* CONFIGURADOR */
+#configurador{background:var(--ink);color:var(--white);padding:7rem 4rem}
+#configurador .section-eyebrow{color:var(--warm)}
+#configurador .section-heading{color:var(--white)}
+#configurador .section-heading em{color:var(--warm)}
+#configurador .section-sub{color:rgba(255,255,255,0.35)}
+
+.config-layout{display:grid;grid-template-columns:400px 1fr;gap:5rem;margin-top:3.5rem}
+.config-panel{display:flex;flex-direction:column;gap:1.8rem}
+.config-group label{display:block;font-size:0.63rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--warm);margin-bottom:0.55rem}
+.config-group select,
+.config-group input[type="number"],
+.config-group input[type="text"]{
+  width:100%;background:transparent;
+  border:none;border-bottom:1px solid rgba(201,185,154,0.3);
+  color:var(--white);padding:0.7rem 0;
+  font-family:var(--sans);font-size:0.88rem;font-weight:300;
+  appearance:none;outline:none;transition:border-color 0.2s;
+}
+.config-group input[type="text"]::placeholder{color:rgba(255,255,255,0.25)}
+.config-group select:focus,.config-group input:focus{border-bottom-color:var(--warm)}
+.config-group select option{background:var(--ink)}
+.config-dims{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+input[type="range"]{width:100%;accent-color:var(--warm);margin:0.5rem 0}
+.range-labels{display:flex;justify-content:space-between;font-size:0.62rem;color:rgba(255,255,255,0.25)}
+.acabamento-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem}
+.acabamento-btn{
+  background:transparent;border:1px solid rgba(201,185,154,0.2);
+  color:rgba(255,255,255,0.4);padding:0.55rem;
+  font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.2s;font-family:var(--sans);
+}
+.acabamento-btn:hover,.acabamento-btn.active{background:var(--warm);border-color:var(--warm);color:var(--ink)}
+
+.config-preview{display:flex;flex-direction:column;gap:2rem}
+.preview-label{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--warm)}
+.ai-pulse{width:6px;height:6px;background:var(--warm);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+.preview-canvas{
+  aspect-ratio:4/3;background:rgba(255,255,255,0.03);
+  border:1px solid rgba(201,185,154,0.12);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;min-height:280px;
+}
+.preview-placeholder{text-align:center;color:rgba(255,255,255,0.2);font-family:var(--serif);font-size:0.85rem;font-style:italic;line-height:2}
+.preview-placeholder strong{color:var(--warm);font-style:normal;font-weight:400}
+.preview-loading{display:none;flex-direction:column;align-items:center;gap:1.5rem}
+.loader{width:28px;height:28px;border:1px solid rgba(201,185,154,0.2);border-top-color:var(--warm);border-radius:50%;animation:spin 0.9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.preview-img{width:100%;height:100%;object-fit:cover;display:none}
+.preview-status{font-size:0.75rem;color:rgba(255,255,255,0.3);line-height:1.7;min-height:18px;font-style:italic}
+
+.price-board{border:1px solid rgba(201,185,154,0.12);padding:1.6rem}
+.price-line{display:flex;justify-content:space-between;align-items:baseline;padding:0.55rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.78rem;color:rgba(255,255,255,0.35)}
+.price-line:last-child{border-bottom:none}
+.price-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(201,185,154,0.2)}
+.price-total-label{font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--warm)}
+.price-total-value{font-family:var(--serif);font-size:2.2rem;font-weight:400;color:var(--white)}
+
+.preview-actions{display:flex;gap:1rem}
+.btn-warm{flex:1;background:var(--warm);color:var(--ink);padding:0.9rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--sans);transition:background 0.2s}
+.btn-warm:hover{background:#d4c5a8}
+.btn-warm:disabled{opacity:0.4;cursor:not-allowed}
+.btn-outline-light{background:transparent;color:rgba(255,255,255,0.5);padding:0.9rem 1.5rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.15);cursor:pointer;font-family:var(--sans);transition:all 0.2s;white-space:nowrap}
+.btn-outline-light:hover{border-color:rgba(255,255,255,0.4);color:var(--white)}
+
+/* PROCESSO */
+#processo{padding:7rem 4rem;background:var(--white)}
+.processo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:4rem;border-top:1px solid var(--sand)}
+.processo-step{padding:2.5rem 2rem 2.5rem 0;border-right:1px solid var(--sand)}
+.processo-step:last-child{border-right:none;padding-right:0}
+.processo-step:not(:first-child){padding-left:2rem}
+.processo-num{font-family:var(--serif);font-size:3.5rem;font-weight:400;color:var(--sand);line-height:1;margin-bottom:1.5rem}
+.processo-title{font-family:var(--serif);font-size:1.1rem;color:var(--ink);margin-bottom:0.8rem}
+.processo-desc{font-size:0.8rem;color:var(--muted);line-height:1.85}
+
+/* ORÇAMENTO */
+#orcamento{background:var(--ink);color:var(--white);padding:7rem 4rem}
+#orcamento .section-eyebrow{color:var(--warm)}
+#orcamento .section-heading{color:var(--white)}
+#orcamento .section-heading em{color:var(--warm)}
+.orcamento-layout{display:grid;grid-template-columns:1fr 1fr;gap:7rem;margin-top:4rem}
+.orcamento-info p{font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:2;max-width:360px;margin-bottom:2.5rem}
+.contact-line{display:flex;align-items:flex-start;gap:1.2rem;margin-bottom:1.8rem;padding-bottom:1.8rem;border-bottom:1px solid rgba(255,255,255,0.07)}
+.contact-line:last-of-type{border-bottom:none}
+.c-icon{width:32px;height:32px;flex-shrink:0;border:1px solid rgba(201,185,154,0.3);display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--warm)}
+.c-label{font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--warm);margin-bottom:0.3rem}
+.c-value{font-size:0.82rem;color:rgba(255,255,255,0.5)}
+.orcamento-quote{margin-top:3rem;padding:2rem;border:1px solid rgba(201,185,154,0.12)}
+.orcamento-quote p{font-family:var(--serif);font-style:italic;font-size:1.3rem;color:var(--warm);line-height:1.6;margin:0}
+
+.form-field{margin-bottom:1.8rem}
+.form-field label{display:block;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--warm);margin-bottom:0.6rem}
+.form-field input,.form-field textarea,.form-field select{
+  width:100%;background:transparent;border:none;border-bottom:1px solid rgba(201,185,154,0.25);
+  color:var(--white);padding:0.7rem 0;font-family:var(--sans);font-size:0.88rem;font-weight:300;
+  outline:none;transition:border-color 0.2s;resize:none;appearance:none;
+}
+.form-field input::placeholder,.form-field textarea::placeholder{color:rgba(255,255,255,0.2)}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-bottom-color:var(--warm)}
+.form-field select option{background:var(--ink)}
+.form-field textarea{min-height:100px}
+.btn-submit{width:100%;background:var(--warm);color:var(--ink);padding:1.1rem;font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--sans);transition:background 0.2s;margin-top:0.5rem}
+.btn-submit:hover{background:#d4c5a8}
+
+/* FOOTER */
+footer{background:var(--ink);border-top:1px solid rgba(255,255,255,0.06);padding:2.5rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:var(--serif);font-size:1rem;color:var(--white);text-decoration:none}
+.footer-logo em{font-style:italic;color:var(--warm)}
+footer nav ul{display:flex;gap:2rem;list-style:none}
+footer nav ul a{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.2s}
+footer nav ul a:hover{color:var(--warm)}
+footer p{font-size:0.62rem;color:rgba(255,255,255,0.2)}
+
+/* NOTIFICATION */
+.notification{position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:var(--white);padding:1rem 1.6rem;font-size:0.8rem;border-left:2px solid var(--warm);z-index:9999;transform:translateY(120%);opacity:0;transition:transform 0.4s cubic-bezier(.22,.68,0,1.2),opacity 0.4s;max-width:320px}
+.notification.show{transform:translateY(0);opacity:1}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  nav{padding:0 2rem}
+  .hero{grid-template-columns:1fr}
+  .hero-visual{min-height:420px}
+  .hero-content{padding:4rem 2.5rem}
+  #materiais,#galeria,#processo,#orcamento,#configurador{padding:5rem 2.5rem}
+  .config-layout{grid-template-columns:1fr;gap:3rem}
+  .materiais-grid{grid-template-columns:repeat(2,1fr)}
+  .processo-grid{grid-template-columns:repeat(2,1fr)}
+  .orcamento-layout{grid-template-columns:1fr;gap:4rem}
+  footer{padding:2rem 2.5rem}
+  .materiais-header,.galeria-header{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:768px){
+  nav ul{display:none}
+  .galeria-grid{grid-template-columns:1fr;grid-template-rows:auto}
+  .galeria-item:first-child{grid-row:auto}
+  .processo-grid{grid-template-columns:1fr 1fr}
+  .strip{padding:1rem 2rem;justify-content:center;text-align:center}
+}
 </style>
 </head>
 <body>
+
+<!-- NAV -->
 <nav>
-  <a href="#" class="logo">Stone Brothers <span>mármore e granito | arquitetura brasileira</span></a>
+  <a href="#" class="nav-logo">Top Star <em>Marmoraria</em></a>
   <ul>
     <li><a href="#materiais">Materiais</a></li>
-    <li><a href="#portfolio">Portfólio</a></li>
-    <li><a href="#criar">Criar</a></li>
-    <li><a href="#inspiracao">Inspiração</a></li>
-    <li><a href="#contato">Contato</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#configurador">Configurador</a></li>
+    <li><a href="#processo">Processo</a></li>
   </ul>
-  <a href="#contato" class="nav-cta">Orçamento</a>
+  <a href="#orcamento" class="nav-cta">Orçamento</a>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-left">
-    <p class="hero-tag">Jacarepaguá · Rio de Janeiro · desde 2025</p>
-    <h1 class="hero-title">Pedra sob medida,<br><em>acabamento impecável.</em></h1>
-    <p class="hero-sub">Mármore, granito e quartzo cortados com precisão. Do orçamento à instalação em até 5 dias úteis.</p>
+  <div class="hero-visual">
+    <img src="imagens/capa.jpg" alt="Mármore e granito Top Star Marmoraria">
+    <div class="hero-visual-overlay"></div>
+    <p class="hero-caption">Mármore Calacatta — acabamento boleado</p>
+    <p class="hero-issue">Jacarepaguá · Rio de Janeiro</p>
+  </div>
+  <div class="hero-content">
+    <p class="hero-overline">Marmoraria sob medida</p>
+    <h1 class="hero-title">
+      Pedra que<br>
+      transforma<br>
+      <em>ambientes.</em>
+    </h1>
+    <p class="hero-body">
+      Mármore, granito e quartzo cortados com precisão. Do orçamento à instalação em até 5 dias úteis. Atendemos Jacarepaguá e toda a Zona Oeste.
+    </p>
     <div class="hero-actions">
-      <a href="#criar" class="btn-primary">Criar minha bancada</a>
-      <a href="#inspiracao" class="btn-outline">Ver inspirações</a>
+      <a href="#configurador" class="btn-ink">Criar minha peça</a>
+      <a href="#galeria" class="btn-ghost">Ver projetos</a>
     </div>
-    <div class="hero-stats">
-      <div><div class="stat-n">+500</div><div class="stat-l">projetos</div></div>
-      <div><div class="stat-n">5 dias</div><div class="stat-l">prazo médio</div></div>
-      <div><div class="stat-n">8+</div><div class="stat-l">tipos de pedra</div></div>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="hero-img"><img src="imagens/galeria/marmore-cozinha.jpg" alt="Cozinha"><span class="hero-img-label">Cozinha · Calacatta</span></div>
-    <div class="hero-img"><img src="imagens/galeria/marmore-branco-no-banheiro-michelangelo-marmores-768x513-1.jpg" alt="Banheiro"><span class="hero-img-label">Banheiro · Branco</span></div>
-    <div class="hero-img"><img src="imagens/galeria/marmore-e-papel-de-parede-compoem-decor-de-lavabo-simples-e-elegante2.webp" alt="Lavabo"><span class="hero-img-label">Lavabo · Carrara</span></div>
-    <div class="hero-img"><img src="imagens/galeria/bancada-sala.jpg" alt="Sala"><span class="hero-img-label">Sala · Premium</span></div>
-    <div class="hero-badge"><strong>+500</strong> projetos entregues no RJ</div>
-  </div>
-</section>
-
-<section id="materiais" class="section">
-  <h2 class="section-title">Materiais <em>para cada projeto</em></h2>
-  <div class="mat-grid" id="materiaisGrid"></div>
-</section>
-
-<section id="portfolio" class="section" style="background:#ede8e0">
-  <h2 class="section-title">Projetos <em>entregues em Jacarepaguá</em></h2>
-  <div class="portfolio-grid">
-    <div class="portfolio-item">
-      <img class="portfolio-img" src="https://images.pexels.com/photos/1571460/architecture-building-house-exterior-1571460.jpg" alt="Projeto 1">
-      <div class="portfolio-overlay"><span class="portfolio-label">Bancada Calacatta · Barra</span></div>
-    </div>
-    <div class="portfolio-item">
-      <img class="portfolio-img" src="https://images.pexels.com/photos/209251/pexels-photo-209251.jpeg" alt="Projeto 2">
-      <div class="portfolio-overlay"><span class="portfolio-label">Granito Preto · Pechincha</span></div>
-    </div>
-    <div class="portfolio-item">
-      <img class="portfolio-img" src="https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg" alt="Projeto 3">
-      <div class="portfolio-overlay"><span class="portfolio-label">Branco Siena · Freguesia</span></div>
-    </div>
-    <div class="portfolio-item">
-      <img class="portfolio-img" src="https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg" alt="Projeto 4">
-      <div class="portfolio-overlay"><span class="portfolio-label">Quartzo Cinza · Curicica</span></div>
-    </div>
-    <div class="portfolio-item">
-      <img class="portfolio-img" src="https://images.pexels.com/photos/1288481/pexels-photo-1288481.jpeg" alt="Projeto 5">
-      <div class="portfolio-overlay"><span class="portfolio-label">Mármore Calacatta · Taquara</span></div>
+    <div class="hero-stat">
+      <p class="hero-stat-num">+500</p>
+      <p class="hero-stat-label">projetos entregues no RJ</p>
     </div>
   </div>
 </section>
 
-<section id="processo" class="section">
-  <h2 class="section-title">Como funciona <em>o nosso processo</em></h2>
+<!-- STRIP -->
+<div class="strip">
+  <span>Top Star Marmoraria</span>
+  <span class="strip-dot">·</span>
+  <span>Jacarepaguá, Rio de Janeiro</span>
+  <span class="strip-dot">·</span>
+  <span>5 dias úteis</span>
+  <span class="strip-dot">·</span>
+  <span>Visita técnica gratuita</span>
+  <span class="strip-dot">·</span>
+  <span>Desde 2025</span>
+</div>
+
+<!-- MATERIAIS -->
+<section id="materiais">
+  <div class="materiais-header">
+    <div>
+      <p class="section-eyebrow">Nossos Materiais</p>
+      <h2 class="section-heading">A pedra certa<br><em>para cada projeto</em></h2>
+    </div>
+    <p style="font-size:0.82rem;color:var(--muted);max-width:280px;line-height:1.7">Nacional, importado e industrializado. Clique para ir ao configurador.</p>
+  </div>
+
+  <div class="materiais-grid">
+
+    <div class="material-card" data-material="Granito Preto São Gabriel" data-preco="320" onclick="selecionarMaterial(this)">
+      <img class="material-swatch" src="imagens/materiais/granito-preto.jpg" alt="Granito Preto São Gabriel">
+      <div class="material-info">
+        <p class="material-name">Granito Preto São Gabriel</p>
+        <p class="material-tag">Nacional · Cozinha e Externo</p>
+        <p class="material-price">A partir de R$ 320/m²</p>
+      </div>
+    </div>
+
+    <div class="material-card" data-material="Granito Branco Siena" data-preco="290" onclick="selecionarMaterial(this)">
+      <img class="material-swatch" src="imagens/materiais/granito-branco.jpg" alt="Granito Branco Siena">
+      <div class="material-info">
+        <p class="material-name">Granito Branco Siena</p>
+        <p class="material-tag">Nacional · Alta Demanda</p>
+        <p class="material-price">A partir de R$ 290/m²</p>
+      </div>
+    </div>
+
+    <div class="material-card" data-material="Mármore Calacatta" data-preco="780" onclick="selecionarMaterial(this)">
+      <img class="material-swatch" src="imagens/materiais/marmore-calacatta.jpg" alt="Mármore Calacatta">
+      <div class="material-info">
+        <p class="material-name">Mármore Calacatta</p>
+        <p class="material-tag">Importado · Premium</p>
+        <p class="material-price">A partir de R$ 780/m²</p>
+      </div>
+    </div>
+
+    <div class="material-card" data-material="Quartzo Cinza Cimento" data-preco="650" onclick="selecionarMaterial(this)">
+      <img class="material-swatch" src="imagens/materiais/quartzo-cinza.jpg" alt="Quartzo Cinza Cimento">
+      <div class="material-info">
+        <p class="material-name">Quartzo Cinza Cimento</p>
+        <p class="material-tag">Industrializado · Antimanchas</p>
+        <p class="material-price">A partir de R$ 650/m²</p>
+      </div>
+    </div>
+
+    <div class="material-card" data-material="Travertino Romano" data-preco="520" onclick="selecionarMaterial(this)">
+      <img class="material-swatch" src="imagens/materiais/travertino-romano.jpg" alt="Travertino Romano">
+      <div class="material-info">
+        <p class="material-name">Travertino Romano</p>
+        <p class="material-tag">Importado · Clássico</p>
+        <p class="material-price">A partir de R$ 520/m²</p>
+      </div>
+    </div>
+
+    <div class="material-card" data-material="Pedra Ferro" data-preco="480" onclick="selecionarMaterial(this)">
+      <img class="material-swatch" src="imagens/materiais/pedra-ferro.jpg" alt="Pedra Ferro">
+      <div class="material-info">
+        <p class="material-name">Pedra Ferro</p>
+        <p class="material-tag">Nacional · Contemporâneo</p>
+        <p class="material-price">A partir de R$ 480/m²</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section id="galeria">
+  <div class="galeria-header">
+    <div>
+      <p class="section-eyebrow">Galeria</p>
+      <h2 class="section-heading">Projetos entregues<br><em>em Jacarepaguá</em></h2>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);max-width:220px;line-height:1.7">Cada peça cortada e instalada pela nossa equipe.</p>
+  </div>
+
+  <div class="galeria-grid">
+    <div class="galeria-item">
+      <img src="imagens/galeria/marmore-cozinha.jpg" alt="Cozinha com mármore">
+      <div class="galeria-overlay"><span class="galeria-label">Bancada Calacatta<br>Cozinha Planejada</span></div>
+    </div>
+    <div class="galeria-item">
+      <img src="imagens/galeria/bancada-sala.jpg" alt="Bancada de sala">
+      <div class="galeria-overlay"><span class="galeria-label">Bancada de Sala<br>Jacarepaguá</span></div>
+    </div>
+    <div class="galeria-item">
+      <img src="imagens/galeria/ambiente.jpg" alt="Ambiente com pedra">
+      <div class="galeria-overlay"><span class="galeria-label">Ambiente Moderno<br>Barra da Tijuca</span></div>
+    </div>
+    <div class="galeria-item">
+      <img src="imagens/galeria/unsplash_1775773254658.jpg" alt="Projeto de mármore">
+      <div class="galeria-overlay"><span class="galeria-label">Granito Preto<br>Pechincha</span></div>
+    </div>
+    <div class="galeria-item">
+      <img src="imagens/galeria/unsplash_1775773261534.jpg" alt="Projeto de mármore">
+      <div class="galeria-overlay"><span class="galeria-label">Travertino Romano<br>Recreio</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIGURADOR -->
+<section id="configurador">
+  <p class="section-eyebrow">Configurador</p>
+  <h2 class="section-heading">Visualize sua peça<br><em>antes de confirmar</em></h2>
+  <p class="section-sub">Configure o material, as medidas e o acabamento. Estimativa de preço em tempo real.</p>
+
+  <div class="config-layout">
+    <div class="config-panel">
+
+      <div class="config-group">
+        <label>Seu nome</label>
+        <input type="text" id="nomeCliente" placeholder="Como podemos te chamar?" oninput="sincronizarNome()">
+      </div>
+
+      <div class="config-group">
+        <label>Tipo de peça</label>
+        <select id="tipoPeca" onchange="atualizarPreco()">
+          <option value="Bancada de cozinha">Bancada de cozinha</option>
+          <option value="Bancada de banheiro">Bancada de banheiro</option>
+          <option value="Pia integrada">Pia integrada</option>
+          <option value="Soleira">Soleira</option>
+          <option value="Peitoril">Peitoril</option>
+          <option value="Revestimento de parede">Revestimento de parede</option>
+          <option value="Escada">Escada</option>
+        </select>
+      </div>
+
+      <div class="config-group">
+        <label>Material</label>
+        <select id="materialSelect" onchange="atualizarPreco()">
+          <option value="Granito Branco Siena" data-preco="290">Granito Branco Siena — R$ 290/m²</option>
+          <option value="Granito Preto São Gabriel" data-preco="320">Granito Preto São Gabriel — R$ 320/m²</option>
+          <option value="Pedra Ferro" data-preco="480">Pedra Ferro — R$ 480/m²</option>
+          <option value="Travertino Romano" data-preco="520">Travertino Romano — R$ 520/m²</option>
+          <option value="Quartzo Cinza Cimento" data-preco="650">Quartzo Cinza Cimento — R$ 650/m²</option>
+          <option value="Mármore Calacatta" data-preco="780">Mármore Calacatta — R$ 780/m²</option>
+        </select>
+      </div>
+
+      <div class="config-group">
+        <label>Dimensões (cm)</label>
+        <div class="config-dims">
+          <div>
+            <label style="font-size:0.6rem;margin-bottom:0.3rem;color:rgba(201,185,154,0.6)">Largura</label>
+            <input type="number" id="largura" value="200" min="30" max="600" step="10" onchange="atualizarPreco()">
+          </div>
+          <div>
+            <label style="font-size:0.6rem;margin-bottom:0.3rem;color:rgba(201,185,154,0.6)">Profundidade</label>
+            <input type="number" id="profundidade" value="60" min="20" max="200" step="5" onchange="atualizarPreco()">
+          </div>
+        </div>
+      </div>
+
+      <div class="config-group">
+        <label>Espessura — <span id="espLabel">2 cm</span></label>
+        <input type="range" id="espessura" min="1" max="4" step="1" value="2"
+          oninput="document.getElementById('espLabel').textContent=this.value+' cm';atualizarPreco()">
+        <div class="range-labels"><span>1 cm</span><span>4 cm premium</span></div>
+      </div>
+
+      <div class="config-group">
+        <label>Acabamento da borda</label>
+        <div class="acabamento-grid">
+          <button class="acabamento-btn active" onclick="setAcabamento(this,'Boleado')">Boleado</button>
+          <button class="acabamento-btn" onclick="setAcabamento(this,'Chanfrado')">Chanfrado</button>
+          <button class="acabamento-btn" onclick="setAcabamento(this,'Reto')">Reto</button>
+          <button class="acabamento-btn" onclick="setAcabamento(this,'Meio cana')">Meio cana</button>
+          <button class="acabamento-btn" onclick="setAcabamento(this,'Ogiva')">Ogiva</button>
+          <button class="acabamento-btn" onclick="setAcabamento(this,'Meia volta')">Meia volta</button>
+        </div>
+      </div>
+
+      <div class="config-group">
+        <label>Furo para cuba</label>
+        <select id="furo" onchange="atualizarPreco()">
+          <option value="Sem furo">Sem furo</option>
+          <option value="1 cuba embutida">1 cuba embutida (+R$ 280)</option>
+          <option value="2 cubas embutidas">2 cubas embutidas (+R$ 520)</option>
+          <option value="Cuba esculpida">Cuba esculpida (+R$ 450)</option>
+        </select>
+      </div>
+
+      <div class="config-group">
+        <label>Ambiente</label>
+        <select id="ambiente">
+          <option>Cozinha moderna</option>
+          <option>Cozinha rústica</option>
+          <option>Banheiro minimalista</option>
+          <option>Banheiro luxo</option>
+          <option>Área gourmet externa</option>
+          <option>Escritório</option>
+          <option>Lavabo</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="config-preview">
+      <p class="preview-label"><span class="ai-pulse"></span>&nbsp;Visualização por inteligência artificial</p>
+
+      <div class="preview-canvas" id="previewCanvas">
+        <div class="preview-placeholder" id="previewPlaceholder">
+          Configure sua peça e clique em<br>
+          <strong>Visualizar com IA</strong><br>
+          para ver o resultado.
+        </div>
+        <div class="preview-loading" id="previewLoading">
+          <div class="loader"></div>
+          <p id="loadingText" style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--warm);margin-top:0.5rem">Analisando configuração...</p>
+        </div>
+        <img class="preview-img" id="previewImg" alt="Visualização gerada por IA">
+      </div>
+
+      <p class="preview-status" id="previewStatus"></p>
+
+      <div class="price-board">
+        <div class="price-line"><span>Material</span><span id="priceMateria">—</span></div>
+        <div class="price-line"><span>Corte e acabamento</span><span id="priceCorte">—</span></div>
+        <div class="price-line"><span>Instalação</span><span>inclusa</span></div>
+        <div class="price-line" id="priceFuroRow" style="display:none"><span>Cuba / furo</span><span id="priceFuro">—</span></div>
+        <div class="price-total-row">
+          <span class="price-total-label">Estimativa total</span>
+          <span class="price-total-value" id="priceTotal">R$ —</span>
+        </div>
+      </div>
+
+      <div class="preview-actions">
+        <button class="btn-warm" id="btnGenerate" onclick="gerarVisualizacao()">Visualizar com IA</button>
+        <button class="btn-outline-light" onclick="solicitarOrcamento()">Solicitar orçamento</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSO -->
+<section id="processo">
+  <p class="section-eyebrow">Como funciona</p>
+  <h2 class="section-heading">Do orçamento à entrega<br><em>em 5 dias úteis</em></h2>
   <div class="processo-grid">
-    <div class="processo-step"><div class="processo-num">01</div><div class="processo-title">Configure online</div><div class="processo-desc">Use o configurador com IA para escolher o material e as medidas.</div></div>
-    <div class="processo-step"><div class="processo-num">02</div><div class="processo-title">Visita técnica</div><div class="processo-desc">Medimos o local e validamos o orçamento. Gratuita na região.</div></div>
-    <div class="processo-step"><div class="processo-num">03</div><div class="processo-title">Produção</div><div class="processo-desc">Cortamos sob medida no nosso galpão em Jacarepaguá.</div></div>
-    <div class="processo-step"><div class="processo-num">04</div><div class="processo-title">Instalação</div><div class="processo-desc">Entregamos e instalamos com nossa equipe. Pós-venda incluso.</div></div>
-  </div>
-</section>
-
-<section id="criar">
-  <div class="section" style="padding-bottom:3rem">
-    <h2 class="section-title" style="color:#fafaf7">Crie sua <em>bancada sob medida</em></h2>
-    <div class="criar-layout">
-      <div class="config-panel">
-        <div class="config-group"><label>Material</label><select id="sMat"><option value="Granito Preto São Gabriel">Granito Preto São Gabriel</option><option value="Granito Branco Siena">Granito Branco Siena</option><option value="Mármore Calacatta">Mármore Calacatta</option><option value="Quartzo Cinza Cimento">Quartzo Cinza Cimento</option><option value="Travertino Romano">Travertino Romano</option><option value="Pedra Ferro">Pedra Ferro</option></select></div>
-        <div class="config-group"><label>Tipo</label><select id="sTipo"><option>Bancada de cozinha</option><option>Bancada de banheiro</option><option>Soleira</option><option>Revestimento</option></select></div>
-        <div class="config-group"><label>Dimensões (cm)</label><div class="dims"><div><label style="font-size:.6rem">Largura</label><input type="number" id="iLarg" value="200" min="30" max="600" step="10"></div><div><label style="font-size:.6rem">Profundidade</label><input type="number" id="iProf" value="60" min="20" max="200" step="5"></div></div></div>
-        <div class="config-group"><label>Acabamento</label><div class="acab-grid"><button class="acab-btn active" onclick="setAcab(this,'Boleado')">Boleado</button><button class="acab-btn" onclick="setAcab(this,'Chanfrado')">Chanfrado</button><button class="acab-btn" onclick="setAcab(this,'Reto')">Reto</button></div></div>
-        <div class="config-group"><label>Cuba</label><select id="sFuro"><option value="Sem furo">Sem furo</option><option value="1 cuba">1 cuba</option><option value="2 cubas">2 cubas</option></select></div>
-      </div>
-      <div>
-        <div class="preview-area" id="previewArea"><div class="preview-hint" id="previewHint">Clique em "Criar" para visualizar com IA</div><img id="previewImg" style="display:none;width:100%;height:100%;object-fit:cover"></div>
-        <p id="previewStatus" style="font-size:.7rem;color:#c8bfae;margin-top:.5rem;text-align:center"></p>
-        <button class="btn-criar" id="btnCriar" onclick="gerarVisual()">Criar visualização</button>
-        <button class="btn-orc" onclick="solicitarOrcamentoWhats()">Solicitar orçamento</button>
-      </div>
+    <div class="processo-step">
+      <p class="processo-num">01</p>
+      <p class="processo-title">Configure online</p>
+      <p class="processo-desc">Escolha material, medidas e acabamento. Visualize o resultado antes de confirmar.</p>
+    </div>
+    <div class="processo-step">
+      <p class="processo-num">02</p>
+      <p class="processo-title">Visita técnica</p>
+      <p class="processo-desc">Nosso marmorista visita o local e valida o orçamento. Gratuita para Jacarepaguá e região.</p>
+    </div>
+    <div class="processo-step">
+      <p class="processo-num">03</p>
+      <p class="processo-title">Produção</p>
+      <p class="processo-desc">Compramos a chapa e cortamos sob medida. Cada peça verificada antes de sair.</p>
+    </div>
+    <div class="processo-step">
+      <p class="processo-num">04</p>
+      <p class="processo-title">Instalação</p>
+      <p class="processo-desc">Entregamos e instalamos com nossa equipe. Sua aprovação é o último passo.</p>
     </div>
   </div>
 </section>
 
-<section id="inspiracao" class="section">
-  <h2 class="section-title">Inspiração <em>em casas brasileiras</em></h2>
-  <div id="galeriaContainer" class="mat-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
-    <div style="text-align:center; grid-column:1/-1">Carregando imagens...</div>
+<!-- ORÇAMENTO -->
+<section id="orcamento">
+  <p class="section-eyebrow">Contato</p>
+  <h2 class="section-heading">Peça seu<br><em>orçamento gratuito</em></h2>
+  <div class="orcamento-layout">
+    <div class="orcamento-info">
+      <p>Atendemos toda Jacarepaguá, Barra da Tijuca, Recreio, Taquara, Pechincha, Freguesia, Curicica e regiões próximas.</p>
+      <div class="contact-line">
+        <div class="c-icon">W</div>
+        <div><p class="c-label">WhatsApp</p><p class="c-value">(21) 99999-0000</p></div>
+      </div>
+      <div class="contact-line">
+        <div class="c-icon">@</div>
+        <div><p class="c-label">Localização</p><p class="c-value">Jacarepaguá, Rio de Janeiro</p></div>
+      </div>
+      <div class="orcamento-quote">
+        <p>Sem erro de medida.<br>Sem atraso.<br>Sem dor de cabeça.</p>
+      </div>
+    </div>
+    <form onsubmit="enviarOrcamento(event)">
+      <div class="form-field">
+        <label>Nome completo</label>
+        <input type="text" id="fNome" placeholder="Seu nome" required>
+      </div>
+      <div class="form-field">
+        <label>WhatsApp</label>
+        <input type="tel" id="fTel" placeholder="(21) 9XXXX-XXXX" required>
+      </div>
+      <div class="form-field">
+        <label>O que você precisa?</label>
+        <select id="fServico">
+          <option>Bancada de cozinha</option>
+          <option>Bancada de banheiro</option>
+          <option>Soleiras e peitoris</option>
+          <option>Revestimento</option>
+          <option>Escada</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Detalhes do projeto (opcional)</label>
+        <textarea id="fMsg" placeholder="Ambiente, medidas aproximadas, material de interesse..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Enviar solicitação</button>
+    </form>
   </div>
 </section>
 
-<section id="contato" class="section" style="background:#ede8e0">
-  <h2 class="section-title">Fale <em>conosco</em></h2>
-  <div class="contato-info">
-    <div class="contato-card"><h3>📍 Localização</h3><p>Jacarepaguá, Rio de Janeiro</p></div>
-    <div class="contato-card"><h3>⏱ Horário</h3><p>Seg–Sex: 8h–18h<br>Sáb: 8h–12h</p></div>
-    <div class="contato-card"><h3>📱 WhatsApp</h3><p>(21) 99999-0000</p><a href="https://wa.me/5521999990000" target="_blank" class="whatsapp-btn">Enviar mensagem</a></div>
-  </div>
-</section>
-
+<!-- FOOTER -->
 <footer>
-  <a href="#" style="font-family:Georgia,serif;font-size:1rem;font-weight:600;color:#fafaf7;text-decoration:none">Stone Brothers <span style="font-weight:300;font-style:italic">Marble & Granite</span></a>
-  <p style="font-size:.7rem;color:#8a7f71">© 2025 · Jacarepaguá, RJ | <a href="admin.html">Admin</a></p>
+  <a href="#" class="footer-logo">Top Star <em>Marmoraria</em></a>
+  <nav>
+    <ul>
+      <li><a href="#materiais">Materiais</a></li>
+      <li><a href="#galeria">Galeria</a></li>
+      <li><a href="#configurador">Configurador</a></li>
+      <li><a href="#orcamento">Contato</a></li>
+    </ul>
+  </nav>
+  <p>© 2025 Top Star Marmoraria — Jacarepaguá, RJ</p>
 </footer>
 
-<div class="notify" id="notify"></div>
+<div class="notification" id="notification"></div>
 
 <script>
-const API_BASE = 'http://localhost:5679';
-let acabamento = 'Boleado';
+let acabamentoSelecionado = 'Boleado';
 
-function setAcab(btn, val) {
-  document.querySelectorAll('.acab-btn').forEach(b => b.classList.remove('active'));
+function setAcabamento(btn, val) {
+  document.querySelectorAll('.acabamento-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  acabamento = val;
+  acabamentoSelecionado = val;
 }
 
-async function carregarGaleria() {
-  const container = document.getElementById('galeriaContainer');
-  try {
-    const res = await fetch(`${API_BASE}/api/list-images`);
-    const data = await res.json();
-    if (data.images && data.images.length) {
-      container.innerHTML = data.images.map(img => `
-        <div class="mat-card" style="cursor:pointer" onclick="window.open('imagens/galeria/${img}','_blank')">
-          <img class="mat-img" src="imagens/galeria/${img}" loading="lazy">
-          <p class="mat-name">Projeto residencial</p>
-        </div>
-      `).join('');
-    } else {
-      container.innerHTML = '<p style="grid-column:1/-1; text-align:center">Adicione imagens pelo <a href="admin.html" style="color:#8a7f71">painel admin</a>.</p>';
-    }
-  } catch(e) { container.innerHTML = '<p style="grid-column:1/-1">Erro ao carregar galeria.</p>'; }
+function sincronizarNome() {
+  const nome = document.getElementById('nomeCliente').value;
+  const fNome = document.getElementById('fNome');
+  if (fNome && !fNome._userEdited) fNome.value = nome;
 }
-
-const materiais = [
-  { nome: "Granito Preto São Gabriel", img: "imagens/materiais/granito-preto.jpg", sub: "Nacional" },
-  { nome: "Granito Branco Siena", img: "imagens/materiais/granito-branco.jpg", sub: "Nacional" },
-  { nome: "Mármore Calacatta", img: "imagens/materiais/marmore-calacatta.jpg", sub: "Importado" },
-  { nome: "Quartzo Cinza Cimento", img: "imagens/materiais/quartzo-cinza.jpg", sub: "Industrial" },
-  { nome: "Travertino Romano", img: "imagens/materiais/travertino-romano.jpg", sub: "Importado" },
-  { nome: "Pedra Ferro", img: "imagens/materiais/pedra-ferro.jpg", sub: "Nacional" }
-];
-
-const materiaisGrid = document.getElementById('materiaisGrid');
-materiais.forEach(m => {
-  const div = document.createElement('div');
-  div.className = 'mat-card';
-  div.setAttribute('data-mat', m.nome);
-  div.innerHTML = `<img class="mat-img" src="${m.img}" alt="${m.nome}" onerror="this.src='https://placehold.co/400x400?text=${encodeURIComponent(m.nome)}'"><p class="mat-name">${m.nome}</p><p class="mat-sub">${m.sub}</p>`;
-  div.onclick = () => selecionarMaterial(div, m.nome);
-  materiaisGrid.appendChild(div);
+document.addEventListener('DOMContentLoaded', () => {
+  const fNome = document.getElementById('fNome');
+  if (fNome) fNome.addEventListener('input', () => { fNome._userEdited = true; });
 });
 
-function selecionarMaterial(card, nome) {
-  document.querySelectorAll('.mat-card').forEach(c => c.classList.remove('selected'));
-  card.classList.add('selected');
-  const sel = document.getElementById('sMat');
-  for(let opt of sel.options) if(opt.value === nome) { opt.selected = true; break; }
-  document.getElementById('criar').scrollIntoView({behavior:'smooth'});
+function selecionarMaterial(card) {
+  document.querySelectorAll('.material-card').forEach(c => c.style.outline = 'none');
+  card.style.outline = '2px solid var(--ink)';
+  const nome = card.dataset.material;
+  const sel = document.getElementById('materialSelect');
+  for (let opt of sel.options) { if (opt.value === nome) { opt.selected = true; break; } }
+  atualizarPreco();
+  document.getElementById('configurador').scrollIntoView({ behavior: 'smooth' });
 }
 
-// ========== FUNÇÃO GERAR VISUAL COM GROQ (TEXTO) + CANVAS (IMAGEM) ==========
-async function gerarVisual() {
-  const btn = document.getElementById('btnCriar');
-  const hint = document.getElementById('previewHint');
-  const img = document.getElementById('previewImg');
-  const status = document.getElementById('previewStatus');
-  const mat = document.getElementById('sMat').value;
-  const tipo = document.getElementById('sTipo').value;
-  const larg = document.getElementById('iLarg').value;
-  const prof = document.getElementById('iProf').value;
-  btn.disabled = true; btn.innerText = 'Gerando...';
-  hint.style.display = 'none'; img.style.display = 'none'; status.innerText = '';
+function atualizarPreco() {
+  const sel = document.getElementById('materialSelect');
+  const opt = sel.options[sel.selectedIndex];
+  const precoMat = parseFloat(opt.dataset.preco) || 290;
+  const larg = parseFloat(document.getElementById('largura').value) || 200;
+  const prof = parseFloat(document.getElementById('profundidade').value) || 60;
+  const esp  = parseFloat(document.getElementById('espessura').value) || 2;
+  const m2   = (larg/100)*(prof/100);
+  const matTotal  = Math.round(precoMat*m2);
+  const corteBase = Math.round(120*m2+esp*50);
+  const furoOpt   = document.getElementById('furo').value;
+  let furoExtra = 0;
+  if (furoOpt.includes('1 cuba')) furoExtra = 280;
+  else if (furoOpt.includes('2 cubas')) furoExtra = 520;
+  else if (furoOpt.includes('esculpida')) furoExtra = 450;
+  const total = matTotal+corteBase+furoExtra+200;
+  document.getElementById('priceMateria').textContent = 'R$ '+matTotal.toLocaleString('pt-BR');
+  document.getElementById('priceCorte').textContent   = 'R$ '+corteBase.toLocaleString('pt-BR');
+  document.getElementById('priceTotal').textContent   = 'R$ '+total.toLocaleString('pt-BR');
+  const furoRow = document.getElementById('priceFuroRow');
+  if (furoExtra>0) { furoRow.style.display='flex'; document.getElementById('priceFuro').textContent='R$ '+furoExtra.toLocaleString('pt-BR'); }
+  else furoRow.style.display='none';
+}
+
+function renderizarCanvas(material, largura, prof, esp) {
+  const matColors = {
+    'Granito Preto São Gabriel':['#1a1a1a','#2d2b2b','#222','#333'],
+    'Granito Branco Siena':['#e8e4df','#f0ece6','#dedad4','#e5e1db'],
+    'Mármore Calacatta':['#f5f2ed','#eee9e2','#f2ede6','#ece7e0'],
+    'Quartzo Cinza Cimento':['#b0aaa4','#9b958e','#a8a29b','#b5afa8'],
+    'Travertino Romano':['#d4c4a8','#c9b896','#cfc0a0','#d6c6aa'],
+    'Pedra Ferro':['#3a3a3a','#4a4744','#3d3b38','#454240'],
+  };
+  const canvas = document.createElement('canvas');
+  canvas.width=800; canvas.height=600;
+  const ctx = canvas.getContext('2d');
+  const colors = matColors[material]||['#c8c0b0','#b8b0a0','#d0c8b8'];
+  const isLight = ['Granito Branco Siena','Mármore Calacatta','Travertino Romano'].includes(material);
+  ctx.fillStyle=isLight?'#f2ede6':'#1e1c1a'; ctx.fillRect(0,0,800,600);
+  ctx.fillStyle=isLight?'#e0dbd0':'#171614'; ctx.fillRect(0,380,800,220);
+  const grad=ctx.createLinearGradient(0,0,800,0);
+  colors.forEach((c,i)=>grad.addColorStop(i/(colors.length-1),c));
+  const bW=Math.min(680,480+parseFloat(largura)/5);
+  const bH=Math.min(120,50+parseFloat(prof)/3);
+  const bX=(800-bW)/2; const bY=340;
+  ctx.fillStyle=grad; ctx.fillRect(bX,bY,bW,bH+parseFloat(esp)*6);
+  ctx.fillStyle=isLight?'rgba(255,255,255,0.35)':'rgba(255,255,255,0.1)'; ctx.fillRect(bX,bY,bW,2);
+  ctx.fillStyle='rgba(0,0,0,0.15)'; ctx.fillRect(bX,bY+bH+parseFloat(esp)*6,bW,8);
+  return canvas.toDataURL('image/jpeg',0.93);
+}
+
+async function gerarVisualizacao() {
+  const btn=document.getElementById('btnGenerate');
+  const loading=document.getElementById('previewLoading');
+  const placeholder=document.getElementById('previewPlaceholder');
+  const img=document.getElementById('previewImg');
+  const status=document.getElementById('previewStatus');
+  const loadingText=document.getElementById('loadingText');
+  const nomeCliente=document.getElementById('nomeCliente').value.trim()||'Cliente';
+  const material=document.getElementById('materialSelect').value;
+  const tipo=document.getElementById('tipoPeca').value;
+  const largura=document.getElementById('largura').value;
+  const prof=document.getElementById('profundidade').value;
+  const esp=document.getElementById('espessura').value;
+  const furo=document.getElementById('furo').value;
+  const ambiente=document.getElementById('ambiente').value;
+  const m2=((parseFloat(largura)/100)*(parseFloat(prof)/100)).toFixed(2);
+
+  btn.disabled=true; placeholder.style.display='none'; img.style.display='none';
+  loading.style.display='flex'; status.textContent='';
+
+  const msgs=['Analisando configuração...','Gerando textura da pedra...','Renderizando ambiente...','Finalizando...'];
+  let msgIdx=0; loadingText.textContent=msgs[0];
+  const msgInterval=setInterval(()=>{ msgIdx=(msgIdx+1)%msgs.length; loadingText.textContent=msgs[msgIdx]; },2200);
+
+  // Backend local (opcional)
+  let backendOk=false;
   try {
-    // Busca descrição via Groq (webhook local)
-    const res = await fetch('http://localhost:5679/api/describe/groq', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tipo: tipo, material: mat, medidas: `${larg}x${prof}`, acabamento: acabamento, ambiente: 'arquitetura brasileira' })
+    const tipoMap={'Granito Branco Siena':'granito','Granito Preto São Gabriel':'granito','Mármore Calacatta':'marmore','Quartzo Cinza Cimento':'quartzo','Travertino Romano':'marmore','Pedra Ferro':'granito'};
+    const res=await fetch('http://127.0.0.1:8000/preview',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({nome_cliente:nomeCliente,tipo_marmore:tipoMap[material]||'granito',metragem:parseFloat(m2)}),
+      signal:AbortSignal.timeout(4000)
     });
-    const data = await res.json();
-    const desc = data.description || '';
-    // Geração da imagem (canvas) - igual ao original
-    const canvas = document.createElement('canvas'); canvas.width=800; canvas.height=450;
-    const ctx = canvas.getContext('2d');
-    const cores = {
-      'Granito Preto São Gabriel': ['#1a1a1a','#2d2b2b'],
-      'Granito Branco Siena': ['#e8e4df','#f0ece6'],
-      'Mármore Calacatta': ['#f5f2ed','#eee9e2'],
-      'Quartzo Cinza Cimento': ['#b0aaa4','#9b958e'],
-      'Travertino Romano': ['#d4c4a8','#c9b896'],
-      'Pedra Ferro': ['#3a3a3a','#4a4744']
-    };
-    const cols = cores[mat] || ['#c8c0b0','#b8b0a0'];
-    const grad = ctx.createLinearGradient(0,0,800,450);
-    cols.forEach((c,i)=>grad.addColorStop(i/(cols.length-1),c));
-    ctx.fillStyle='#1c1c1c'; ctx.fillRect(0,0,800,450);
-    const isLight = mat.includes('Branco') || mat.includes('Calacatta');
-    ctx.fillStyle = isLight ? '#f0ede8' : '#2a2825'; ctx.fillRect(0,0,800,270);
-    ctx.fillStyle = isLight ? '#e8e4dd' : '#1e1c1a'; ctx.fillRect(0,270,800,180);
-    const bw = Math.min(600, 300+larg/3); const bh = Math.min(90, 60+prof/3);
-    ctx.fillStyle = grad; ctx.fillRect((800-bw)/2, 210, bw, bh+15);
-    img.src = canvas.toDataURL('image/jpeg',0.92); img.style.display='block';
-    status.innerText = desc.substring(0,160);
-  } catch(e) { hint.style.display='flex'; hint.innerText='Erro ao gerar. Tente novamente.'; }
-  btn.disabled=false; btn.innerText='Criar visualização';
-}
+    if(res.ok){
+      const data=await res.json();
+      clearInterval(msgInterval); loading.style.display='none';
+      img.src=data.url_imagem||renderizarCanvas(material,largura,prof,esp);
+      img.style.display='block';
+      if(data.preco) status.textContent=nomeCliente+', estimativa: R$ '+parseFloat(data.preco).toLocaleString('pt-BR');
+      backendOk=true;
+    }
+  } catch(_){}
 
-function solicitarOrcamentoWhats() {
-  const mat = document.getElementById('sMat').value;
-  const tipo = document.getElementById('sTipo').value;
-  const larg = document.getElementById('iLarg').value;
-  const prof = document.getElementById('iProf').value;
-  const furo = document.getElementById('sFuro').value;
-  const texto = `Olá! Gostaria de um orçamento para:\n\n${tipo}\nMaterial: ${mat}\nMedidas: ${larg}x${prof} cm\nAcabamento: ${acabamento}\nCuba: ${furo}`;
-  window.open(`https://wa.me/5521999990000?text=${encodeURIComponent(texto)}`, '_blank');
-  mostrarNotif('Abrindo WhatsApp para enviar seu orçamento...');
-}
-
-async function enviarOrcamento(e) {
-  e.preventDefault();
-  const nome = document.getElementById('fNome').value;
-  const tel = document.getElementById('fTel').value;
-  const serv = document.getElementById('fServico').value;
-  const msg = document.getElementById('fMsg').value;
-  const btn = document.querySelector('.form-submit');
-  btn.textContent = 'Enviando...';
-  btn.disabled = true;
-  try {
-    await fetch('http://localhost:5679/api/lead', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: nome, phone: tel, message: serv + (msg ? '\n' + msg : ''), channel: 'site' })
-    });
-    mostrarNotif('Lead enviado! Entraremos em contato.');
-    document.getElementById('formOrc').reset();
-  } catch(err) {
-    mostrarNotif('Erro ao enviar. Tente novamente.');
+  // Fallback: canvas local
+  if(!backendOk){
+    clearInterval(msgInterval);
+    loading.style.display='none';
+    img.src=renderizarCanvas(material,largura,prof,esp);
+    img.style.display='block';
+    status.textContent='Prévia gerada com base na configuração selecionada.';
   }
-  btn.textContent = 'Enviar solicitação';
-  btn.disabled = false;
-  window.open(`https://wa.me/55${tel.replace(/\D/g,'')}?text=${encodeURIComponent('Olá! Enviei meu pedido pelo site.')}`, '_blank');
+  btn.disabled=false;
 }
 
-function mostrarNotif(msg) { const n = document.getElementById('notify'); n.innerText = msg; n.classList.add('show'); setTimeout(()=>n.classList.remove('show'),4000); }
+function solicitarOrcamento() {
+  const nome=document.getElementById('nomeCliente').value.trim();
+  const material=document.getElementById('materialSelect').value;
+  const tipo=document.getElementById('tipoPeca').value;
+  const largura=document.getElementById('largura').value;
+  const prof=document.getElementById('profundidade').value;
+  const total=document.getElementById('priceTotal').textContent;
+  const fNome=document.getElementById('fNome');
+  if(nome&&!fNome._userEdited) fNome.value=nome;
+  document.getElementById('fServico').value=tipo.startsWith('Bancada')?tipo:'Outro';
+  document.getElementById('fMsg').value='Tipo: '+tipo+'\nMaterial: '+material+'\nMedidas: '+largura+' x '+prof+' cm\nAcabamento: '+acabamentoSelecionado+'\nEstimativa: '+total;
+  document.getElementById('orcamento').scrollIntoView({behavior:'smooth'});
+  showNotif('Configuração copiada para o formulário.');
+}
 
-carregarGaleria();
+function enviarOrcamento(e) {
+  e.preventDefault();
+  const nome=document.getElementById('fNome').value;
+  const tel=document.getElementById('fTel').value;
+  const servico=document.getElementById('fServico').value;
+  const msg=document.getElementById('fMsg').value;
+  const texto='Olá! Sou '+nome+'.\n\nServiço: '+servico+'\n'+(msg?'Detalhes: '+msg:'')+'\n\nFone: '+tel;
+  window.open('https://api.whatsapp.com/send?phone=5521999990000&text='+encodeURIComponent(texto),'_blank');
+  showNotif('Obrigado, '+nome+'! Redirecionando para o WhatsApp...');
+}
+
+function showNotif(msg) {
+  const n=document.getElementById('notification');
+  n.textContent=msg; n.classList.add('show');
+  setTimeout(()=>n.classList.remove('show'),4000);
+}
+
+atualizarPreco();
 </script>
 </body>
 </html>
