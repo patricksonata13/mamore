@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Top Star Marmoraria — Jacarepaguá, Rio de Janeiro</title>
 <meta name="description" content="Mármore, granito e quartzo sob medida em Jacarepaguá. Do orçamento à instalação em até 5 dias úteis.">
+<meta property="og:title" content="Top Star Marmoraria — Jacarepaguá, Rio de Janeiro">
+<meta property="og:description" content="Mármore, granito e quartzo sob medida. Visita técnica gratuita. Entrega em 5 dias úteis.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://patricksonata13.github.io/mamore/">
+<meta property="og:image" content="https://patricksonata13.github.io/mamore/imagens/capa.jpg">
+<meta name="theme-color" content="#111010">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111'/%3E%3Crect x='4' y='4' width='24' height='24' fill='%231a1816' stroke='%23c9b99a' stroke-width='0.6'/%3E%3Cpath d='M4,18 C9,16 13,20 16,18 C20,16 24,20 28,18' stroke='%23c9b99a' stroke-width='1.2' stroke-linecap='round' fill='none'/%3E%3Cpath d='M14,4 C13,10 16,16 15,22 C14,27 16,30 15,28' stroke='%23c9b99a' stroke-width='0.7' stroke-linecap='round' fill='none' opacity='0.7'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
@@ -261,6 +268,60 @@ footer p{font-size:0.62rem;color:rgba(255,255,255,0.2)}
 .notification{position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:var(--white);padding:1rem 1.6rem;font-size:0.8rem;border-left:2px solid var(--warm);z-index:9999;transform:translateY(120%);opacity:0;transition:transform 0.4s cubic-bezier(.22,.68,0,1.2),opacity 0.4s;max-width:320px}
 .notification.show{transform:translateY(0);opacity:1}
 
+
+/* HAMBURGER MOBILE */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.nav-hamburger span{display:block;width:22px;height:1px;background:var(--ink);transition:all 0.3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.nav-mobile{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(253,252,249,0.98);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,185,154,0.2);padding:2rem;z-index:199;flex-direction:column;gap:1.5rem}
+.nav-mobile.open{display:flex}
+.nav-mobile a{font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+.nav-mobile .nav-cta{background:var(--ink);color:var(--white);padding:0.8rem 1.5rem;text-align:center}
+@media(max-width:768px){.nav-hamburger{display:flex}nav ul{display:none!important}.nav-cta{display:none}}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-4{transition-delay:0.4s}
+
+/* DIFERENCIAIS */
+#diferenciais{background:var(--cream);padding:7rem 4rem}
+.dif-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3rem;margin-top:4rem}
+.dif-item{border-top:1px solid var(--warm);padding-top:1.8rem}
+.dif-num{font-family:var(--serif);font-size:2.8rem;font-weight:400;color:var(--ink);line-height:1;margin-bottom:0.6rem}
+.dif-label{font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--warm);margin-bottom:0.6rem}
+.dif-desc{font-size:0.78rem;color:var(--muted);line-height:1.75}
+@media(max-width:1100px){.dif-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.dif-grid{grid-template-columns:1fr}}
+
+/* DEPOIMENTOS */
+#depoimentos{background:var(--ink);padding:7rem 4rem;color:var(--white)}
+#depoimentos .section-eyebrow{color:var(--warm)}
+#depoimentos .section-heading{color:var(--white)}
+#depoimentos .section-heading em{color:var(--warm)}
+.dep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:4rem}
+.dep-card{border:1px solid rgba(201,185,154,0.12);padding:2.2rem}
+.dep-stars{color:var(--warm);font-size:0.75rem;letter-spacing:0.15em;margin-bottom:1.2rem}
+.dep-texto{font-family:var(--serif);font-style:italic;font-size:1rem;color:rgba(255,255,255,0.75);line-height:1.7;margin-bottom:1.5rem}
+.dep-autor{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--warm)}
+.dep-local{font-size:0.65rem;color:rgba(255,255,255,0.25);margin-top:0.2rem;letter-spacing:0.08em}
+@media(max-width:1100px){.dep-grid{grid-template-columns:1fr}}
+@media(max-width:768px){#depoimentos{padding:5rem 2.5rem}#diferenciais{padding:5rem 2.5rem}}
+
+/* MAPA */
+#localizacao{padding:0;overflow:hidden;line-height:0}
+#localizacao iframe{display:block;width:100%;border:none}
+
+/* FOOTER COM LOGO SVG */
+.footer-logo-svg{display:flex;align-items:center;text-decoration:none}
+.footer-copy{font-size:0.62rem;color:rgba(255,255,255,0.2);text-align:center}
+@media(max-width:768px){footer{flex-direction:column;align-items:center;text-align:center}footer nav ul{flex-wrap:wrap;justify-content:center}}
+
 /* RESPONSIVE */
 @media(max-width:1100px){
   nav{padding:0 2rem}
@@ -288,15 +349,41 @@ footer p{font-size:0.62rem;color:rgba(255,255,255,0.2)}
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo" aria-label="Top Star Marmoraria"><svg width="140" height="40" viewBox="0 0 140 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="32" height="32" fill="#f0ede8" stroke="#c9b99a" stroke-width="0.6"/><path d="M2,20 C8,18 13,23 18,21 C23,19 26,23 34,21" stroke="#c9b99a" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.9"/><path d="M2,14 C7,12 11,16 15,14" stroke="#c9b99a" stroke-width="0.5" stroke-linecap="round" fill="none" opacity="0.6"/><path d="M14,4 C13,10 16,16 15,22 C14,28 17,32 16,36" stroke="#b8a88a" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.65"/><text x="42" y="22" font-family="Jost,sans-serif" font-size="13" font-weight="200" fill="#111" letter-spacing="3">TOP STAR</text><text x="43" y="32" font-family="Jost,sans-serif" font-size="6" font-weight="300" fill="#8c7f6e" letter-spacing="2.5">MARMORARIA</text></svg></a>
+  <a href="#" class="nav-logo" aria-label="Top Star Marmoraria">
+    <svg width="140" height="40" viewBox="0 0 140 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- símbolo mármore -->
+      <rect x="2" y="4" width="32" height="32" fill="#f0ede8" stroke="#c9b99a" stroke-width="0.6"/>
+      <path d="M2,20 C8,18 13,23 18,21 C23,19 26,23 34,21" stroke="#c9b99a" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.9"/>
+      <path d="M2,14 C7,12 11,16 15,14" stroke="#c9b99a" stroke-width="0.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+      <path d="M14,4 C13,10 16,16 15,22 C14,28 17,32 16,36" stroke="#b8a88a" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.65"/>
+      <path d="M22,4 C23,10 20,17 22,22 C24,27 22,32 23,36" stroke="#c9b99a" stroke-width="0.45" stroke-linecap="round" fill="none" opacity="0.45"/>
+      <rect x="2" y="33" width="32" height="3" fill="#c9b99a" opacity="0.12"/>
+      <!-- tipografia -->
+      <text x="42" y="22" font-family="'Jost',system-ui,sans-serif" font-size="13" font-weight="200" fill="#111010" letter-spacing="3">TOP STAR</text>
+      <text x="43" y="32" font-family="'Jost',system-ui,sans-serif" font-size="6" font-weight="300" fill="#8c7f6e" letter-spacing="2.5">MARMORARIA</text>
+    </svg>
+  </a>
   <ul>
     <li><a href="#materiais">Materiais</a></li>
     <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#diferenciais">Por que nós</a></li>
     <li><a href="#configurador">Configurador</a></li>
     <li><a href="#processo">Processo</a></li>
   </ul>
   <a href="#orcamento" class="nav-cta">Orçamento</a>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="#materiais" onclick="fecharMenu()">Materiais</a>
+  <a href="#galeria" onclick="fecharMenu()">Galeria</a>
+  <a href="#diferenciais" onclick="fecharMenu()">Por que nós</a>
+  <a href="#depoimentos" onclick="fecharMenu()">Depoimentos</a>
+  <a href="#configurador" onclick="fecharMenu()">Configurador</a>
+  <a href="#processo" onclick="fecharMenu()">Processo</a>
+  <a href="#orcamento" class="nav-cta" onclick="fecharMenu()">Orçamento gratuito</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -342,7 +429,7 @@ footer p{font-size:0.62rem;color:rgba(255,255,255,0.2)}
 
 <!-- MATERIAIS -->
 <section id="materiais">
-  <div class="materiais-header">
+  <div class="materiais-header reveal">
     <div>
       <p class="section-eyebrow">Nossos Materiais</p>
       <h2 class="section-heading">A pedra certa<br><em>para cada projeto</em></h2>
@@ -411,7 +498,7 @@ footer p{font-size:0.62rem;color:rgba(255,255,255,0.2)}
 
 <!-- GALERIA -->
 <section id="galeria">
-  <div class="galeria-header">
+  <div class="galeria-header reveal">
     <div>
       <p class="section-eyebrow">Galeria</p>
       <h2 class="section-heading">Projetos entregues<br><em>em Jacarepaguá</em></h2>
@@ -419,7 +506,7 @@ footer p{font-size:0.62rem;color:rgba(255,255,255,0.2)}
     <p style="font-size:0.78rem;color:var(--muted);max-width:220px;line-height:1.7">Cada peça cortada e instalada pela nossa equipe.</p>
   </div>
 
-  <div class="galeria-grid">
+  <div class="galeria-grid reveal reveal-delay-1">
     <div class="galeria-item">
       <img src="imagens/galeria/marmore-cozinha.jpg" alt="Cozinha com mármore">
       <div class="galeria-overlay"><span class="galeria-label">Bancada Calacatta<br>Cozinha Planejada</span></div>
@@ -441,6 +528,73 @@ footer p{font-size:0.62rem;color:rgba(255,255,255,0.2)}
       <div class="galeria-overlay"><span class="galeria-label">Travertino Romano<br>Recreio</span></div>
     </div>
   </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section id="diferenciais">
+  <div class="reveal">
+    <p class="section-eyebrow">Por que a Top Star</p>
+    <h2 class="section-heading">Mais de uma década<br><em>em pedras nobres</em></h2>
+  </div>
+  <div class="dif-grid">
+    <div class="dif-item reveal reveal-delay-1">
+      <p class="dif-num">+500</p>
+      <p class="dif-label">Projetos entregues</p>
+      <p class="dif-desc">Bancadas, revestimentos e escadas instalados em toda a Zona Oeste do Rio.</p>
+    </div>
+    <div class="dif-item reveal reveal-delay-2">
+      <p class="dif-num">5</p>
+      <p class="dif-label">Dias úteis</p>
+      <p class="dif-desc">Do orçamento aprovado à instalação concluída. Prazo real, não promessa.</p>
+    </div>
+    <div class="dif-item reveal reveal-delay-3">
+      <p class="dif-num">100%</p>
+      <p class="dif-label">Sob medida</p>
+      <p class="dif-desc">Cada peça cortada para o seu espaço. Visita técnica antes de qualquer corte.</p>
+    </div>
+    <div class="dif-item reveal reveal-delay-4">
+      <p class="dif-num">0</p>
+      <p class="dif-label">Erro de medida</p>
+      <p class="dif-desc">Conferimos duas vezes antes de cortar. Nossa garantia é a sua tranquilidade.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section id="depoimentos">
+  <div class="reveal">
+    <p class="section-eyebrow">Clientes</p>
+    <h2 class="section-heading">O que dizem<br><em>sobre nós</em></h2>
+  </div>
+  <div class="dep-grid">
+    <div class="dep-card reveal reveal-delay-1">
+      <p class="dep-stars">★★★★★</p>
+      <p class="dep-texto">"Fizeram a bancada da minha cozinha em Mármore Calacatta. Perfeito do começo ao fim. Prazo cumpriram certinho, cinco dias como prometeram."</p>
+      <p class="dep-autor">Ana Paula R.</p>
+      <p class="dep-local">Jacarepaguá</p>
+    </div>
+    <div class="dep-card reveal reveal-delay-2">
+      <p class="dep-stars">★★★★★</p>
+      <p class="dep-texto">"Troquei a bancada do banheiro e a soleira da porta. Serviço limpíssimo, equipe muito educada. Recomendo sem hesitar."</p>
+      <p class="dep-autor">Marcos S.</p>
+      <p class="dep-local">Pechincha</p>
+    </div>
+    <div class="dep-card reveal reveal-delay-3">
+      <p class="dep-stars">★★★★★</p>
+      <p class="dep-texto">"Granito Preto São Gabriel na área gourmet. Ficou um espetáculo. Preço justo e instalação sem quebra-quebra. Voltarei com certeza."</p>
+      <p class="dep-autor">Carla M.</p>
+      <p class="dep-local">Recreio dos Bandeirantes</p>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA -->
+<section id="localizacao">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14699.12!2d-43.3698!3d-22.9431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9bda4b8c3f2d3f5b%3A0x3d8e2b5e2f2d3f5b!2sJacarepagu%C3%A1%2C%20Rio%20de%20Janeiro!5e0!3m2!1spt-BR!2sbr!4v1718000000000"
+    width="100%" height="380" style="border:0" allowfullscreen="" loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade" title="Top Star Marmoraria — Jacarepaguá, RJ">
+  </iframe>
 </section>
 
 <!-- CONFIGURADOR -->
@@ -581,7 +735,7 @@ footer p{font-size:0.62rem;color:rgba(255,255,255,0.2)}
 <section id="processo">
   <p class="section-eyebrow">Como funciona</p>
   <h2 class="section-heading">Do orçamento à entrega<br><em>em 5 dias úteis</em></h2>
-  <div class="processo-grid">
+  <div class="processo-grid reveal reveal-delay-1">
     <div class="processo-step">
       <p class="processo-num">01</p>
       <p class="processo-title">Configure online</p>
@@ -655,7 +809,15 @@ footer p{font-size:0.62rem;color:rgba(255,255,255,0.2)}
 
 <!-- FOOTER -->
 <footer>
-  <a href="#" class="footer-logo">Top Star <em>Marmoraria</em></a>
+  <a href="#" class="footer-logo-svg" aria-label="Top Star Marmoraria">
+    <svg width="110" height="32" viewBox="0 0 140 40" fill="none">
+      <rect x="2" y="4" width="32" height="32" fill="#1a1816" stroke="rgba(201,185,154,0.4)" stroke-width="0.6"/>
+      <path d="M2,20 C8,18 13,23 18,21 C23,19 26,23 34,21" stroke="#c9b99a" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.7"/>
+      <path d="M14,4 C13,10 16,16 15,22 C14,28 17,32 16,36" stroke="#b8a88a" stroke-width="0.7" stroke-linecap="round" fill="none" opacity="0.5"/>
+      <text x="42" y="22" font-family="Jost,sans-serif" font-size="13" font-weight="200" fill="#c9b99a" letter-spacing="3">TOP STAR</text>
+      <text x="43" y="32" font-family="Jost,sans-serif" font-size="6" font-weight="300" fill="rgba(201,185,154,0.45)" letter-spacing="2.5">MARMORARIA</text>
+    </svg>
+  </a>
   <nav>
     <ul>
       <li><a href="#materiais">Materiais</a></li>
@@ -664,7 +826,7 @@ footer p{font-size:0.62rem;color:rgba(255,255,255,0.2)}
       <li><a href="#orcamento">Contato</a></li>
     </ul>
   </nav>
-  <p>© 2025 Top Star Marmoraria — Jacarepaguá, RJ</p>
+  <p>© 2026 Top Star Marmoraria — Jacarepaguá, RJ</p>
 </footer>
 
 <div class="notification" id="notification"></div>
@@ -818,15 +980,28 @@ function solicitarOrcamento() {
   showNotif('Configuração copiada para o formulário.');
 }
 
-function enviarOrcamento(e) {
+async function enviarOrcamento(e) {
   e.preventDefault();
   const nome=document.getElementById('fNome').value;
   const tel=document.getElementById('fTel').value;
   const servico=document.getElementById('fServico').value;
   const msg=document.getElementById('fMsg').value;
-  const texto='Olá! Sou '+nome+'.\n\nServiço: '+servico+'\n'+(msg?'Detalhes: '+msg:'')+'\n\nFone: '+tel;
-  window.open('https://api.whatsapp.com/send?phone=5521999990000&text='+encodeURIComponent(texto),'_blank');
-  showNotif('Obrigado, '+nome+'! Redirecionando para o WhatsApp...');
+  const btn=document.querySelector('.btn-submit');
+  btn.textContent='Enviando...'; btn.disabled=true;
+  const payload = {nome,telefone:tel,servico,medidas:msg};
+  try {
+    await fetch('http://2.25.182.121/webhook/orcamento',{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload),
+      signal:AbortSignal.timeout(6000)
+    });
+  } catch(_){}
+  btn.textContent='Solicitação enviada!';
+  showNotif('Obrigado, '+nome+'! Entraremos em contato em breve.');
+  setTimeout(()=>{btn.textContent='Enviar solicitação';btn.disabled=false;},4000);
+  e.target.reset();
 }
 
 function showNotif(msg) {
@@ -836,6 +1011,22 @@ function showNotif(msg) {
 }
 
 atualizarPreco();
+
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('navMobile').classList.toggle('open');
+}
+function fecharMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('navMobile').classList.remove('open');
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
 </script>
 </body>
 </html>
