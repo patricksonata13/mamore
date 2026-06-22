@@ -1,5 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+<script>
+window.pipedriveLeadboosterConfig = {
+    base: 'leadbooster-chat.pipedrive.com',
+    companyId: 16118825,
+    playbookUuid: 'c61b18d8-edaf-4eb7-9ae6-966240a697c4',
+    version: 2
+};
+
+(function () {
+    var w = window;
+    if (w.LeadBooster) {
+        console.warn('LeadBooster already exists');
+    } else {
+        w.LeadBooster = {
+            q: [],
+            on: function (n, h) {
+                this.q.push({ t: 'o', n: n, h: h });
+            },
+            trigger: function (n) {
+                this.q.push({ t: 't', n: n });
+            }
+        };
+    }
+})();
+</script>
+
+<script src="https://leadbooster-chat.pipedrive.com/assets/loader.js" 
+async></script>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
