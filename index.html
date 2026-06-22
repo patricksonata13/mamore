@@ -981,7 +981,6 @@ async function gerarVisualizacao() {
   let backendOk=false;
   try {
     const tipoMap={'Granito Branco Siena':'granito','Granito Preto São Gabriel':'granito','Mármore Calacatta':'marmore','Quartzo Cinza Cimento':'quartzo','Travertino Romano':'marmore','Pedra Ferro':'granito'};
-    const res=await fetch('http://127.0.0.1:8000/preview',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({nome_cliente:nomeCliente,tipo_marmore:tipoMap[material]||'granito',metragem:parseFloat(m2)}),
       signal:AbortSignal.timeout(4000)
@@ -1032,8 +1031,9 @@ async function enviarOrcamento(e) {
   btn.textContent='Enviando...'; btn.disabled=true;
   const payload = {nome,telefone:tel,servico,medidas:msg};
   try {
-    await fetch('http://2.25.182.121/webhook/orcamento',{
-      method:'POST',
+
+// await fetch('http://2.25.182.121/webhook/orcamento');      
+method:'POST',
       mode:'no-cors',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(payload),
